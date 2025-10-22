@@ -1,0 +1,209 @@
+classdef MissionInfo < matlab.mixin.Copyable
+
+    % Class of Mission information of a specific sequence of targets, it
+    % implements information regarding missions and some methods to manipulate
+    % and update them
+
+    properties
+        missions % cell array max(nMission) x nSSc containing targets of missions
+        lMiss % matrix max(nMission) x nSSc containing length of the missions
+        nMiss % number of missions for every Ssc
+    end
+
+    methods
+        
+        function obj = MissionInfo(seq, nTar)
+            % extraction of tours from the sequence
+            % INPUT: seq, sequence of targets; nTar, total number of Targets
+            if  nargin < 2
+                obj.missions = [];
+                obj.lMiss = [];
+                obj.nMiss = [];
+            else
+                [n,m] = size(seq);
+                nMissSSc = zeros(n,1);
+                % assuming the longest sequence, that is 1 target for one
+                % mission, the number of subtour must be 
+                if (mod(m,2)==0)
+                    lMission = zeros(m/2 -1,n);
+                    SubMiss = cell(m/2 -1, n);
+                else
+                    lMission = zeros((m-1)/2,n);
+                    SubMiss = cell((m-1)/2, n);
+                end
+                
+                for i = 1:n
+                    sequence = seq(i,:);
+                    sequence(sequence > nTar) = [];
+                    zeroIndx = find(sequence == 0);
+                    
+                    nMission = length(zeroIndx)-1;
+                    for j = 1:nMission
+                        startIndx = zeroIndx(j)+1;
+                        endIndx = zeroIndx(j+1) - 1;
+                        if startIndx <= endIndx
+                            segment = sequence(startIndx:endIndx);
+                            if ~isempty(segment)
+                                SubMiss{j,i} = segment;
+                            end
+                            lMission(j,i) = length(segment);
+                        end
+                    end
+                    nMissSSc(i) = nMission;
+                end
+    
+                indx = 1:max(nMissSSc);
+                obj.missions = SubMiss(indx,:);
+                obj.lMiss = lMission(indx,:);
+                obj.nMiss = nMissSSc;
+            end
+        end
+
+        function seq = rebuildSeq(obj)
+
+            % from the tour information, create the sequence
+
+            % set the dimension of seq
+            nTar = sum(obj.lMiss,"all");
+            [~, nSSc] = size(obj.lMiss);
+            % calculate for every ssc the length of the corresponding sequence
+            nM = -1*ones(1,nSSc);
+            for i = 1:nSSc
+                nM(i) = nnz(obj.lMiss(:,i));
+            end
+            if(isscalar(obj.lMiss))
+                len = obj.lMiss;
+            else
+                len = sum(obj.lMiss);
+            end
+            
+            numSeq = ones(1,nSSc) + nM + len;
+            m = max(numSeq);
+            seq = zeros(nSSc, m);
+
+            for i = 1:nSSc
+                j = 2;
+                for t = 1:nM(i)
+                    if(~isempty(obj.missions{t,i}))
+                        l = length(obj.missions{t,i});
+                        seq(i,j:j+l-1) = obj.missions{t,i};
+                        j = j + l + 1;
+                        obj.missions{t,i} = [ 0 obj.missions{t,i} 0 ];
+                    end
+                end
+                if(j<=m)
+                    while j<=m
+                        seq(i,j) = nTar + 1;
+                        j = j+1;
+                    end
+                end
+            end
+        end
+
+        function zeroMiss = addZeros(obj)
+
+            % obtain the tour structure with zero to simulate
+
+            [m,n] = size(obj.missions);
+            zeroMiss = cell(m,n);
+            for i = 1:m
+                for j = 1:n
+                    if ~isempty(obj.missions{i,j}), zeroMiss{i,j} = [0 obj.missions{i,j} 0]; end
+                end
+            end
+        end
+
+        % function obj = uniformTours(obj)
+        % 
+        %     % function used to obtain an uniform number of targets for the Sscs
+        % 
+        %     [m,~] = size(obj.missions);
+        %     [mn, colMin] = min(obj.nMiss);
+        %     [Mn, colMax] = max(obj.nMiss);
+        %     % if the maximum is greater than the minimum plus one, exchange some
+        %     % colums
+        %     while Mn - mn > 1
+        % 
+        %         % take element from the full colum
+        %         rowIndx = find(~cellfun(@isempty, obj.missions(:,colMax)), 1, 'last');
+        %         if(~isempty(rowIndx))
+        %             elemCell = obj.missions{rowIndx, colMax};
+        %             elemMat = obj.lMiss(rowIndx, colMax);
+        %             obj.missions{rowIndx, colMax} = [];
+        %             obj.lMiss(rowIndx, colMax) = 0;
+        %             obj.nMiss(colMax) = obj.nMiss(colMax)-1;
+        %         end
+        % 
+        %         % put into the empty space in the Min column
+        %         freeIndx = find(cellfun(@isempty, obj.missions(:,colMin)), 1, 'first');
+        %         if isempty(freeIndx)
+        %             freeIndx = m+1;
+        %             obj.missions{freeIndx, colMin} = [];
+        %             obj.lMiss(freeIndx, :) = 0;
+        %             m = m+1;
+        %         end
+        %         obj.missions{freeIndx, colMin} = elemCell;
+        %         obj.lMiss(freeIndx, colMin) = elemMat;
+        %         obj.nMiss(colMin) = obj.nMiss(colMin)+1;
+        % 
+        %         [mn, colMin] = min(obj.nMiss);
+        %         [Mn, colMax] = max(obj.nMiss);
+        %     end
+        %     obj = cutTours(obj);
+        % end
+
+        function obj = cutMiss(obj)
+
+        % function used to cut some unnessesary part of TourInfo
+
+            [~,nSSc] = size(obj.missions);
+            % delete the empty tours
+            colsC = cell(1,nSSc);
+            colsM = cell(1,nSSc);
+            maxLenM = 0;
+            maxLenC = 0;
+            % collect 
+            for j = 1:nSSc
+                colM = obj.lMiss(:,j);
+                colC = obj.missions(:,j);
+                colM = colM(colM ~= 0);
+                mask = cellfun(@(x) ~isempty(x), colC);
+                colC = colC(mask); 
+                colsM{j} = colM;
+                colsC{j} = colC;
+                maxLenM = max(maxLenM, numel(colM));
+                maxLenC = max(maxLenC, numel(colC));
+            end
+            newLMiss = zeros(maxLenM, nSSc);
+            newCellMiss = cell(maxLenC, nSSc);
+            % rebuild 
+            for j = 1:nSSc
+                colM = colsM{j};
+                colC = colsC{j};
+                newLMiss(1:numel(colM), j) = colM;
+                newCellMiss(1:numel(colC), j) = colC;
+            end
+            obj.lMiss = newLMiss;
+            obj.missions = newCellMiss;
+        end
+
+        function output(obj, fid)
+            if nargin < 2 || isempty(fid), fid = 1; end
+            [~, nSSc] = size(obj.lMiss);
+            
+            fprintf(fid,'MISSION INFO\n');
+            for i = 1:nSSc
+                fprintf(fid,'In the SSc number %d there are %d non-empty missions.\n', i, obj.nMiss(i));
+                len = obj.lMiss(:, i);
+                len = len(len > 0);
+                fprintf(fid,'Length of missions of SSc %d:\n', i);
+                if isempty(len)
+                    fprintf(fid,'   (no non-empty missions)\n');
+                else
+                    disp(len);
+                end
+            end
+        end
+
+    end
+end
