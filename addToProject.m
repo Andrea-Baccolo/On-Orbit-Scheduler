@@ -1,8 +1,8 @@
 clear all
 clc
 proj = currentProject;
-path = "/home/andrea/GoogleDrive/Università/_Tesi/Code/On-Orbit_Scheduler/Examples/";
+path = "/home/andrea/GoogleDrive/Università/_Tesi/Code/On-Orbit_Scheduler/";
 
-filename = path + "SaveProblemSlt.m";
+filename = path + "gitPush.m";
 
 addFile(proj, filename);

@@ -1,0 +1,13 @@
+# Ignore MATLAB autosave and backup files
+*.asv
+*.mlx~
+*.m~
+
+# Ignore compiled files
+*.mex*
+*.p
+
+# Ignore matlab figure
+*.fig
+
+
