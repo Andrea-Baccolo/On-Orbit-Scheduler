@@ -90,7 +90,7 @@ classdef RepairRandom
                     addedTour = obj.insertTar([], tarSelect, 1);
                     tourInfo.tours{currTour, currSSc} = addedTour;
                     tourInfo.lTour(currTour, currSSc) = tourInfo.lTour(currTour, currSSc) + 1;
-                    tourInfo.nTour(nSSc) = tourInfo.nTour(nSSc) + 1;
+                    tourInfo.nTour(currSSc) = tourInfo.nTour(currSSc) + 1;
 
                     % remove the target that has been inserted
                     destroyedSet(tarIndx) = [];
@@ -148,10 +148,9 @@ classdef RepairRandom
                         end
                     end
                     if(infeasCount == nSearch || isempty(currDestroyedSet))
+
                         % prepare state for the next tour of same ssc
                         %%%%%%%%%%%%%%%%
-                        
-                        
                         [stateSsc{currSSc}, ~] = sim.SimulateSeq(currState, currSSc, [0 tourInfo.tours{currTour, currSSc} 0], updateIndex);
 
                         % go to the other tours or sscs
