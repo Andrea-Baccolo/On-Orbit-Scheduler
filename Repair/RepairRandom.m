@@ -85,7 +85,7 @@ classdef RepairRandom
                     lCurrDestroyed = lDestroyed;
                     infeasCount = 0;
                     % try to insert the sscs nK times
-                    while(infeasCount <= nSearch && ~isempty(currDestroyedSet))
+                    while(infeasCount < nSearch && ~isempty(currDestroyedSet))
 
                         % reset state
                         currState = stateSsc{currSSc};
