@@ -40,22 +40,36 @@ classdef RepairRandom
             [destroyedSet, tourInfo, stateSsc] = obj.buildTours(destroyedSet, tourInfo, stateSsc);
             
             if(~isempty(destroyedSet))
+                lDestroyed = length(destroyedSet);
                % insert targets in new tours
-                newTours = cell(lDestroyed,nSsc);
-                newLTours = zeros(lDestroyed,nSsc);
-                [~, newCellTours, newLTours, ~] = obj.buildTours(destroyedSet, newTours, newLTours, stateSsc);
-                [newCellTours, newLTours] = cutTours(newCellTours, newLTours);
-                tourInfo.tours = [cellTours; newCellTours];
-                tourInfo.lenTours = [tourInfo.lTour; newLTours];
+
+                 %initializing lastTourInfo
+                lastTourInfo = TourInfo();
+                lastTours = cell(lDestroyed,nSsc);
+                lastLTour = zeros(lDestroyed,nSsc);
+                lastNTour = zeros(nSSc, 1);
+                lastTourInfo = lastTourInfo.artificialTourInfo(lastTours, lastLTour, lastNTour);
+
+                % rebuilding lastTourInfo
+                [~, lastTourInfo, ~] = obj.buildTours(destroyedSet, lastTourInfo, stateSsc);
+
+                % cutting lastTourInfo
+                lastTourInfo = lastTourInfo.cutTour();
+
+                % merging in newTourInfo
+                tourInfo = newTourInfo.artificialTourInfo(...
+                    [tourInfo.tours; lastTourInfo.tours], ...
+                    [tourInfo.lTour; lastTourInfo.lTour], ...
+                    tourInfo.nTour + lastTourInfo.nTour);
             else
-                tourInfo = tourInfo.cutTours(cellTours, tourInfo.lTour);
+                tourInfo = tourInfo.cutTour();
             end
             
             slt = slt.rebuildSeq(tourInfo);
         end
 
         function [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc)
-            [nTour, nSsc] = size(tourInfo.lTour);
+            [nTour, nSSc] = size(tourInfo.lTour);
             % nTar = length(simulator.simState.targets);
             lDestroyed = length(destroyedSet);
             currTour = 1;
@@ -75,6 +89,7 @@ classdef RepairRandom
                     addedTour = obj.insertTar([], tarSelect, 1);
                     tourInfo.tours{currTour, currSSc} = addedTour;
                     tourInfo.lTour(currTour, currSSc) = tourInfo.lTour(currTour, currSSc) + 1;
+                    tourInfo.nTour(nSSc) = tourInfo.nTour(nSSc) + 1;
 
                     % remove the target that has been inserted
                     destroyedSet(tarIndx) = [];
@@ -140,8 +155,8 @@ classdef RepairRandom
 
                         % go to the other tours or sscs
                         currSSc = currSSc + 1;
-                        currTour = currTour + (currSSc == nSsc + 1);
-                        currSSc = currSSc - nSsc*(currSSc == nSsc + 1);
+                        currTour = currTour + (currSSc == nSSc + 1);
+                        currSSc = currSSc - nSSc*(currSSc == nSSc + 1);
                         fprintf("change to tour %d of ssc %d\n",currTour, currSSc)
 
                         updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, currTour, currSSc);

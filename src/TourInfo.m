@@ -59,6 +59,12 @@ classdef TourInfo
             end
         end
 
+        function obj = artificialTourInfo(obj, tours, lTour, nTour)
+            obj.tours = tours;
+            obj.lTour = lTour;
+            obj.nTour = nTour;
+        end
+
         function seq = rebuildSeq(obj)
 
             % from the tour information, create the sequence
