@@ -59,21 +59,21 @@ classdef RepairRandom
             % nTar = length(simulator.simState.targets);
             lDestroyed = length(destroyedSet);
             currTour = 1;
-            currSsc = 1;
+            currSSc = 1;
             % create update index 
-            updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, currTour, currSsc);
-            sim = Simulator(stateSsc{currSsc});
+            updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, currTour, currSSc);
+            sim = Simulator(stateSsc{currSSc});
 
             while(~isempty(destroyedSet) && currTour<= nTour)
                 % try to insert some targets
-                if(isempty(tourInfo.tours{currTour, currSsc}))
+                if(isempty(tourInfo.tours{currTour, currSSc}))
                     % choose target
                     tarSelect = destroyedSet(obj.chooseTar(destroyedSet));
 
                     % update new tour
                     addedTour = obj.insertTar([], tarSelect, 1);
-                    tourInfo.tours{currTour, currSsc} = addedTour;
-                    tourInfo.lTour(currTour, currSsc) = tourInfo.lTour(currTour, currSsc) + 1;
+                    tourInfo.tours{currTour, currSSc} = addedTour;
+                    tourInfo.lTour(currTour, currSSc) = tourInfo.lTour(currTour, currSSc) + 1;
 
                     % remove the target that has been inserted
                     destroyedSet(tarIndx) = [];
@@ -88,29 +88,34 @@ classdef RepairRandom
                     while(infeasCount <= nSearch && ~isempty(currDestroyedSet))
 
                         % reset state
-                        currState = stateSsc{currSsc};
+                        currState = stateSsc{currSSc};
                         
                         % choose random target
                         tarIndx = obj.chooseTar(currDestroyedSet);
                         tarSelect = currDestroyedSet(tarIndx);
 
                         % select random position on the tour
-                        posSelect = randi([1 (tourInfo.lTour(currTour, currSsc)+1)]);
+                        posSelect = randi([1 (tourInfo.lTour(currTour, currSSc)+1)]);
 
                         % create new tour
-                        addedTour = obj.insertTar(tourInfo.tours{currTour, currSsc}, tarSelect, posSelect);
+                        addedTour = obj.insertTar(tourInfo.tours{currTour, currSSc}, tarSelect, posSelect);
                         
                         % check feasibility
                         %%%%%%%%%%%%%%%%
-                        [~, infeas, ~, ~, ~] = sim.SimulateSeq(currState, currSsc, addedTour, updateIndex);
+                        [~, infeas, ~, ~, ~] = sim.SimulateSeq(currState, currSSc, addedTour, updateIndex);
                                                                 
                         if(infeas==0)
                             % save new tour
-                            tourInfo.tours{currTour, currSsc} = addedTour(2:end-1);
-                            tourInfo.lTour(currTour, currSsc) = tourInfo.lTour(currTour, currSsc) + 1;
+                            tourInfo.tours{currTour, currSSc} = addedTour(2:end-1);
+                            tourInfo.lTour(currTour, currSSc) = tourInfo.lTour(currTour, currSSc) + 1;
 
                             % remove the target dall'original destroyed
-                            destroyedSet(tarIndx) = [];
+
+                            % in this while, this tarIndx is calculated with
+                            % respect to currDestroyesSet, that means when
+                            % eliminating the target from the Destroyed set, I
+                            % need to find the right index 
+                            destroyedSet(destroyedSet==tarSelect) = [];
                             lDestroyed = lDestroyed - 1;
                             fprintf("%d target left!\n",lDestroyed)
                             % exit
@@ -130,15 +135,15 @@ classdef RepairRandom
                         %%%%%%%%%%%%%%%%
                         
                         
-                        [stateSsc{currSsc}, ~] = sim.SimulateSeq(currState, currSsc, [0 tourInfo.tours{currTour, currSsc} 0], updateIndex);
+                        [stateSsc{currSSc}, ~] = sim.SimulateSeq(currState, currSSc, [0 tourInfo.tours{currTour, currSSc} 0], updateIndex);
 
                         % go to the other tours or sscs
-                        currSsc = currSsc + 1;
-                        currTour = currTour + (currSsc == nSsc + 1);
-                        currSsc = currSsc - nSsc*(currSsc == nSsc + 1);
+                        currSSc = currSSc + 1;
+                        currTour = currTour + (currSSc == nSsc + 1);
+                        currSSc = currSSc - nSsc*(currSSc == nSsc + 1);
                         fprintf("change to tour %d of ssc %d\n",currTour, currSSc)
 
-                        updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, currTour, currSsc);
+                        updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, currTour, currSSc);
                     end
                  end
             end
