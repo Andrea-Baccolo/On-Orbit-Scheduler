@@ -3,7 +3,6 @@ classdef (Abstract) Destroy
     properties 
         nTar
         degDes
-        nDes
     end
 
     methods (Abstract)
@@ -14,7 +13,6 @@ classdef (Abstract) Destroy
         function obj = Destroy(nTar, degDes)
             obj.nTar = nTar;
             obj.degDes =  degDes;
-            obj.nDes = degDes*nTar/100;
         end
         
         function [destroyedSet, tourInfos] = Destruction(obj, slt, sim)

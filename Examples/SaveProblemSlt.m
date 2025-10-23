@@ -15,7 +15,7 @@ i_S = 20;
 omega_S = 60;
 
 % tagets
-i_T = [110,20,140,40,150,60,130,90,10,80,30,120,50,100,78]; 
+i_T = [110,20,165,40,150,60,130,90,10,80,30,120,50,100,78]; 
 omega_T = [145,210,330,150,270,90,15,30,240,275,180,0,120,300,60];
 
 infeas = checkInstance([i_T, i_S], [omega_T, omega_S]);
@@ -70,7 +70,9 @@ slt = Solution(seq,nTar);
 initialState = State(sscs, targets, station, 0);
 simulator = Simulator(initialState);
 
-d = DestroyOdd(nTar);
-[destroyedSet, tourInfos] = d.Destruction(slt, []);
+%% Destruction
+rng(12534)
+d = DestroyRandom(nTar, 50);
+[destroyedSet, tourInfos] = d.Destruction(slt,[]);
 save(nameFile, "simulator", "slt", "nTar","destroyedSet", "tourInfos")
 

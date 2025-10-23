@@ -1,18 +1,16 @@
 classdef DestroyRandom < Destroy
     
     properties 
-        p % percentage of destruction you perform
     end
 
     methods
-        function obj = DestroyRandom(nTar, p)
-            obj@Destroy(nTar);
-            obj.p = p;
+        function obj = DestroyRandom(nTar, degDes)
+            obj@Destroy(nTar,degDes);
         end
 
         function [nDestroy, destroyIndx] = chooseTargets(obj, slt, ~)
             % number of targets to remove
-            nDestroy = ceil(obj.p*obj.nTar/100);
+            nDestroy = ceil(obj.degDes*obj.nTar/100);
             % choose targets
             destroyIndx = -1*ones(nDestroy, 3);
             tourInfoCopy = slt.tourInfo;
