@@ -18,6 +18,8 @@ omega_S = 60;
 i_T = [110,20,140,40,150,60,130,90,10,80,30,120,50,100,78]; 
 omega_T = [145,210,330,150,270,90,15,30,240,275,180,0,120,300,60];
 
+infeas = checkInstance([i_T, i_S], [omega_T, omega_S]);
+
 %% SATELLITES'S INFO
 % sscs
 dryMass_S = 150*ones(nSSc,1);

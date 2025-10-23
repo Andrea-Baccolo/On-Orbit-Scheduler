@@ -13,12 +13,12 @@ function infeas = checkInstance(i,o)
     else
         %check first 2 conditions
         for k = 1:n
-            if ((i<0)&&(i>=180)) % 1
+            if ( (i(k)<0) && (i(k)>=180) ) % 1
                 fprintf("value of inclination at position %d is not valid",k);
                 infeas = 1;
                 break;
             end
-            if ((o<0)&&(0>=360)) % 2
+            if ( (o(k)<0) && (o(k)>=360) ) % 2
                 fprintf("value of raan at position %d is not valid",k);
                 infeas = 1;
                 break;
@@ -51,6 +51,9 @@ function infeas = checkInstance(i,o)
             end
         end
 
+    end
+    if(infeas == 0)
+        fprintf("inclinations and raans approved\n")
     end
     
 end
