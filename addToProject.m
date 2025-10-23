@@ -1,8 +1,13 @@
 clear all
 clc
+
+% get the complete filename
+% using fullfile to be indipendent from the OS (operating system)
 proj = currentProject;
-path = "/home/andrea/GoogleDrive/Università/_Tesi/Code/On-Orbit_Scheduler/Examples/";
+projectPath = proj.RootFolder;
+subFolder = 'Examples';   
+fileName  = 'ExRep2.mat'; 
+nameFile = fullfile(projectPath, subFolder, fileName);
 
-filename = path + "ExRep.mat";
 
-addFile(proj, filename);
+addFile(proj, nameFile);

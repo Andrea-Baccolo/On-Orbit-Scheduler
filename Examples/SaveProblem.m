@@ -3,8 +3,12 @@ clear all
 clc
 
 % get the complete filename
-folder = fileparts(mfilename('fullpath'));
-nameFile = fullfile(folder, 'Ex0_1S1T.mat');
+% using fullfile to be indipendent from the OS (operating system)
+proj = currentProject;
+projectPath = proj.RootFolder;
+subFolder = 'Examples';   
+fileName  = '.mat'; 
+nameFile = fullfile(projectPath, subFolder, fileName);
 %% NUMBERS AND OTHER STUFF
 nSSc = 1;
 nTar = 1;
