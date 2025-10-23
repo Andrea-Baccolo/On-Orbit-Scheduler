@@ -29,7 +29,7 @@ classdef Solution < matlab.mixin.Copyable
                 obj.tourInfo = TourInfo();
             end
             if nargin > 2
-                obj = obj.buildManSet(obj, sim, ' ', ' ');
+                obj = obj.buildManSet(obj, sim);
             end
         end
         
@@ -42,7 +42,7 @@ classdef Solution < matlab.mixin.Copyable
             obj.tourInfo = TourInfo(seq, nTar);
         end
 
-        function [obj, state] = buildManSet(obj, simulator, fid) %
+        function [obj, state] = buildManSet(obj, simulator, fid) 
 
             % create set of maneuvers to reach targes
 

@@ -32,7 +32,6 @@ classdef RepairRandom
         end
 
         function slt = Reparing(obj, initialState, destroyedSet, tourInfo)
-            slt = Solution([],0);
             nSsc = size(tourInfo.lTour,2);
             stateSsc = repmat({initialState}, nSsc, 1);
 
@@ -65,7 +64,9 @@ classdef RepairRandom
                 tourInfo = tourInfo.cutTour();
             end
             
-            slt = slt.rebuildSeq(tourInfo);
+            seq = tourInfo.rebuildSeq();
+            slt = Solution(seq);
+            slt.tourInfo = tourInfo;
         end
 
         function [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc)

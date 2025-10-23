@@ -10,16 +10,7 @@ classdef Solution < matlab.mixin.Copyable
         times     % time employed for every maneuver
         totFuel   % total fuelUsage for the solution
 
-        missionInfo % Tour informations
-    end
-
-    methods (Access = protected)
-        function newObj = copyElement(obj)
-            newObj = copyElement@matlab.mixin.Copyable(obj);
-
-            % deep copy of station
-            newObj.missionInfo = obj.missionInfo.copy();
-        end
+        tourInfo % Tour informations
     end
 
     methods
@@ -33,12 +24,12 @@ classdef Solution < matlab.mixin.Copyable
             obj.totFuel = 0;
             obj.times = zeros(n, m-1);
             if nargin > 1
-                obj.missionInfo = MissionInfo(seq, nTar);
+                obj.tourInfo = TourInfo(seq, nTar);
             else
-                obj.missionInfo = MissionInfo();
+                obj.tourInfo = TourInfo();
             end
             if nargin > 2
-                obj = obj.buildManSet(obj, sim, ' ', ' ');
+                obj = obj.buildManSet(obj, sim);
             end
         end
         
@@ -48,10 +39,10 @@ classdef Solution < matlab.mixin.Copyable
             obj.fuelUsage = fuelUsage;
             obj.times = times;
             obj.totFuel = sum(sum(fuelUsage));
-            obj.missionInfo = MissionInfo(seq, nTar);
+            obj.tourInfo = TourInfo(seq, nTar);
         end
 
-        function [obj, state] = buildManSet(obj, simulator, fid) %
+        function [obj, state] = buildManSet(obj, simulator, fid) 
 
             % create set of maneuvers to reach targes
 
@@ -61,10 +52,10 @@ classdef Solution < matlab.mixin.Copyable
             nSSc = size(obj.seq,1);
             state = simulator.initialState;
             for i = 1:nSSc % for every ssc
-                state.station = simulator.initialState.station.copy(); % station at initial point
+                state.station = simulator.initialState.station; % station at initial point
                 state.t = 0;
                 % create the set of Target that need to be update 
-                updateIndx = obj.generateUpdateIndx(obj.seq.copy(), nTar, i);
+                updateIndx = obj.generateUpdateIndx(obj.seq, nTar, i);
                 sequence = obj.seq(i,:);
                 if(~isempty(updateIndx))
                     [state, infeas, fuel, totTime, maneuvers] = simulator.SimulateSeq(state, i, sequence, updateIndx, fid);
@@ -101,12 +92,7 @@ classdef Solution < matlab.mixin.Copyable
                 state.t = maxTime;
             end
 
-            if(printFlag == 'p')
-                obj.printSolution()
-            elseif(printFlag == 'w')
-                obj.writeSolution(fileName)
-            end
-
+            if(fid>0), obj.output(fid); end
         end 
 
         function updateIndx = generateUpdateIndx(~, seq, nTar, i)
@@ -132,7 +118,7 @@ classdef Solution < matlab.mixin.Copyable
             end
         
             % Output missionInfo
-            obj.missionInfo.output(fid);
+            obj.tourInfo.output(fid);
         end
 
 
