@@ -18,9 +18,6 @@ classdef RepairInsert
         end
 
         function [df, stateStruct] = initialDfStruct(obj, initialState, destroyedSet, tourInfo, seq)
-
-           
-           
             [~, nSsc] = size(tourInfo.lTour);
             [pos, nPos, lastPos] = obj.getPos(tourInfo, seq);
             sim = Simulator(initialState);

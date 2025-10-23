@@ -1,8 +1,8 @@
 function gitCommit(commitMessage)
 % GITCOMMIT - Commit changes in the current Git repository
-%
+
 % gitCommit('Message') - Commit all changes with the given commit message
-%
+
 % e.g.:
 % gitCommit('Add new analysis function')
 
