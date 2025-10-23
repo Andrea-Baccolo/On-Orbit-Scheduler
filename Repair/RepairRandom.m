@@ -33,7 +33,7 @@ classdef RepairRandom
 
         function slt = Reparing(obj, initialState, destroyedSet, tourInfo)
             nSSc = size(tourInfo.lTour,2);
-            stateSsc = repmat({initialState}, nSsc, 1);
+            stateSsc = repmat({initialState}, nSSc, 1);
 
             % insert targets in existing tours
             [destroyedSet, tourInfo, stateSsc] = obj.buildTours(destroyedSet, tourInfo, stateSsc);
@@ -44,8 +44,8 @@ classdef RepairRandom
 
                  %initializing lastTourInfo
                 lastTourInfo = TourInfo();
-                lastTours = cell(lDestroyed,nSsc);
-                lastLTour = zeros(lDestroyed,nSsc);
+                lastTours = cell(lDestroyed,nSSc);
+                lastLTour = zeros(lDestroyed,nSSc);
                 lastNTour = zeros(nSSc, 1);
                 lastTourInfo = lastTourInfo.artificialTourInfo(lastTours, lastLTour, lastNTour);
 
@@ -56,7 +56,8 @@ classdef RepairRandom
                 lastTourInfo = lastTourInfo.cutTour();
 
                 % merging in newTourInfo
-                tourInfo = newTourInfo.artificialTourInfo(...
+                % artificialTourInfo(obj, tours, lTour, nTour)
+                tourInfo = tourInfo.artificialTourInfo(...
                     [tourInfo.tours; lastTourInfo.tours], ...
                     [tourInfo.lTour; lastTourInfo.lTour], ...
                     tourInfo.nTour + lastTourInfo.nTour);
