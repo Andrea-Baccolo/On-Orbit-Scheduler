@@ -53,48 +53,58 @@ classdef PlanarChange < OrbitalManeuver
             CosAlpha = sis*sit*cosd(os-ot)+cis*cit; % dihedral angle
             SinAlphaHalf = sqrt((1-CosAlpha)/2); % bisection formula
 
-            rm1 = a*(cross(target.orbit.h, ssc.orbit.h)/...
-                      norm(cross(target.orbit.h, ssc.orbit.h),2));
-
-            % find the nodes 
-            angleS = ones(2,1);
-            angleT = ones(2,1);
-            angleS(1) = obj.point2trueAnomaly(rm1, -os, -is, a); 
-            angleS(2) = mod(angleS(1) + 180, 360);
-            angleT(1) = obj.point2trueAnomaly(rm1, -ot, -it, a); 
-            angleT(2) = mod(angleT(1) + 180, 360);
-            
-            % node 1,2 := node in column 1,2
-
-            % select the right node
-            if(nuS == angleS(1))
-                % if the ssc is at node 1
-                col = 1;
-            elseif (nuS == angleS(2))
-                % if the ssc is at node 2
-                col = 2;
-            elseif ( ~xor( (nuS<angleS(1)),(nuS<angleS(2)) ) )
-                % if the SSc has behind or in front the two nodes
-                % take col as the index of the minimum
-                [~, col] = min(angleS);
+            vect = cross(target.orbit.h, ssc.orbit.h);
+            if(norm(vect,2) == 0)
+                fprintf("\nERROR \nTarget Orbit: \n")
+                target.orbit.output(1);
+                fprintf("SSc Orbit: \n")
+                ssc.orbit.output(2);
+                error("Instance not correct, there are two orbits that define the same circle but with two different rotations")
             else
-                % if I have not entered in all the preavious if, then it must be that 
-                % the Ssc is between and not equal the two nodes, I just need
-                % to take the bigger node, it will be the next one the ssc will encounter
-                [~, col] = max(angleS);
+                rm1 = a*(cross(target.orbit.h, ssc.orbit.h)/...
+                          norm(cross(target.orbit.h, ssc.orbit.h),2));
+                
+    
+                % find the nodes 
+                angleS = ones(2,1);
+                angleT = ones(2,1);
+                angleS(1) = obj.point2trueAnomaly(rm1, -os, -is, a); 
+                angleS(2) = mod(angleS(1) + 180, 360);
+                angleT(1) = obj.point2trueAnomaly(rm1, -ot, -it, a); 
+                angleT(2) = mod(angleT(1) + 180, 360);
+                
+                % node 1,2 := node in column 1,2
+    
+                % select the right node
+                if(nuS == angleS(1))
+                    % if the ssc is at node 1
+                    col = 1;
+                elseif (nuS == angleS(2))
+                    % if the ssc is at node 2
+                    col = 2;
+                elseif ( ~xor( (nuS<angleS(1)),(nuS<angleS(2)) ) )
+                    % if the SSc has behind or in front the two nodes
+                    % take col as the index of the minimum
+                    [~, col] = min(angleS);
+                else
+                    % if I have not entered in all the preavious if, then it must be that 
+                    % the Ssc is between and not equal the two nodes, I just need
+                    % to take the bigger node, it will be the next one the ssc will encounter
+                    [~, col] = max(angleS);
+                end
+    
+                obj.nodeSScOrb = angleS(col);
+                obj.nodeTarOrb = angleT(col);
+    
+                obj.dv = 2*abs(target.orbit.angVel)*SinAlphaHalf;
+                obj.dt = 0;
+                chi = obj.nodeSScOrb - ssc.trueAnomaly;
+                chi = chi +(chi <= -180)*360 -(chi > 180)*360;
+                if(chi~=0)
+                    obj.dt = obj.dt + chi*(pi/180)/ssc.orbit.angVel;
+                end
+                obj.totAngle = (180/pi)*ssc.orbit.angVel*obj.dt;
             end
-
-            obj.nodeSScOrb = angleS(col);
-            obj.nodeTarOrb = angleT(col);
-
-            obj.dv = 2*abs(target.orbit.angVel)*SinAlphaHalf;
-            obj.dt = 0;
-            chi = obj.nodeSScOrb - ssc.trueAnomaly;
-            chi = chi +(chi <= -180)*360 -(chi > 180)*360;
-            if(chi~=0)
-                obj.dt = obj.dt + chi*(pi/180)/ssc.orbit.angVel;
-            end
-            obj.totAngle = (180/pi)*ssc.orbit.angVel*obj.dt;
         end
 
         function [phi] = point2trueAnomaly(obj, r, omega, i, a)
