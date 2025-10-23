@@ -68,7 +68,8 @@ classdef RepairRandom
                 % try to insert some targets
                 if(isempty(tourInfo.tours{currTour, currSSc}))
                     % choose target
-                    tarSelect = destroyedSet(obj.chooseTar(destroyedSet));
+                    tarIndx = obj.chooseTar(destroyedSet);
+                    tarSelect = destroyedSet(tarIndx);
 
                     % update new tour
                     addedTour = obj.insertTar([], tarSelect, 1);
