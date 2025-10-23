@@ -32,7 +32,7 @@ classdef RepairRandom
         end
 
         function slt = Reparing(obj, initialState, destroyedSet, tourInfo)
-            nSsc = size(tourInfo.lTour,2);
+            nSSc = size(tourInfo.lTour,2);
             stateSsc = repmat({initialState}, nSsc, 1);
 
             % insert targets in existing tours
