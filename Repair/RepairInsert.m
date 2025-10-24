@@ -10,8 +10,9 @@ classdef RepairInsert < Repair
         end
 
         function df_i = calculateDf(obj, initialState, sscIndx, destroyedSet, currSeq)
+            % currSeq è un vettore, gli passo solo il vettorino che mi serve
             lDes = length(destroyedSet);
-            nPos = size(currSeq,2) - 1;
+            nPos = lenght(currSeq) - 1;
             state = initialState;
             sim = Simulator(state);
             df_i = zeros(lDes, nPos);
@@ -56,73 +57,12 @@ classdef RepairInsert < Repair
             df_i = df_i - dfCurr*ones(lDes,nPos);
         end
 
-        function [df, stateStruct, nPos] = initialDfStruct(obj, stateSSc, destroyedSet, tourInfo, currSeq)
-            % create stateStruct
-            nSSc = size(tourInfo.lTour,2);
-            lDes = length(destroyedSet);
-            if(isscalar(tourInfo.lTour))
-                lenTours = tourInfo.lTour;
-            else
-                lenTours = sum(tourInfo.lTour,1);
-            end
-            % this is all the possible positions where I can put a target,
-            % which corresponds to all the passage from a point to the
-            % sequence to another: nPos(i) = nSeq(i) -1
-            nPos = lenTours + tourInfo.nTour;
-            % this instance allocates more cells for speed reasons
-            nPosMax = max(nPos + lDes*ones(1,nSSc));
-
-            stateStruct = cell(nSSc, nPosMax);
-            stateStruct(:,1) = stateSSc;
-            sim = Simulator(stateSSc{1});
-
-            % creation of df structure
-            df = cell(nSSc);
-            % fuel value of the current slt
-            % to reduce the total number of reach, I will simulate all the sequence
-            dfCurr = zeros(nSSc,1);
+        function df = initialDfStruct(obj, initialState, destroyedSet, currSeq)
+            nSSc = size(currSeq,1);
+            df = cell(nSSc,1);
             for i = 1:nSSc
-                df{i} = zeros(lDes, nPos(i));
-                % updateIndex
-                updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, 1, i);
-                for p = 1:nPos(i)
-                    % POPULATE DF STRUCTURE
-                    % Note that since we do not have the total fuel of the
-                    % original route yet, in the matrix will be saved just
-                    % the fuel obtained in that specific scenario, then it
-                    % will be obtained the requested change
-                    finalSeq = p+1:nPos(i)+1;
-                    for j = 1:lDes
-                        % to reduce the total number of reach, I will simulate all the sequence
-                        newSeq = [ seq(i, p), destroyedSet(j), seq(i,finalSeq)];
-                        [~, infeas, totFuel, ~, ~] = sim.SimulateSeq(stateStruct{i,p}, i, newSeq, updateIndex);
-                        if(infeas == 0)
-                            df{i}(j,p) = df{i}(j,p) + totFuel;
-                        else
-                            df{i}(j,p) = inf;
-                        end
-                    end
-
-                    % FILL THE STATESTRUCTURE
-                    % simulate from currentSeq
-                    [state, infeas, totFuel, ~, ~] = sim.SimulateReach(stateStruct{i,p}, i, currSeq(p+1), updateIndex);
-                    if(~infeas)
-                        stateStruct{i,p+1} = state;
-                        dfCurr(i) = dfCurr(i) + totFuel;
-                        % to reduce the number of reach, I will add totFuel
-                        % to df{i}(:,finalSeq), to avoid restarting the
-                        % simulation for the destroyedSet and to avoid to
-                        % simulate the currentSeq too much
-                        if p<nPos(i)
-                            df{i}(:,p+1) = df{i}(:,p+1) + dfCurr(i)*ones(lDes, p+1);
-                        end
-                    else
-                        error("Part of the old solution must not be infeasible")
-                    end
-                end
+                df{i} = obj.calculateDf(initialState, i, destroyedSet, currSeq(i));
             end
-
-     
         end
 
         function [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc)
