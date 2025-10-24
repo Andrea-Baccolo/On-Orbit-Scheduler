@@ -9,9 +9,9 @@ classdef RepairInsert < Repair
             obj@Repair(nTar);
         end
 
-        function [df, stateStruct] = initialDfStruct(obj, stateSSc, destroyedSet, tourInfo, currSeq)
+        function [df, stateStruct, nPos] = initialDfStruct(obj, stateSSc, destroyedSet, tourInfo, currSeq)
             % create stateStruct
-            [~, nSSc] = size(tourInfo.lTour);
+            nSSc = size(tourInfo.lTour,2);
             lDes = length(destroyedSet);
             if(isscalar(tourInfo.lTour))
                 lenTours = tourInfo.lTour;
@@ -83,7 +83,7 @@ classdef RepairInsert < Repair
             currSeq = TourInfo.rebuildSeq(obj.nTar);
 
             % generating initial structures
-            [df, stateStruct] = obj.initialDfStruct(stateSSc, destroyedSet, tourInfo, currSeq);
+            [df, stateStruct, nPos] = obj.initialDfStruct(stateSSc, destroyedSet, tourInfo, currSeq);
             while(~isempty(destroyedSet))
                 % choose target
                 [tarIndx, sscIndx, posSeq] = obj.chooseTar(df);
@@ -106,7 +106,7 @@ classdef RepairInsert < Repair
                 currSeq = tourInfo.rebuildSeq(obj.nTar);
 
                 % update df and stateStruct
-                [df, stateStruct] = obj.updateStruct(sscIndx, currSeq, df, stateStruct);
+                [df, stateStruct] = obj.updateStruct(sscIndx, posSeq, currSeq, df, stateStruct, nPos);
             end
 
         end
@@ -138,11 +138,30 @@ classdef RepairInsert < Repair
 
         end
 
-        function [df, stateStruct] = updateStruct(obj, sscIndx, seq, state, df, stateStruct)
-            % I assume that seq is a row vector, where in the first
-            % position is collocated the new added target
+        function [df, stateStruct] = updateStruct(obj, sscIndx, posSeq, currSeq, df, stateStruct, nPos)
+            % UPDATE STATESTRUCT
+            % I need to simulate from posSeq until the end 
+            % I can use the state in position posSec
+            nPos(sscIndx) = nPos(sscIndx) + 1;
 
-            seqOld = seq(2:end);
+            [state, infeas, totFuel, ~, ~] = sim.SimulateReach(stateStruct{sccIndx,posSeq}, sccIndx, currSeq(posSeq+1), updateIndex);
+            if(~infeas)
+                stateStruct{sccIndx,posSeq+1} = state;
+                dfCurr(sccIndx) = dfCurr(sccIndx) + totFuel;
+                % to reduce the number of reach, I will add totFuel
+                % to df{i}(:,finalSeq), to avoid restarting the
+                % simulation for the destroyedSet and to avoid to
+                % simulate the currentSeq too much
+                if p<nPos(sccIndx)
+                    df{sccIndx}(:,p+1) = df{sccIndx}(:,p+1) + dfCurr(sccIndx)*ones(lDes, p+1);
+                end
+            else
+                error("Part of the old solution must not be infeasible")
+            end
+
+
+
+            % UPDATE DF
 
 
         end
