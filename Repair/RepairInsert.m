@@ -101,13 +101,31 @@ classdef RepairInsert < Repair
         end
 
 
-        function [tarIndx, sscIndx, tourIndx, posIndx] = chooseTar(obj, df)
-            lDes
+        function [tarIndx, sscIndx, tourIndx, posIndx] = chooseTar(obj, df, nPos)
+            lDes = size(df{1},1);
+            nSSc = length(df);
+
             % SELECT TAR: ind the target (tarIndx)
-            insCost = zeros(lDes)
+            insCost = zeros(lDes,1);
+            insPos = zeros(lDes,1);
+            insSSc = zeros(lDes,1);
+            for j = 1:lDes % for every destroyed target
+                posSeq = zeros(nSSc, 1);
+                c = zeros(nSSc,1);
+                for i = 1:nSSc % for every SSc
+                    % minimum cost saving the positions
+                    [c(i), posSeq(i)] = min(df{i}(j,:));
+                end
+                % minimum over all the SScs saving the positions and the SSc
+                [insCost(j), insSSc(j)] = min(c);
+                insPos(j) = posSeq(insSSc(j));
+            end
+            % argmax over the insertion cost
+            [~,tarIndx] = max(insCost);
+            sscIndx = insSSc(tarIndx);
 
             % RETURN INDX:go from sequence position to tour position
-
+            
 
         end
 
