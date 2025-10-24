@@ -1,20 +1,16 @@
-classdef RepairInsert
+classdef RepairInsert < Repair
 
     properties
         nTar
     end
 
     methods (Abstract)
-        [pos, nPos, lastPos] = getPos(obj, tourInfo, seq);
-        % pos: cell array nSsc slot to save position vectors
-        % nPos: vector of number of positions for every sscs
-        % lastPos: index of last position of the ssc row in the sequence
         [sscIndx, posIndx, desIndx] = chooseTar(obj)
     end
 
     methods
         function obj = RepairInsert(nTar)
-            obj.nTar = nTar;
+            obj@Repair(nTar);
         end
 
         function [df, stateStruct] = initialDfStruct(obj, initialState, destroyedSet, tourInfo, seq)

@@ -20,7 +20,7 @@ classdef RepairRandom < Repair
             % this function add the new target in the positiomn posSelect,
             % shifting the vector tour(posSelect:end) by one position to
             % the right
-        
+
             if(isempty(tour))
                 newTour = tarSelect;
             elseif(posSelect == 1)

@@ -15,10 +15,10 @@ classdef Repair
 
         function slt = Reparing(obj, initialState, destroyedSet, tourInfo)
             nSSc = size(tourInfo.lTour,2);
-            stateSsc = repmat({initialState}, nSSc, 1);
+            stateSSc = repmat({initialState}, nSSc, 1);
 
             % insert targets in existing tours
-            [destroyedSet, tourInfo, stateSsc] = obj.buildTours(destroyedSet, tourInfo, stateSsc);
+            [destroyedSet, tourInfo, stateSSc] = obj.buildTours(destroyedSet, tourInfo, stateSSc);
             
             if(~isempty(destroyedSet))
                 lDestroyed = length(destroyedSet);
@@ -32,7 +32,7 @@ classdef Repair
                 lastTourInfo = lastTourInfo.artificialTourInfo(lastTours, lastLTour, lastNTour);
 
                 % rebuilding lastTourInfo
-                [~, lastTourInfo, ~] = obj.buildTours(destroyedSet, lastTourInfo, stateSsc);
+                [~, lastTourInfo, ~] = obj.buildTours(destroyedSet, lastTourInfo, stateSSc);
 
                 % cutting lastTourInfo
                 lastTourInfo = lastTourInfo.cutTour();
