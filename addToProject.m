@@ -5,8 +5,8 @@ clc
 % using fullfile to be indipendent from the OS (operating system)
 proj = currentProject;
 projectPath = proj.RootFolder;
-subFolder = 'Repair';   
-fileName  = 'Repair.m'; 
+subFolder = 'Test';   
+fileName  = 'test_Seq2Tour.m'; 
 nameFile = fullfile(projectPath, subFolder, fileName);
 
 

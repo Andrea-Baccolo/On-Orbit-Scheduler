@@ -9,7 +9,7 @@ classdef RepairInsert < Repair
             obj@Repair(nTar);
         end
 
-        function [df, stateStruct, nPos] = initialDfStruct(obj, stateSSc, destroyedSet, tourInfo, currSeq)
+        function [df, stateStruct] = initialDfStruct(obj, stateSSc, destroyedSet, tourInfo, currSeq)
             % create stateStruct
             [~, nSSc] = size(tourInfo.lTour);
             lDes = length(destroyedSet);
@@ -81,26 +81,37 @@ classdef RepairInsert < Repair
         function [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc)
             % creating the sequence
             currSeq = TourInfo.rebuildSeq(obj.nTar);
+
             % generating initial structures
-            [df, stateStruct, nPos] = obj.initialDfStruct(stateSSc, destroyedSet, tourInfo, currSeq);
+            [df, stateStruct] = obj.initialDfStruct(stateSSc, destroyedSet, tourInfo, currSeq);
             while(~isempty(destroyedSet))
                 % choose target
-                [tarIndx, sscIndx, tourIndx, posIndx] = obj.chooseTar(df, nPos);
+                [tarIndx, sscIndx, posSeq] = obj.chooseTar(df);
+
+                % RETURN INDX:go from sequence position to tour position
+                [tourIndx, posIndx] = tourInfo.Seq2Tour(posSeq, sscIndx);
+
                 % insert target
                 newTour = obj.insertTar(tourInfo.tours(tourIndx,sscIndx), tarIndx, posIndx);
+
                 % save new tour
+                if(isempty(tourInfo.tours{tourIndx, sscIndx}))
+                    tourInfo.nTour(sscIndx) = tourInfo.nTour(sscIndx) + 1;
+                end
                 tourInfo.tours{tourIndx, sscIndx} = newTour(2:end-1);
                 tourInfo.lTour(tourIndx, sscIndx) = tourInfo.lTour(tourIndx, sscIndx) + 1;
+                
                 % delete tarIndx form destroyedSet
                 destroyedSet(tarIndx) = [];
                 currSeq = tourInfo.rebuildSeq(obj.nTar);
+
                 % update df and stateStruct
                 [df, stateStruct] = obj.updateStruct(sscIndx, currSeq, df, stateStruct);
             end
 
         end
 
-        function [tarIndx, sscIndx, tourIndx, posIndx] = chooseTar(obj, df, nPos)
+        function [tarIndx, sscIndx, posSequence] = chooseTar(~, df)
             lDes = size(df{1},1);
             nSSc = length(df);
 
@@ -122,9 +133,8 @@ classdef RepairInsert < Repair
             % argmax over the insertion cost
             [~,tarIndx] = max(insCost);
             sscIndx = insSSc(tarIndx);
+            posSequence = insPos(tarIndx);
 
-            % RETURN INDX:go from sequence position to tour position
-            
 
         end
 
