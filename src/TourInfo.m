@@ -68,6 +68,7 @@ classdef TourInfo
         function seq = rebuildSeq(obj, nTar)
 
             % from the tour information, create the sequence
+            
             [~, nSSc] = size(obj.lTour);
             % calculate for every ssc the length of the corresponding sequence
             nM = -1*ones(1,nSSc);
