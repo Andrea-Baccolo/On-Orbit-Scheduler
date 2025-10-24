@@ -61,7 +61,7 @@ classdef Repair
                 lenTours = sum(tourInfo.lTour(currTour:end,currSSc));
             end
             % generate updateIndx
-            updateIndex = -1*ones(1, lenTours(currSSc) + lDestroyed);
+            updateIndex = -1*ones(1, lenTours + lDestroyed);
             updateIndex(1:lDestroyed) = destroyedSet';
             % setting counters
             upIndx = lDestroyed + 1;
