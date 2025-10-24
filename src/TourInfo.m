@@ -152,6 +152,27 @@ classdef TourInfo
             obj.tours = newCellTour;
         end
 
+        function posSeq = Tour2Seq(obj, sscIndx, tourIndx, posTour)
+            if(~isscalar(obj.lTour))
+                % it means 1 tour and 1 ssc and tourIndx = 1
+                len = 0;
+            else
+                % take the sum of the preavious tours
+                len = sum(obj.lTour(1:tourIndx-1,sscIndx));
+            end
+            posSeq = len*(tourIndx>1) + tourIndx + posTour -1;
+        end
+
+        function [tourIndx, posTour] = Seq2Pos(obj, posSeq, sscIndx)
+            startIndx = cumsum([1; obj.lTour(1:end-1,sscIndx) + 1]);
+            endIndx   = startIndx + obj.lTour(:,sscIndx);
+            tourIndx = find(posSeq >= startIndx & posSeq <= endIndx, 1, 'first');
+            if isempty(tourIndx)
+                error('Position p = %d does not belong to any tours', posSeq);
+            end
+            posTour = posSeq - startIndx(tourIndx) + 1;
+        end
+
         function output(obj, fid)
             if nargin < 2 || isempty(fid), fid = 1; end
             [~, nSSc] = size(obj.lTour);
