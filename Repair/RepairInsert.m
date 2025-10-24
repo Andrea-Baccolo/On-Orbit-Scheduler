@@ -5,7 +5,7 @@ classdef RepairInsert < Repair
     end
 
     methods (Abstract)
-        [sscIndx, posIndx, desIndx] = chooseTar(obj)
+        [tarIndx, posIndx] = chooseTar(obj, df)
     end
 
     methods
@@ -13,7 +13,7 @@ classdef RepairInsert < Repair
             obj@Repair(nTar);
         end
 
-        function [df, stateStruct] = initialDfStruct(obj, stateSSc, destroyedSet, tourInfo)
+        function [df, stateStruct] = initialDfStruct(obj, stateSSc, destroyedSet, tourInfo, currSeq)
             % create stateStruct
             [~, nSSc] = size(tourInfo.lTour);
             lDes = length(destroyedSet);
@@ -38,9 +38,6 @@ classdef RepairInsert < Repair
             % fuel value of the current slt
             % to reduce the total number of reach, I will simulate all the sequence
             dfCurr = zeros(nSSc,1);
-            % creating the sequence
-            currSeq = TourInfo.rebuildSeq(obj.nTar);
-
             for i = 1:nSSc
                 df{i} = zeros(lDes, nPos(i));
                 % updateIndex
@@ -85,8 +82,29 @@ classdef RepairInsert < Repair
      
         end
 
-        
-        function [df, stateStruct] = update(obj, sscIndx, seq, state, df, stateStruct)
+        function [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc)
+            % creating the sequence
+            currSeq = TourInfo.rebuildSeq(obj.nTar);
+            % generating initial structures
+            [df, stateStruct] = obj.initialDfStruct(stateSSc, destroyedSet, tourInfo, currSeq);
+            while(~isempty(destroyedSet))
+                % choose target
+                [tarIndx, sscIndx, tourIndx, posIndx] = chooseTar(obj, df);
+                % insert target
+                newTour = obj.insertTar(tourInfo.tours(tourIndx,sscIndx), tarIndx, posIndx);
+                % save new tour
+                tourInfo.tours{tourIndx, sscIndx} = newTour(2:end-1);
+                tourInfo.lTour(tourIndx, sscIndx) = tourInfo.lTour(tourIndx, sscIndx) + 1;
+                % delete tarIndx form destroyedSet
+                destroyedSet(tarIndx) = [];
+                currSeq = tourInfo.rebuildSeq(obj.nTar);
+                % update df and stateStruct
+                [df, stateStruct] = obj.updateStruct(sscIndx, currSeq, df, stateStruct);
+            end
+
+        end
+
+        function [df, stateStruct] = updateStruct(obj, sscIndx, seq, state, df, stateStruct)
             % I assume that seq is a row vector, where in the first
             % position is collocated the new added target
 

@@ -16,20 +16,6 @@ classdef RepairRandom < Repair
             tarIndx = randi([1 lDestroyed]);
         end
 
-        function newTour = insertTar(~, tour, tarSelect, posSelect)
-            % this function add the new target in the positiomn posSelect,
-            % shifting the vector tour(posSelect:end) by one position to
-            % the right
-
-            if(isempty(tour))
-                newTour = tarSelect;
-            elseif(posSelect == 1)
-                newTour = [ 0 tarSelect tour 0 ];
-            else
-                newTour = [ 0 tour(1:posSelect-1) tarSelect tour(posSelect:end) 0 ];
-            end
-        end
-
         function [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc)
             [nTour, nSSc] = size(tourInfo.lTour);
             % nTar = length(simulator.simState.targets);
@@ -125,6 +111,8 @@ classdef RepairRandom < Repair
                  end
             end
         end
+
+        
 
     end
 end

@@ -76,5 +76,19 @@ classdef Repair
             end
         end
 
+        function newTour = insertTar(~, tour, tarSelect, posSelect)
+            % this function add the new target in the positiomn posSelect,
+            % shifting the vector tour(posSelect:end) by one position to
+            % the right
+
+            if(isempty(tour))
+                newTour = tarSelect;
+            elseif(posSelect == 1)
+                newTour = [ 0 tarSelect tour 0 ];
+            else
+                newTour = [ 0 tour(1:posSelect-1) tarSelect tour(posSelect:end) 0 ];
+            end
+        end
+
     end
 end
