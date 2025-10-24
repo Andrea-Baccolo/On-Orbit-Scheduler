@@ -153,17 +153,22 @@ classdef TourInfo
         end
 
         function posSeq = Tour2Seq(obj, sscIndx, tourIndx, posTour)
-            if(~isscalar(obj.lTour))
-                % it means 1 tour and 1 ssc and tourIndx = 1
-                len = 0;
-            else
-                % take the sum of the preavious tours
-                len = sum(obj.lTour(1:tourIndx-1,sscIndx));
+            startIdx = cumsum([1; obj.lTour(1:end-1,sscIndx) + 1]);
+    
+            % check input value
+            if tourIndx < 1 || tourIndx > obj.nTour(sscIndx)
+                error('invalid tourIndx. It must be >1 and <= %d (%d instead).', obj.nTour(sscIndx), tourIndx);
             end
-            posSeq = len*(tourIndx>1) + tourIndx + posTour -1;
+            
+            if posTour < 1 || posTour > obj.lTour(tourIndx,sscIndx)+1
+                error('invalid posTour. It must be >1 and <= %d (%d instead).', obj.lTour(tourIndx,sscIndx)+1, posTour);
+            end
+            
+            % Calcolo posizione assoluta
+            posSeq = startIdx(tourIndx) + posTour - 1;
         end
 
-        function [tourIndx, posTour] = Seq2Pos(obj, posSeq, sscIndx)
+        function [tourIndx, posTour] = Seq2Tour(obj, posSeq, sscIndx)
             startIndx = cumsum([1; obj.lTour(1:end-1,sscIndx) + 1]);
             endIndx   = startIndx + obj.lTour(:,sscIndx);
             tourIndx = find(posSeq >= startIndx & posSeq <= endIndx, 1, 'first');

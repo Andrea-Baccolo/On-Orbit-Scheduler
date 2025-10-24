@@ -1,6 +1,6 @@
-Station position:nu: 0.00, incl: 20.00, raan:60.00 
-SSc 1 position:nu: 0.00, incl: 20.00, raan:60.00 
-Target 1 position:nu: 0.00, incl: 130.00, raan:90.00 
-Target 2 position:nu: 180.00, incl: 70.00, raan:350.00 
-Target 3 position:nu: 80.00, incl: 50.00, raan:110.00 
-Target 4 position:nu: 265.00, incl: 120.00, raan:240.00 
+MISSION INFO
+In the SSc number 1 there are 4 non-empty tours.
+Length of tours of SSc 1:
+In the SSc number 2 there are 0 non-empty tours.
+Length of tours of SSc 2:
+   (no non-empty tours)

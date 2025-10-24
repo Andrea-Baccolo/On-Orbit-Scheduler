@@ -1,6 +1,6 @@
 function [missionInfo, seqnew, zeroTour] = callTest(seq,nTar)
     missionInfo = TourInfo(seq, nTar);
-    seqnew = missionInfo.rebuildSeq();
+    seqnew = missionInfo.rebuildSeq(nTar);
     zeroTour = missionInfo.addZeros();
 end
 
