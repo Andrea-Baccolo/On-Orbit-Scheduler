@@ -7,17 +7,21 @@ clc
 proj = currentProject;
 projectPath = proj.RootFolder;
 subFolder = 'Examples';   
-fileName  = 'ExRep2.mat'; 
+fileName  = 'ExRep0.mat'; 
 nameFile = fullfile(projectPath, subFolder, fileName);
 
 %% NUMBERS AND OTHER STUFF
+% ExRep0
+nSSc = 2;
+nTar = 7;
+
 % ExRep1
 % nSSc = 3;
+% nTar = 15;
 
 % ExRep2;
-nSSc = 2;
-
-nTar = 15;
+% nSSc = 2;
+% nTar = 15;
 
 %% ORBITS'S INFO
 % station ( ssc's orbit at the beginning are the same of the station) 
@@ -72,12 +76,20 @@ for i =1:nTar
 end
 
 %% SEQUENCE, 
-% ExRep1 only 
-seq = [0 15 0 4 5 0 6 7 8 0 ;
-       0 9 0 1 2 3 0 11 12 0 ;
-       0 13 0 14 0 10 0 16 16 16];
+
+% ExRep0 Only
+seq = [0 1 2 0 8
+       0 3 0 7 0];
 slt = Solution(seq,nTar);
+ 
+% ExRep1 only 
+% seq = [0 15 0 4 5 0 6 7 8 0 ;
+%        0 9 0 1 2 3 0 11 12 0 ;
+%        0 13 0 14 0 10 0 16 16 16];
+% slt = Solution(seq,nTar);
 %[~,m] = size(seq);
+
+
 
 %% STATE & SIMULATOR
 
@@ -93,11 +105,20 @@ save(nameFile, "simulator", "slt", "nTar","destroyedSet", "tourInfos")
 
 %% Custom destruction
 
-% ExRep2 only
-destroyedSet = [ 15 13 14 6 5 2 11]';
-tours = {[8,7,12], [1,3];[4,9],10};
-lTour = [3,2;2,1];
-nTour = [2;2];
+% ExRep0 only
+destroyedSet = [ 4,5,6]';
+tours = {[1,2], 3;[],7};
+lTour = [2,1;0,1];
+nTour = [1;2];
 tourInfos = TourInfo();
-tourInfos = tourInfos.artificialTourInfo(tours, lTour,nTour);
-save(nameFile, "simulator", "nTar","destroyedSet", "tourInfos")
+tourInfos = tourInfos.artificialTourInfo(tours, lTour, nTour);
+save(nameFile, "simulator", "slt", "nTar","destroyedSet", "tourInfos")
+
+% ExRep2 only
+% destroyedSet = [ 15 13 14 6 5 2 11]';
+% tours = {[8,7,12], [1,3];[4,9],10};
+% lTour = [3,2;2,1];
+% nTour = [2;2];
+% tourInfos = TourInfo();
+% tourInfos = tourInfos.artificialTourInfo(tours, lTour,nTour);
+% save(nameFile, "simulator", "nTar","destroyedSet", "tourInfos")

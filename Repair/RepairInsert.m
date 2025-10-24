@@ -121,36 +121,19 @@ classdef RepairInsert < Repair
             [~,tarIndx] = max(insCost);
             sscIndx = insSSc(tarIndx);
             posSequence = insPos(tarIndx);
-
-
         end
 
-        function [df, stateStruct] = updateStruct(obj, sscIndx, posSeq, currSeq, df, stateStruct, nPos)
-            % UPDATE STATESTRUCT
-            % I need to simulate from posSeq until the end 
-            % I can use the state in position posSec
-            nPos(sscIndx) = nPos(sscIndx) + 1;
-
-            [state, infeas, totFuel, ~, ~] = sim.SimulateReach(stateStruct{sccIndx,posSeq}, sccIndx, currSeq(posSeq+1), updateIndex);
-            if(~infeas)
-                stateStruct{sccIndx,posSeq+1} = state;
-                dfCurr(sccIndx) = dfCurr(sccIndx) + totFuel;
-                % to reduce the number of reach, I will add totFuel
-                % to df{i}(:,finalSeq), to avoid restarting the
-                % simulation for the destroyedSet and to avoid to
-                % simulate the currentSeq too much
-                if p<nPos(sccIndx)
-                    df{sccIndx}(:,p+1) = df{sccIndx}(:,p+1) + dfCurr(sccIndx)*ones(lDes, p+1);
+        function df = updateStruct(obj, df, sscIndx, tarIndx, initialState, destroyedSet, currSeq)
+            nSSc = size(currSeq,1);
+            for i = 1:nSSc
+                if (i == sscIndx)
+                    % if I consider the ssc that has changed, update the changes
+                    df{i} = obj.calculateDf(initialState, i, destroyedSet, currSeq(i));
+                else
+                    % if is another one, just delete the row of the chosen target
+                    df{i}(tarIndx,:) = [];
                 end
-            else
-                error("Part of the old solution must not be infeasible")
             end
-
-
-
-            % UPDATE DF
-
-
         end
 
     end
