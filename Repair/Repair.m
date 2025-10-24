@@ -47,7 +47,7 @@ classdef Repair
                 tourInfo = tourInfo.cutTour();
             end
             
-            seq = tourInfo.rebuildSeq();
+            seq = tourInfo.rebuildSeq(obj.nTar);
             slt = Solution(seq);
             slt.tourInfo = tourInfo;
         end
@@ -75,5 +75,6 @@ classdef Repair
                 end
             end
         end
+
     end
 end

@@ -32,19 +32,18 @@ classdef RepairInsert < Repair
 
             % creation of df structure
             df = cell(nSSc);
-            for j = 1:nSSc
-                df{j} = zeros(lDes, nPos(j));
-            end
-            
-            % % fuel value of the current slt
-            % dfCurr = zeros(nSSc,1);
-            % for i = 1:nSSc
-            %     df{i} = zeros(lDes, nPos(i));
-            %     % updateIndex
-            %     updateIndex = seq(i, seq(i,:) > 0);
-            %     updateIndex = [updateIndex( updateIndex(:) <= obj.nTar), destroyedSet'];
-            % 
-            %     for p = 1:nPos(i)
+            % fuel value of the current slt
+            dfCurr = zeros(nSSc,1);
+
+             for i = 1:nSSc
+                df{i} = zeros(lDes, nPos(i));
+                % updateIndex
+                updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, 1, i);
+                % creating the sequence
+                
+                 for p = 1:nPos(i)
+
+
             %         % saving the state
             %         if(p == 1) % saving the first state
             %             stateStruct{i}{1} = initialState;
@@ -92,8 +91,8 @@ classdef RepairInsert < Repair
             %                 dfCurr(i) = dfCurr(i) + totFuel;
             %             end
             %         end
-            %     end
-            % end
+                 end
+             end
 
      
         end

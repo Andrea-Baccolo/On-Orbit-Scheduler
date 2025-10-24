@@ -65,12 +65,9 @@ classdef TourInfo
             obj.nTour = nTour;
         end
 
-        function seq = rebuildSeq(obj)
+        function seq = rebuildSeq(obj, nTar)
 
             % from the tour information, create the sequence
-
-            % set the dimension of seq
-            nTar = sum(obj.lTour,"all");
             [~, nSSc] = size(obj.lTour);
             % calculate for every ssc the length of the corresponding sequence
             nM = -1*ones(1,nSSc);
