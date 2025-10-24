@@ -1,15 +1,14 @@
-classdef RepairRandom
+classdef RepairRandom < Repair
 
     properties 
         prop
-        nTar
     end
 
     methods
 
         function obj = RepairRandom(prop, nTar)
+            obj@Repair(nTar);
             obj.prop = prop;
-            obj.nTar = nTar;
         end
 
         function tarIndx = chooseTar(~, destroyedSet)
@@ -29,45 +28,6 @@ classdef RepairRandom
             else
                 newTour = [ 0 tour(1:posSelect-1) tarSelect tour(posSelect:end) 0 ];
             end
-        end
-
-        function slt = Reparing(obj, initialState, destroyedSet, tourInfo)
-            nSSc = size(tourInfo.lTour,2);
-            stateSsc = repmat({initialState}, nSSc, 1);
-
-            % insert targets in existing tours
-            [destroyedSet, tourInfo, stateSsc] = obj.buildTours(destroyedSet, tourInfo, stateSsc);
-            
-            if(~isempty(destroyedSet))
-                lDestroyed = length(destroyedSet);
-               % insert targets in new tours
-
-                 %initializing lastTourInfo
-                lastTourInfo = TourInfo();
-                lastTours = cell(lDestroyed,nSSc);
-                lastLTour = zeros(lDestroyed,nSSc);
-                lastNTour = zeros(nSSc, 1);
-                lastTourInfo = lastTourInfo.artificialTourInfo(lastTours, lastLTour, lastNTour);
-
-                % rebuilding lastTourInfo
-                [~, lastTourInfo, ~] = obj.buildTours(destroyedSet, lastTourInfo, stateSsc);
-
-                % cutting lastTourInfo
-                lastTourInfo = lastTourInfo.cutTour();
-
-                % merging in newTourInfo
-                % artificialTourInfo(obj, tours, lTour, nTour)
-                tourInfo = tourInfo.artificialTourInfo(...
-                    [tourInfo.tours; lastTourInfo.tours], ...
-                    [tourInfo.lTour; lastTourInfo.lTour], ...
-                    tourInfo.nTour + lastTourInfo.nTour);
-            else
-                tourInfo = tourInfo.cutTour();
-            end
-            
-            seq = tourInfo.rebuildSeq();
-            slt = Solution(seq);
-            slt.tourInfo = tourInfo;
         end
 
         function [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc)
@@ -166,24 +126,5 @@ classdef RepairRandom
             end
         end
 
-        function updateIndex = createUpdateIndex(~, tourInfo, destroyedSet, currTour, currSsc)
-            lDestroyed = length(destroyedSet);
-            [nTour, ~] = size(tourInfo.lTour);
-            % create new updateIndex
-            if(size(tourInfo.lTour(currTour:end,:),1)==1)
-                lenTours = tourInfo.lTour(currTour:end,:);
-            else
-                lenTours = sum(tourInfo.lTour(currTour:end,:));
-            end
-            updateIndex = -1*ones(1, lenTours(currSsc) + lDestroyed);
-            updateIndex(1:lDestroyed) = destroyedSet';
-            index = lDestroyed + 1;
-            for h = 1:nTour
-                if(tourInfo.lTour(h,currSsc)~=0)
-                    updateIndex(index:index + tourInfo.lTour(h,currSsc)-1) = tourInfo.tours{h,currSsc};
-                    index = index + tourInfo.lTour(h,currSsc);
-                end
-            end
-        end
     end
 end
