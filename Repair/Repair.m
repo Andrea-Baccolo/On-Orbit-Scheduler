@@ -76,6 +76,12 @@ classdef Repair
             end
         end
 
+        function updateIndex = updateIndexSeq(obj, seq, destroyedSet)
+            seq(seq > obj.nTar) = [];
+            seq(seq == 0) = [];
+            updateIndex = [destroyedSet, seq];
+        end
+
         function newTour = insertTar(~, tour, tarSelect, posSelect)
             % this function add the new target in the positiomn posSelect,
             % shifting the vector tour(posSelect:end) by one position to
