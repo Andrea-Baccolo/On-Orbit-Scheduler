@@ -52,7 +52,7 @@ classdef Repair
             slt.tourInfo = tourInfo;
         end
 
-        function updateIndex = createUpdateIndex(~, tourInfo, destroyedSet, currTour, currSSc)
+        function updateIndex = updateIndexTour(~, tourInfo, destroyedSet, currTour, currSSc)
             % get the total number of upddateIndex
             lDestroyed = length(destroyedSet);
             if(isscalar(tourInfo.lTour(currTour:end,currSSc)))

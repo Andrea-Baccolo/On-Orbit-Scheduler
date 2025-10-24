@@ -9,6 +9,51 @@ classdef RepairInsert < Repair
             obj@Repair(nTar);
         end
 
+        function df_i = calculateDf(obj, initialState, sscIndx, destroyedSet, currSeq, tourInfo)
+            lDes = length(destroyedSet);
+            nPos = size(currSeq,2);
+            state = initialState;
+            sim = Simulator(state);
+            df_i = zeros(lDes, nPos);
+            dfCurr = 0;
+            updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, 1, sscIndx);
+            for p = 1:nPos
+                % POPULATE DF STRUCTURE
+                % Note that since we do not have the total fuel of the
+                % original route yet, in the matrix will be saved just
+                % the fuel obtained in that specific scenario, then it
+                % will be obtained the requested change
+                finalSeq = p+1:nPos+1;
+                for j = 1:lDes
+                    % to reduce the total number of reach, I will simulate all the sequence
+                    newSeq = [ seq(p), destroyedSet(j), seq(finalSeq)];
+                    [~, infeas, totFuel, ~, ~] = sim.SimulateSeq(state, sscIndx, newSeq, updateIndex);
+                    if(infeas == 0)
+                        df_i(j,p) = df_i(j,p) + totFuel;
+                    else
+                        df_i(j,p) = inf;
+                    end
+                end
+
+                % FILL THE STATESTRUCTURE
+                % simulate from currentSeq
+                [nextState, infeas, totFuel, ~, ~] = sim.SimulateReach(state, sscIndx, currSeq(p+1), updateIndex);
+                if(~infeas)
+                    state = nextState;
+                    dfCurr = dfCurr + totFuel;
+                    % to reduce the number of reach, I will add totFuel
+                    % to df_i(:,finalSeq), to avoid restarting the
+                    % simulation for the destroyedSet and to avoid to
+                    % simulate the currentSeq too much
+                    if p < nPos
+                        df_i(:,p+1) = df_i(:,p+1) + dfCurr*ones(lDes, 1);
+                    end
+                else
+                    error("Part of the old solution must not be infeasible")
+                end
+            end
+        end
+
         function [df, stateStruct, nPos] = initialDfStruct(obj, stateSSc, destroyedSet, tourInfo, currSeq)
             % create stateStruct
             nSSc = size(tourInfo.lTour,2);

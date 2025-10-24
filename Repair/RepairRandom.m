@@ -23,7 +23,7 @@ classdef RepairRandom < Repair
             currTour = 1;
             currSSc = 1;
             % create update index 
-            updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, currTour, currSSc);
+            updateIndex = obj.updateIndexTour(tourInfo, destroyedSet, currTour, currSSc);
             sim = Simulator(stateSsc{currSSc});
 
             while(~isempty(destroyedSet) && currTour<= nTour)
@@ -106,7 +106,7 @@ classdef RepairRandom < Repair
                         currSSc = currSSc - nSSc*(currSSc == nSSc + 1);
                         fprintf("change to tour %d of ssc %d\n",currTour, currSSc)
 
-                        updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, currTour, currSSc);
+                        updateIndex = obj.updateIndexTour(tourInfo, destroyedSet, currTour, currSSc);
                     end
                  end
             end
