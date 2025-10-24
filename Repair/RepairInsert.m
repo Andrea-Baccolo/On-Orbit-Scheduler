@@ -22,7 +22,10 @@ classdef RepairInsert < Repair
             else
                 lenTours = sum(tourInfo.lTour,1);
             end
-            nPos = ones(1,nSSc) + lenTours + tourInfo.nTour;
+            % this is all the possible positions where I can put a target,
+            % which corresponds to all the passage from a point to the
+            % sequence to another: nPos(i) = nSeq(i) -1
+            nPos = lenTours + tourInfo.nTour;
             % this instance allocates more cells for speed reasons
             nPosMax = max(nPos + lDes*ones(1,nSSc));
 
@@ -33,66 +36,51 @@ classdef RepairInsert < Repair
             % creation of df structure
             df = cell(nSSc);
             % fuel value of the current slt
+            % to reduce the total number of reach, I will simulate all the sequence
             dfCurr = zeros(nSSc,1);
+            % creating the sequence
+            currSeq = TourInfo.rebuildSeq(obj.nTar);
 
-             for i = 1:nSSc
+            for i = 1:nSSc
                 df{i} = zeros(lDes, nPos(i));
                 % updateIndex
                 updateIndex = obj.createUpdateIndex(tourInfo, destroyedSet, 1, i);
-                % creating the sequence
-                
-                 for p = 1:nPos(i)
+                for p = 1:nPos(i)
+                    % POPULATE DF STRUCTURE
+                    % Note that since we do not have the total fuel of the
+                    % original route yet, in the matrix will be saved just
+                    % the fuel obtained in that specific scenario, then it
+                    % will be obtained the requested change
+                    finalSeq = p+1:nPos(i)+1;
+                    for j = 1:lDes
+                        % to reduce the total number of reach, I will simulate all the sequence
+                        newSeq = [ seq(i, p), destroyedSet(j), seq(i,finalSeq)];
+                        [~, infeas, totFuel, ~, ~] = sim.SimulateSeq(stateStruct{i,p}, i, newSeq, updateIndex);
+                        if(infeas == 0)
+                            df{i}(j,p) = df{i}(j,p) + totFuel;
+                        else
+                            df{i}(j,p) = inf;
+                        end
+                    end
 
-
-            %         % saving the state
-            %         if(p == 1) % saving the first state
-            %             stateStruct{i}{1} = initialState;
-            %             stateStruct{i}{1}.targets = stateStruct{i}{1}.targets{updateIndex};
-            %             if(pos{i}(1)~=1)
-            %                 % if the first state is different from the initial
-            %                 % one, I need to go on with the simulation and
-            %                 % keep in mind that this part will be the same
-            %                 % regarding of what destroyed target I will put
-            %                 [state, infeas, ~] = sim.SimulateSSc(obj, stateStruct{i}{p-1}, i, seq(i,pos{i}(p-1):pos{i}(p)), updateIndex);
-            %                 if(infeas==0)
-            %                     stateStruct{i}{p} = state;
-            %                 end
-            %                 % since in the end I need to store a CHANGE in
-            %                 % the objective function, I don't have to store
-            %                 % this information because this part will not
-            %                 % change in the overall solution
-            %             end
-            %         else % saving the other states
-            %             [state, infeas, totFuel] = sim.SimulateSSc(obj, stateStruct{i}{p-1}, i, seq(i,pos{i}(p-1):pos{i}(p)), updateIndex);
-            %             if(infeas==0)
-            %                 stateStruct{i}{p} = state;
-            %                 dfCurr(i) = dfCurr(i) + totFuel;
-            %                 % from now on I need to store the original fuel used 
-            %             end
-            %         end
-            % 
-            %         % populate the df structure
-            %         % Note that since we do not have the total fuel of the
-            %         % original route yet, in the matrix will be saved just
-            %         % the fuel obtained in that specific scenario, then it
-            %         % will be obtained the requested change
-            %         for j = 1:lDes
-            %             newSeq = [seq(i,pos{i}(p)), destroyedSet(j), seq(i,pos{i}(p)+1:lastPos)];
-            %             [~, infeas, totFuel] = sim.SimulateSSc(obj, stateStruct{i}{p}, i, newSeq, updateIndex);
-            %             if(infeas == 0)
-            %                 df{i}(j,p) = df{i}(j,p) + totFuel;
-            %             end
-            %         end
-            % 
-            %         % finish the original simulation
-            %         if(p == nPos)
-            %             [~, infeas, totFuel] = sim.SimulateSSc(obj, stateStruct{i}{p}, i, seq(i,pos{i}(p):lastPos), updateIndex);
-            %             if(infeas == 0)
-            %                 dfCurr(i) = dfCurr(i) + totFuel;
-            %             end
-            %         end
-                 end
-             end
+                    % FILL THE STATESTRUCTURE
+                    % simulate from currentSeq
+                    [state, infeas, totFuel, ~, ~] = sim.SimulateReach(stateStruct{i,p}, i, currSeq(p+1), updateIndex);
+                    if(~infeas)
+                        stateStruct{i,p+1} = state;
+                        dfCurr(i) = dfCurr(i) + totFuel;
+                        % to reduce the number of reach, I will add totFuel
+                        % to df{i}(:,finalSeq), to avoid restarting the
+                        % simulation for the destroyedSet and to avoid to
+                        % simulate the currentSeq too much
+                        if p<nPos(i)
+                            df{i}(:,p+1) = df{i}(:,p+1) + dfCurr(i)*ones(lDes, p+1);
+                        end
+                    else
+                        error("Part of the old solution must not be infeasible")
+                    end
+                end
+            end
 
      
         end
