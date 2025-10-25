@@ -153,19 +153,29 @@ classdef TourInfo
         end
 
         function posSeq = Tour2Seq(obj, sscIndx, tourIndx, posTour)
-            startIdx = cumsum([1; obj.lTour(1:end-1,sscIndx) + 1]);
-    
-            % check input value
-            if tourIndx < 1 || tourIndx > obj.nTour(sscIndx)
-                error('invalid tourIndx. It must be >1 and <= %d (%d instead).', obj.nTour(sscIndx), tourIndx);
+            % check if it is in a new tour after the one already given
+            if(tourIndx == obj.nTour(sscIndx) +1)
+                if(isscalar(obj.lTour))
+                    len = obj.lTour;
+                else
+                    len = sum(obj.lTour);
+                end
+                posSeq = obj.nTour(sscIndx) + 1 + len;
+            else
+                startIdx = cumsum([1; obj.lTour(1:end-1,sscIndx) + 1]);
+        
+                % check input value
+                if tourIndx < 1 || tourIndx > obj.nTour(sscIndx)
+                    error('invalid tourIndx. It must be >1 and <= %d (%d instead).', obj.nTour(sscIndx), tourIndx);
+                end
+                
+                if posTour < 1 || posTour > obj.lTour(tourIndx,sscIndx)+1
+                    error('invalid posTour. It must be >1 and <= %d (%d instead).', obj.lTour(tourIndx,sscIndx)+1, posTour);
+                end
+                
+                % Calcolo posizione assoluta
+                posSeq = startIdx(tourIndx) + posTour - 1;
             end
-            
-            if posTour < 1 || posTour > obj.lTour(tourIndx,sscIndx)+1
-                error('invalid posTour. It must be >1 and <= %d (%d instead).', obj.lTour(tourIndx,sscIndx)+1, posTour);
-            end
-            
-            % Calcolo posizione assoluta
-            posSeq = startIdx(tourIndx) + posTour - 1;
         end
 
         function [tourIndx, posTour] = Seq2Tour(obj, posSeq, sscIndx)
