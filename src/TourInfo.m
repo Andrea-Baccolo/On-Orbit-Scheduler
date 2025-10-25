@@ -183,7 +183,7 @@ classdef TourInfo
             endIndx   = startIndx + obj.lTour(:,sscIndx);
             tourIndx = find(posSeq >= startIndx & posSeq <= endIndx, 1, 'first');
             if isempty(tourIndx)
-                if(p == endIndx(end)+1)
+                if(posSeq == endIndx(end)+1)
                     tourIndx = obj.nTour(sscIndx)+1;
                     posTour = 1;
                 else

@@ -11,6 +11,8 @@ function testSeq2Pos(nSSc, tourInfo, nPos)
             res(indexes,3) = (1:tourInfo.lTour(l,i)+1)';
             count = count + tourInfo.lTour(l,i)+1;
         end
+        res(end,2) = tourInfo.nTour(i)+1;
+        res(end,3) = 1;
         % checking the function
         failST =  0;
         failTS =  0;
@@ -59,5 +61,5 @@ tourInfo = tourInfo.artificialTourInfo(tours, lTour, nTour);
 
 nSSc = 3;
 
-nPos = [14,9,11];
+nPos = [15,10,12];
 testSeq2Pos(nSSc, tourInfo, nPos)
