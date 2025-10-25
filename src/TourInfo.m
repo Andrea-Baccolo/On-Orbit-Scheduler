@@ -173,9 +173,15 @@ classdef TourInfo
             endIndx   = startIndx + obj.lTour(:,sscIndx);
             tourIndx = find(posSeq >= startIndx & posSeq <= endIndx, 1, 'first');
             if isempty(tourIndx)
-                error('Position p = %d does not belong to any tours', posSeq);
+                if(p == endIndx(end)+1)
+                    tourIndx = obj.nTour(sscIndx)+1;
+                    posTour = 1;
+                else
+                    error('Position p = %d does not belong to any tours', posSeq);
+                end
+            else
+                posTour = posSeq - startIndx(tourIndx) + 1;
             end
-            posTour = posSeq - startIndx(tourIndx) + 1;
         end
 
         function output(obj, fid)
