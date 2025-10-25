@@ -79,7 +79,7 @@ classdef Repair
         function updateIndex = updateIndexSeq(obj, seq, destroyedSet)
             seq(seq > obj.nTar) = [];
             seq(seq == 0) = [];
-            updateIndex = [destroyedSet, seq];
+            updateIndex = [destroyedSet', seq];
         end
 
         function newTour = insertTar(~, tour, tarSelect, posSelect)

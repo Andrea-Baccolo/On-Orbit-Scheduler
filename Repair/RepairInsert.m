@@ -1,7 +1,6 @@
 classdef RepairInsert < Repair
 
     properties
-        nTar
     end
 
     methods
@@ -11,8 +10,10 @@ classdef RepairInsert < Repair
 
         function df_i = calculateDf(obj, initialState, sscIndx, destroyedSet, currSeq)
             % currSeq è un vettore, gli passo solo il vettorino che mi serve
+            currSeq(currSeq>obj.nTar) = [];
+
             lDes = length(destroyedSet);
-            nPos = lenght(currSeq) - 1;
+            nPos = length(currSeq) - 1;
             state = initialState;
             sim = Simulator(state);
             df_i = zeros(lDes, nPos);
@@ -28,10 +29,10 @@ classdef RepairInsert < Repair
                 for j = 1:lDes
                     % simulation from position p to the end with the
                     % destroyed target
-                    newSeq = [ seq(p), destroyedSet(j), seq(finalSeq)];
+                    newSeq = [ currSeq(p), destroyedSet(j), currSeq(finalSeq)];
                     [~, infeas, totFuel, ~, ~] = sim.SimulateSeq(state, sscIndx, newSeq, updateIndex);
                     if(infeas == 0)
-                        df_i(j,p) = df_i(j,p) + totFuel;
+                        df_i(j,p) = df_i(j,p) + sum(totFuel);
                     else
                         df_i(j,p) = inf;
                     end
@@ -61,16 +62,16 @@ classdef RepairInsert < Repair
             nSSc = size(currSeq,1);
             df = cell(nSSc,1);
             for i = 1:nSSc
-                df{i} = obj.calculateDf(initialState, i, destroyedSet, currSeq(i));
+                df{i} = obj.calculateDf(initialState, i, destroyedSet, currSeq(i,:));
             end
         end
 
-        function [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc)
+        function [destroyedSet, tourInfo, stateSSc] = buildTours(obj, destroyedSet, tourInfo, stateSSc)
             % creating the sequence
-            currSeq = TourInfo.rebuildSeq(obj.nTar);
+            currSeq = tourInfo.rebuildSeq(obj.nTar);
 
             % generating initial structures
-            [df, stateStruct, nPos] = obj.initialDfStruct(stateSSc, destroyedSet, tourInfo, currSeq);
+            df = obj.initialDfStruct(stateSSc{1}, destroyedSet,currSeq);
             while(~isempty(destroyedSet))
                 % choose target
                 [tarIndx, sscIndx, posSeq] = obj.chooseTar(df);
@@ -79,7 +80,7 @@ classdef RepairInsert < Repair
                 [tourIndx, posIndx] = tourInfo.Seq2Tour(posSeq, sscIndx);
 
                 % insert target
-                newTour = obj.insertTar(tourInfo.tours(tourIndx,sscIndx), tarIndx, posIndx);
+                newTour = obj.insertTar(tourInfo.tours{tourIndx,sscIndx}, destroyedSet(tarIndx), posIndx);
 
                 % save new tour
                 if(isempty(tourInfo.tours{tourIndx, sscIndx}))
@@ -93,7 +94,7 @@ classdef RepairInsert < Repair
                 currSeq = tourInfo.rebuildSeq(obj.nTar);
 
                 % update df and stateStruct
-                [df, stateStruct] = obj.updateStruct(sscIndx, posSeq, currSeq, df, stateStruct, nPos);
+                df = obj.updateStruct(df, stateSSc{1}, currSeq, sscIndx, tarIndx,  destroyedSet);
             end
 
         end
@@ -123,12 +124,12 @@ classdef RepairInsert < Repair
             posSequence = insPos(tarIndx);
         end
 
-        function df = updateStruct(obj, df, sscIndx, tarIndx, initialState, destroyedSet, currSeq)
+        function df = updateStruct(obj, df, initialState, currSeq, sscIndx, tarIndx,  destroyedSet)
             nSSc = size(currSeq,1);
             for i = 1:nSSc
                 if (i == sscIndx)
                     % if I consider the ssc that has changed, update the changes
-                    df{i} = obj.calculateDf(initialState, i, destroyedSet, currSeq(i));
+                    df{i} = obj.calculateDf(initialState, i, destroyedSet, currSeq(i,:));
                 else
                     % if is another one, just delete the row of the chosen target
                     df{i}(tarIndx,:) = [];
