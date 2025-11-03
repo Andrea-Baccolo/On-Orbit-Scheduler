@@ -1,0 +1,62 @@
+==== Fuel Table ====
+                           <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                           <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>Total Minimum found</strong>    179.91    159.83    154.24    178.53    165.99
+
+
+
+==== Destroy Weights Table ====
+                         <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
+                        <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
+
+    <strong>DesRandom       </strong>    0.10005    0.10002    0.10117    0.10007    0.10117
+    <strong>DesRelatedGreedy</strong>        0.1        0.1      0.125    0.14219       0.15
+    <strong>DesRelatedRandom</strong>     0.1502        0.1    0.10391    0.10627    0.15176
+    <strong>DesFirst        </strong>    0.16428    0.14304    0.20912    0.11932    0.13111
+    <strong>DesLast         </strong>    0.10014        0.1    0.10381     0.1127    0.14818
+    <strong>DesTourCost     </strong>        0.1        0.1        0.1        0.1        0.1
+    <strong>DesTourRandom   </strong>        0.1        0.1        0.1        0.1        0.1
+    <strong>DesTourSmall    </strong>        0.1        0.1        0.1        0.1        0.1
+    <strong>DesSScCost      </strong>        0.1        0.1        0.1        0.1        0.1
+    <strong>DesSScRandom    </strong>        0.1        0.1        0.1        0.1        0.1
+
+
+
+==== Repair Weights Table ====
+                      <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                     <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>______</strong>
+
+    <strong>RepRandom    </strong>        0.1        0.1        0.1        0.1    0.1002
+    <strong>RepFarInsSim </strong>    0.15015    0.11486    0.17552    0.10792    0.1667
+    <strong>RepFarInsNear</strong>        0.1        0.1        0.1        0.1       0.1
+
+
+
+==== Destroy Selection Table ====
+                        <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                        <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>DesRandom       </strong>     112      106      101      112       84 
+    <strong>DesRelatedGreedy</strong>     120      119      104      111      114 
+    <strong>DesRelatedRandom</strong>      93       91      112      107      116 
+    <strong>DesFirst        </strong>     144      132      114      109      111 
+    <strong>DesLast         </strong>     104      113      110      155      137 
+    <strong>DesTourCost     </strong>      83       71      101       65       84 
+    <strong>DesTourRandom   </strong>      73      106      107       92       72 
+    <strong>DesTourSmall    </strong>      92      114       72       77       95 
+    <strong>DesSScCost      </strong>      89       62       84       82       86 
+    <strong>DesSScRandom    </strong>      90       86       95       90      101 
+
+
+
+==== Repair Selection Table ====
+                     <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                     <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>RepRandom    </strong>     245      259      291      248      261 
+    <strong>RepFarInsSim </strong>     525      493      482      532      485 
+    <strong>RepFarInsNear</strong>     230      248      227      220      254 
+
+
+

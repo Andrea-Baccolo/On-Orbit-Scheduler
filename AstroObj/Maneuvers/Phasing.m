@@ -1,10 +1,10 @@
 classdef Phasing < OrbitalManeuver
     
-    % Implementation of phasing maneuver
+    % Implementing phasing, a maneuver to reach a target 
 
     properties
-        semiMajorAxis
-        Revolutions
+        semiMajorAxis   % semimajorAxis of the resulting orbit
+        Revolutions     % number of revolutions used for phasing
     end
 
     properties (Constant)
@@ -41,11 +41,13 @@ classdef Phasing < OrbitalManeuver
         function obj = compute(obj, ssc, target, ~)
             % computing Phasing maneuver
             a = target.orbit.semiMajorAxis;
+
             % phase angle
             psi = ssc.trueAnomaly - target.trueAnomaly;
             theta = psi*(abs(psi)<=180) + (abs(psi)-360)*(psi>180) + (360-abs(psi))*(psi<-180);
             
             while 1 
+                % computing maneuver time
                 tau = (2*pi*obj.Revolutions + theta*(pi/180))/(target.orbit.angVel);
                 if(tau>0) % check if time > 0
                     obj.semiMajorAxis = (ssc.orbit.GMp*(tau/(2*pi*obj.Revolutions))^2)^(1/3);
@@ -55,8 +57,10 @@ classdef Phasing < OrbitalManeuver
                         break;
                     end
                 end
+                % since is not feasible, try with more revolutions
                 obj.Revolutions = obj.Revolutions + 1;
             end
+            % computing dv 
             obj.dv = 2*abs( sqrt( 2*ssc.orbit.GMp/a - ssc.orbit.GMp/obj.semiMajorAxis ) - sqrt( ssc.orbit.GMp/a )) ;
             obj.dt = tau ;
             obj.totAngle = (180/pi)*ssc.orbit.angVel*obj.dt;

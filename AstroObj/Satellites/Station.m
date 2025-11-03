@@ -1,6 +1,6 @@
-classdef Station < SpaceObj & RefillProp
+classdef Station < SpacePosition & RefillProp
 
-    % Refilling station object.
+    % Fuel station object.
     
     methods
         function obj = Station(orbit, trueAnomaly, speedRefill)
@@ -9,7 +9,7 @@ classdef Station < SpaceObj & RefillProp
             if nargin < 2, trueAnomaly = [];end
             if nargin < 1, orbit = []; end
             
-            obj@SpaceObj(orbit, trueAnomaly);
+            obj@SpacePosition(orbit, trueAnomaly);
             obj@RefillProp(speedRefill);
         end
 

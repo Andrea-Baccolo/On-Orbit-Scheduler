@@ -22,15 +22,23 @@ classdef Refilling < Maneuver
         end
 
         function [simState, fuelUsed] = execute(obj, simState)
+            % the fuel used in this maneuver is not considered in the reach fuel
             fuelUsed = 0;
             if obj.targetIndx == 0
                 % station refill ssc saved in target
+
+                % refill the ssc
                 simState.sscs(obj.sscIndx) = simState.sscs(obj.sscIndx).add_fuel();
+                % update the ssc
                 simState.sscs(obj.sscIndx) = simState.sscs(obj.sscIndx).update(obj.dt);
             else
                 % ssc refill target
+
+                % refill the target
                 simState.targets(obj.targetIndx) = simState.targets(obj.targetIndx).add_fuel();
+                % subtract the fuel from the ssc
                 simState.sscs(obj.sscIndx)= simState.sscs(obj.sscIndx).giveFuel(obj.fuelAdded);
+                % update the ssc
                 simState.sscs(obj.sscIndx) = simState.sscs(obj.sscIndx).update(obj.dt);
             end
         end
@@ -38,17 +46,23 @@ classdef Refilling < Maneuver
         function obj = compute(obj, ssc, target, fuelReal)
             % I have to compute the time it will take to refill
             % obj.targetIndx is the attribute I need to controll
+
             if(obj.targetIndx == 0)
                 % target is the station and I need to refill the ssc
                 % fuel real is a computed quantity regarding the refill of
-                % the ssc, I can't use the ssc.fuelMass beasue it is the fuel
-                % before the planar change and the phasing, I need it after.
+                % the ssc, I can't use the ssc.fuelMass because it is the fuel
+                % before the planar change and the phasing, I need the fuel after.
 
+                % get the fuel that need to be added
                 obj.fuelAdded = ssc.tot_cap - fuelReal;
+                % compute the refilling time
                 obj.dt = obj.fuelAdded/target.speedRefill;
             else
                 % target is refueled by the ssc
+
+                % get the fuel that need to be added
                 obj.fuelAdded = target.tot_cap - target.fuelMass;
+                % compute the refilling time
                 obj.dt = obj.fuelAdded/ssc.speedRefill;
             end
             obj.totAngle = (180/pi)*ssc.orbit.angVel*obj.dt;

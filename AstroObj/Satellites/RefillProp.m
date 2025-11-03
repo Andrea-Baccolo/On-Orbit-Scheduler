@@ -1,6 +1,6 @@
 classdef (Abstract) RefillProp 
 
-    % Implementing Refilling modelling.
+    % Implementing Refilling model.
 
     properties
         speedRefill % L/s
@@ -8,7 +8,7 @@ classdef (Abstract) RefillProp
 
     methods
         function obj = RefillProp(speedRefill)
-            obj.speedRefill = [];
+            if nargin < 1, speedRefill = []; end
             obj.speedRefill = speedRefill;
         end
 

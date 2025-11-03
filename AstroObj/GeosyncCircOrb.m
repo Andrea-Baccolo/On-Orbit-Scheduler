@@ -6,14 +6,14 @@ classdef GeosyncCircOrb
     properties
         inclination
         raan
-        h 
+        h  % angular momentum         
     end
 
     properties (Constant)
-        semiMajorAxis = 42165; % km
+        semiMajorAxis = 42165;          % km
         angVel = 7.291900448184313e-05; % rad/s
-        GMp = 398600.4418;% km^3/s^2, product between gravitatinal
-                          % constant and earth's mass
+        GMp = 398600.4418;              % km^3/s^2, product between gravitatinal
+                                        % constant and earth's mass
     end
 
     methods

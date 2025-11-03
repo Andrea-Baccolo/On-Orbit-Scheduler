@@ -1,6 +1,7 @@
 classdef PlanarChange < OrbitalManeuver
     
-    % Implementing planar change.
+    % Implementing planar change, a maneuver to change inclination and raan
+    % of an orbit.
 
     properties
         nodeTarOrb
@@ -30,9 +31,12 @@ classdef PlanarChange < OrbitalManeuver
         function [simState, fuelUsed] = execute(obj, simState)
             % check fuel
             [~, fuelUsed, ~] = simState.sscs(obj.sscIndx).calculateFuel(obj.dv, simState.sscs(obj.sscIndx).fuelMass);
+            % subtract fuel
             simState.sscs(obj.sscIndx) = simState.sscs(obj.sscIndx).giveFuel(fuelUsed);
 
+            % update position with the new target reference angle
             simState.sscs(obj.sscIndx).trueAnomaly = obj.nodeTarOrb;
+            % getting the right orbit info
             if(obj.targetIndx == 0)
                 simState.sscs(obj.sscIndx).orbit = simState.station.orbit ;
             else
@@ -44,6 +48,7 @@ classdef PlanarChange < OrbitalManeuver
 
             % computing Planar Change maneuver
 
+            % useful informations
             os = ssc.orbit.raan;        ot = target.orbit.raan;
             is = ssc.orbit.inclination; it = target.orbit.inclination;
             nuS = ssc.trueAnomaly;      a = target.orbit.semiMajorAxis;
@@ -53,7 +58,10 @@ classdef PlanarChange < OrbitalManeuver
             CosAlpha = sis*sit*cosd(os-ot)+cis*cit; % dihedral angle
             SinAlphaHalf = sqrt((1-CosAlpha)/2); % bisection formula
 
+            % looking for the intersextions of planes 
             vect = cross(target.orbit.h, ssc.orbit.h);
+
+            % considers same equation but different orbital element
             if(norm(vect,2) == 0)
                 fprintf("\nERROR \nTarget Orbit: \n")
                 target.orbit.output(1);
@@ -61,6 +69,7 @@ classdef PlanarChange < OrbitalManeuver
                 ssc.orbit.output(2);
                 error("Instance not correct, there are two orbits that define the same circle but with two different rotations")
             else
+                % getting intersections in cartesian reference system
                 rm1 = a*(cross(target.orbit.h, ssc.orbit.h)/...
                           norm(cross(target.orbit.h, ssc.orbit.h),2));
                 
@@ -93,10 +102,14 @@ classdef PlanarChange < OrbitalManeuver
                     [~, col] = max(angleS);
                 end
     
+                % selecting the chosen node
                 obj.nodeSScOrb = angleS(col);
                 obj.nodeTarOrb = angleT(col);
     
+                % computing dv
                 obj.dv = 2*abs(target.orbit.angVel)*SinAlphaHalf;
+
+                % computing dt
                 obj.dt = 0;
                 chi = obj.nodeSScOrb - ssc.trueAnomaly;
                 chi = chi +(chi <= -180)*360 -(chi > 180)*360;
@@ -124,8 +137,9 @@ classdef PlanarChange < OrbitalManeuver
                    0,   0,  1];
             M = Rx*Rz;
             pNorm = (M*r)./a;
+
             % to avoid numerical problems:
-            val = (abs(pNorm(1)))*(abs(pNorm(1)) <= 1) + 1*(abs(pNorm(1)) >1);
+            val = min(max(abs(pNorm(1)), -1), 1);
         
             % find a possible angle in the first quadrants 
             angle = mod(rad2deg(acos(val)), 360);

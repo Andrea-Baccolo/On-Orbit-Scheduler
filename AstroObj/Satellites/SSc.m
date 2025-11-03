@@ -1,4 +1,4 @@
-classdef SSc < SpaceObj & RefillProp & FuelContainer 
+classdef SSc < SpacePosition & RefillProp & FuelContainer 
 
     % Service Spacecraft (Ssc).
 
@@ -20,15 +20,18 @@ classdef SSc < SpaceObj & RefillProp & FuelContainer
             if nargin < 2, trueAnomaly = [];end
             if nargin < 1, orbit = []; end   
 
-            obj@SpaceObj(orbit, trueAnomaly);
+            obj@SpacePosition(orbit, trueAnomaly);
             obj@RefillProp(speedRefill);
             obj@FuelContainer(dryMass, fuelMass, totCap);
             obj.specificImpulse = specificImpulse;
         end
 
         function [finalFuelMass, fuel, infeas] = calculateFuel(obj, dv, fuelSSc)
+            % Tsiolkovsky rocket equation
             finalMass = (fuelSSc + obj.dryMass)/exp(dv/(obj.g0*obj.specificImpulse));
+            % obtaining fuel by subtraction
             fuel = (fuelSSc + obj.dryMass) - finalMass;
+            % check if enough fuel with respect to that dv
             finalFuelMass = fuelSSc - fuel;
             if(finalFuelMass<0)
                 infeas = 1;
@@ -38,7 +41,12 @@ classdef SSc < SpaceObj & RefillProp & FuelContainer
         end
 
         function obj = giveFuel(obj, quantity)
-            obj.fuelMass = obj.fuelMass - quantity;
+            finalMass = obj.fuelMass - quantity;
+            if(finalMass >= 0)
+                obj.fuelMass = obj.fuelMass - quantity;
+            else
+                error("Error: negative fuel");
+            end
         end
 
         function output(obj, fid)

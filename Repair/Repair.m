@@ -1,52 +1,29 @@
 classdef Repair
 
+    % General Repair method used to rebuild a new solution from the
+    % destroyed solution
+
     properties
         nTar
     end
 
     methods (Abstract)
-        [destroyedSet, tourInfo, stateSsc] = buildTours(obj, destroyedSet, tourInfo, stateSsc);
+        tourInfo = buildTours(obj, destroyedSet, tourInfo, stateSsc);
     end
 
     methods
         function obj = Repair(nTar)
+            if nargin < 1, nTar = 0; end
             obj.nTar = nTar;
         end
 
         function slt = Reparing(obj, initialState, destroyedSet, tourInfo)
-            nSSc = size(tourInfo.lTour,2);
-            stateSSc = repmat({initialState}, nSSc, 1);
-
             % insert targets in existing tours
-            [destroyedSet, tourInfo, stateSSc] = obj.buildTours(destroyedSet, tourInfo, stateSSc);
-            
-            if(~isempty(destroyedSet))
-                lDestroyed = length(destroyedSet);
-               % insert targets in new tours
-
-                 %initializing lastTourInfo
-                lastTourInfo = TourInfo();
-                lastTours = cell(lDestroyed,nSSc);
-                lastLTour = zeros(lDestroyed,nSSc);
-                lastNTour = zeros(nSSc, 1);
-                lastTourInfo = lastTourInfo.artificialTourInfo(lastTours, lastLTour, lastNTour);
-
-                % rebuilding lastTourInfo
-                [~, lastTourInfo, ~] = obj.buildTours(destroyedSet, lastTourInfo, stateSSc);
-
-                % cutting lastTourInfo
-                lastTourInfo = lastTourInfo.cutTour();
-
-                % merging in newTourInfo
-                % artificialTourInfo(obj, tours, lTour, nTour)
-                tourInfo = tourInfo.artificialTourInfo(...
-                    [tourInfo.tours; lastTourInfo.tours], ...
-                    [tourInfo.lTour; lastTourInfo.lTour], ...
-                    tourInfo.nTour + lastTourInfo.nTour);
-            else
+            if(~isempty(destroyedSet)) % if there is something to destroy
+                tourInfo = obj.buildTours(destroyedSet, tourInfo, initialState);
                 tourInfo = tourInfo.cutTour();
             end
-            
+            % rebuild the sequence and the solution
             seq = tourInfo.rebuildSeq(obj.nTar);
             slt = Solution(seq);
             slt.tourInfo = tourInfo;

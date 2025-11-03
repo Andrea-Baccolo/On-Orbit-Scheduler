@@ -1,17 +1,17 @@
-classdef Maneuver 
+classdef (Abstract) Maneuver 
 
     % This general class stores all common informations needed to
     % calculate and execute maneuvers.
 
     properties
-        dt % time to perform the maenuver
-        totAngle % total angle done in dt of time
-        sscIndx % index that identifies which SSc is involved in the maneuver
-        targetIndx % index that identifies which target is involved in the maneuver
+        dt          % time to perform the maenuver
+        totAngle    % total angle done in dt of time
+        sscIndx     % index that identifies which SSc is involved in the maneuver
+        targetIndx  % index that identifies which target is involved in the maneuver
     end
 
     properties (Abstract, Constant)
-        type
+        type % string that stroe the type of maneuver performed
     end
 
     methods (Abstract)
@@ -28,6 +28,11 @@ classdef Maneuver
     methods
         
         function obj = Maneuver(sscIndx, targetIndx, dt, totAngle)
+            if nargin < 1, sscIndx = 0; end
+            if nargin < 2, targetIndx = 0; end
+            if nargin < 3, dt = 0; end
+            if nargin < 4, totAngle = 0; end
+
             % creating an instance of a Maneuver object given all inputs
             obj.dt = dt ;
             obj.sscIndx = sscIndx ;

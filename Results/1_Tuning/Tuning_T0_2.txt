@@ -1,0 +1,62 @@
+==== Fuel Table ====
+                           <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                           <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>Total Minimum found</strong>    159.83    180.82    192.67    166.4    180.3
+
+
+
+==== Destroy Weights Table ====
+                        <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                        <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>DesRandom       </strong>    1.0007     1.347     1.099    1.5472    1.0001
+    <strong>DesRelatedGreedy</strong>    1.1398    1.0397    1.0349    1.0079    1.3811
+    <strong>DesRelatedRandom</strong>    1.1841    2.0302         1    1.0161    1.0819
+    <strong>DesFirst        </strong>    1.9495    1.0003    1.2315    2.0008     2.352
+    <strong>DesLast         </strong>    1.0442    1.5248    1.0103    1.9259    1.1602
+    <strong>DesTourCost     </strong>         1         1         1    1.0002         1
+    <strong>DesTourRandom   </strong>         1         1         1         1         1
+    <strong>DesTourSmall    </strong>         1         1         1         1         1
+    <strong>DesSScCost      </strong>         1         1         1         1         1
+    <strong>DesSScRandom    </strong>         1         1         1         1         1
+
+
+
+==== Repair Weights Table ====
+                     <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                     <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>RepRandom    </strong>         1         1         1    1.2813         1
+    <strong>RepFarInsSim </strong>    1.6053    1.1974    1.0281    1.5399    1.3425
+    <strong>RepFarInsNear</strong>         1         1         1         1         1
+
+
+
+==== Destroy Selection Table ====
+                        <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                        <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>DesRandom       </strong>      96      122      121      122      126 
+    <strong>DesRelatedGreedy</strong>     119      130      109      102       88 
+    <strong>DesRelatedRandom</strong>     107       92       94      105      104 
+    <strong>DesFirst        </strong>     120      103      110      130      144 
+    <strong>DesLast         </strong>     124      147      138      152      133 
+    <strong>DesTourCost     </strong>      91       93       96       90       80 
+    <strong>DesTourRandom   </strong>      85       79       97       73       81 
+    <strong>DesTourSmall    </strong>      84       70       73       75       88 
+    <strong>DesSScCost      </strong>      87       92       87       77       63 
+    <strong>DesSScRandom    </strong>      87       72       75       74       93 
+
+
+
+==== Repair Selection Table ====
+                     <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                     <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>RepRandom    </strong>     271      251      242      235      251 
+    <strong>RepFarInsSim </strong>     463      490      500      517      510 
+    <strong>RepFarInsNear</strong>     266      259      258      248      239 
+
+
+

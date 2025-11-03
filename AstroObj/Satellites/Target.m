@@ -1,13 +1,6 @@
-classdef Target < SpaceObj & FuelContainer 
+classdef Target < SpacePosition & FuelContainer 
     
     % Taregt to refill.
-
-    methods (Access = protected)
-        function newObj = copyElement(obj)
-            newObj = copyElement@matlab.mixin.Copyable(obj);
-            newObj.orbit = obj.orbit.copy();
-        end
-    end
     
     methods
         function obj = Target(orbit, trueAnomaly, dryMass, fuelMass, totCap)
@@ -18,7 +11,7 @@ classdef Target < SpaceObj & FuelContainer
             if nargin < 2, trueAnomaly = [];end
             if nargin < 1, orbit = []; end
 
-            obj@SpaceObj(orbit, trueAnomaly);
+            obj@SpacePosition(orbit, trueAnomaly);
             obj@FuelContainer(dryMass, fuelMass, totCap);
         end
 

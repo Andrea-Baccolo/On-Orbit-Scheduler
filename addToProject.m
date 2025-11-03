@@ -5,8 +5,8 @@ clc
 % using fullfile to be indipendent from the OS (operating system)
 proj = currentProject;
 projectPath = proj.RootFolder;
-subFolder = 'Examples';   
-fileName  = 'ExRep0.mat'; 
+subFolder = 'Destroy';   
+fileName  = "DesRelatedGreedy.m";
 nameFile = fullfile(projectPath, subFolder, fileName);
 
 

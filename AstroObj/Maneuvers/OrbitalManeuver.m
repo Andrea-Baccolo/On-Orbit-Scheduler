@@ -1,7 +1,6 @@
-classdef OrbitalManeuver < Maneuver
+classdef (Abstract) OrbitalManeuver < Maneuver
     
     % General class that implements common Orbital Maneuvers's properties,
-    % like dv
 
     properties
         dv
@@ -9,6 +8,12 @@ classdef OrbitalManeuver < Maneuver
 
     methods
         function obj = OrbitalManeuver(sscIndx, targetIndx, dt, totAngle, dv)
+            if nargin < 1, sscIndx = 0; end
+            if nargin < 2, targetIndx = 0; end
+            if nargin < 3, dt = 0; end
+            if nargin < 4, totAngle = 0; end
+            if nargin < 5, dv = 0; end
+
             obj@Maneuver(sscIndx, targetIndx, dt, totAngle);
             obj.dv = dv;
         end

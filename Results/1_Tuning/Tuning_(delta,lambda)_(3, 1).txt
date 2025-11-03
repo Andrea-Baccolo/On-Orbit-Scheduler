@@ -1,0 +1,62 @@
+==== Fuel Table ====
+                           <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                           <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>Total Minimum found</strong>    175.92    173.99    153.63    167.38    173.25
+
+
+
+==== Destroy Weights Table ====
+                         <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
+                        <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
+
+    <strong>DesRandom       </strong>        0.1    0.10234        0.1        0.1    0.10015
+    <strong>DesRelatedGreedy</strong>    0.10015    0.10001        0.1    0.10059    0.11011
+    <strong>DesRelatedRandom</strong>        0.1    0.10234       0.55        0.1    0.10017
+    <strong>DesFirst        </strong>    0.10044    0.10297        0.1    0.11187    0.10005
+    <strong>DesLast         </strong>    0.10073    0.14999    0.29999    0.26235    0.14747
+    <strong>DesTourCost     </strong>        0.1        0.1        0.1        0.1        0.1
+    <strong>DesTourRandom   </strong>    0.10004    0.10018        0.1        0.1        0.1
+    <strong>DesTourSmall    </strong>        0.1        0.1        0.1        0.1        0.1
+    <strong>DesSScCost      </strong>        0.1        0.1        0.1        0.1        0.1
+    <strong>DesSScRandom    </strong>        0.1        0.1        0.1        0.1        0.1
+
+
+
+==== Repair Weights Table ====
+                     <strong>Rep 1</strong>     <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
+                     <strong>_____</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
+
+    <strong>RepRandom    </strong>     0.1         0.1        0.1        0.1        0.1
+    <strong>RepFarInsSim </strong>     0.1     0.14043    0.14454    0.25004    0.13751
+    <strong>RepFarInsNear</strong>     0.1         0.1        0.1        0.1        0.1
+
+
+
+==== Destroy Selection Table ====
+                        <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                        <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>DesRandom       </strong>      93       95      105      112      108 
+    <strong>DesRelatedGreedy</strong>      98       96       94       97      111 
+    <strong>DesRelatedRandom</strong>     103       85       91      103      109 
+    <strong>DesFirst        </strong>     102      144      125      114      103 
+    <strong>DesLast         </strong>     124      135      136      136      126 
+    <strong>DesTourCost     </strong>     109       96       75       98       95 
+    <strong>DesTourRandom   </strong>      86       81       76       91       84 
+    <strong>DesTourSmall    </strong>     105       94       99       69       79 
+    <strong>DesSScCost      </strong>      96       88      105       90       95 
+    <strong>DesSScRandom    </strong>      84       86       94       90       90 
+
+
+
+==== Repair Selection Table ====
+                     <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                     <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>RepRandom    </strong>     262      256      236      270      242 
+    <strong>RepFarInsSim </strong>     487      498      487      494      500 
+    <strong>RepFarInsNear</strong>     251      246      277      236      258 
+
+
+
