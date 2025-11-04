@@ -20,7 +20,7 @@ classdef DesRelatedRandom < DesRelated
         function tarChosen = chooseTar(obj, sortedTarIndx)
             nSorted = length(sortedTarIndx);
             r = rand();
-            %fprintf(" take the %d th \n", floor((r)^obj.p * nSorted) + 1)
+            %fprintf(" take the %d th over %d \n", floor((r)^obj.p * nSorted) + 1, nSorted)
             tarChosen = sortedTarIndx(floor((r)^obj.p * nSorted) + 1);
         end
     end

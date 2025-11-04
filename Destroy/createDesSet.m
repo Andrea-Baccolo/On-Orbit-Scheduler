@@ -2,7 +2,7 @@ function desSet = createDesSet(nTar, degDes, nDestroy, beta, p)
     if nargin < 2, degDes = 50; end
     if nargin < 3, nDestroy = 10; end
     if nargin < 4 && nDestroy >1, beta = 0.5; end
-    if nargin < 5 && nDestroy >2, p = 1; end
+    if nargin < 5 && nDestroy >2, p = 2; end
 
     desSet = cell(nDestroy,1);
 

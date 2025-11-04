@@ -151,9 +151,9 @@ classdef (Abstract) GeneralALNS
                 stop = obj.stoppingCriteria(countIter(rep));
                 
                 while(~stop)
-                    % disp(countIter);
-                    % if(countIter==-1)
-                    %     fprintf("fuck\n");
+                    % disp(countIter(rep));
+                    % if(countIter(2)==10)
+                    %     fprintf("hi\n");
                     % end
                     [desIndx, repIndx] = obj.extract();
                     obj.outNSelDes(desIndx, rep) = obj.outNSelDes(desIndx, rep) + 1;

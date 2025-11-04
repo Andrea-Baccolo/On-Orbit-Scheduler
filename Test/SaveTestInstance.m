@@ -84,13 +84,13 @@ seq = [0 1 0 2 0
 
 nSSc = 4; nTar = 15;
 i_S = 20;   omega_S = 60; nu_S = 0;  
-i_T = [130, 70, 50, 120, 110,20,165,40,150,60,130,90,10,80,30 ];  
-omega_T = [90, 350, 110, 240,145,210,330,150,270,90,15,30,240,275,180];
+i_T = [130, 70, 50, 120, 110,20,105,40,50,60,13,90,10,80,30 ];  
+omega_T = [90, 150, 110, 14,145,21,230,150,200,90,15,30,24,75,18];
 nu_T = [0, 180, 60, 265, linspace(10, 340, 11) ];
 
 dryMass_S = 500*ones(nSSc,1);           dryMass_T = 5000*ones(nTar,1);
-fuelMass_S = 2500*ones(nSSc,1);         dm = [500, 200, 500, 300, 200, 400, 250, 450, 500, 500, 200, 500, 300, 200, 400]';
-totCap_S = 2500*ones(nSSc,1);           totCap_T = 1000*ones(nTar,1);
+fuelMass_S = 25000*ones(nSSc,1);         dm = [300, 200, 50, 300, 200, 100, 250, 450, 100, 400, 200, 200, 300, 200, 20]';
+totCap_S = 25000*ones(nSSc,1);           totCap_T = 1000*ones(nTar,1);
 specificImpulse_S = 3*ones(nSSc,1);     fuelMass_T = totCap_T - dm;
 refillSpeedSSc = 0.0083*ones(nSSc,1);   refillSpeed = 0.0083*2;
 seq = 0;
@@ -102,12 +102,12 @@ seq = 0;
 
 nSSc = 2; nTar = 15;
 i_S = 20;   omega_S = 60; nu_S = 0;  
-i_T = [130, 70, 50, 120, 110,20,165,40,150,60,130,90,10,80,30 ];  
-omega_T = [90, 350, 110, 240,145,210,330,150,270,90,15,30,240,275,180];
+i_T = [130, 70, 50, 120, 110,20,105,40,50,60,13,90,10,80,30 ];  
+omega_T = [90, 150, 110, 14,145,21,230,150,200,90,15,30,24,75,18];
 nu_T = [0, 180, 60, 265, linspace(10, 340, 11) ];
 dryMass_S = 500*ones(nSSc,1);           dryMass_T = 5000*ones(nTar,1);
-fuelMass_S = 2500*ones(nSSc,1);         dm = [500, 200, 500, 300, 200, 400, 250, 450, 500, 500, 200, 500, 300, 200, 400]';
-totCap_S = 2500*ones(nSSc,1);           totCap_T = 1000*ones(nTar,1);
+fuelMass_S = 25000*ones(nSSc,1);         dm = [300, 200, 50, 300, 200, 100, 250, 450, 100, 400, 200, 200, 300, 200, 20]';
+totCap_S = 25000*ones(nSSc,1);           totCap_T = 1000*ones(nTar,1);
 specificImpulse_S = 3*ones(nSSc,1);     fuelMass_T = totCap_T - dm;
 refillSpeedSSc = 0.0083*ones(nSSc,1);   refillSpeed = 0.0083*2;
 seq = 0;
@@ -135,12 +135,12 @@ seq = 0;
 
 nSSc = 2; nTar = 15;
 i_S = 20;   omega_S = 60; nu_S = 0;  
-i_T = [130, 70, 50, 120, 110,20,165,40,150,60,130,90,10,80,30 ];  
-omega_T = [90, 350, 110, 240,145,210,330,150,270,90,15,30,240,275,180];
+i_T = [130, 70, 50, 120, 110,20,105,40,50,60,13,90,10,80,30 ];  
+omega_T = [90, 150, 110, 14,145,21,230,150,200,90,15,30,24,75,18];
 nu_T = [0, 180, 60, 265, linspace(10, 340, 11) ];
 dryMass_S = 500*ones(nSSc,1);           dryMass_T = 5000*ones(nTar,1);
-fuelMass_S = 2500*ones(nSSc,1);         dm = [500, 200, 550, 300, 250, 400, 250, 450, 500, 500, 275, 500, 300, 200, 600]';
-totCap_S = 2500*ones(nSSc,1);           totCap_T = 700*ones(nTar,1);
+fuelMass_S = 25000*ones(nSSc,1);         dm = [300, 200, 50, 300, 200, 100, 250, 450, 100, 400, 200, 200, 300, 200, 20]';
+totCap_S = 25000*ones(nSSc,1);           totCap_T = 700*ones(nTar,1);
 specificImpulse_S = 3*ones(nSSc,1);     fuelMass_T = totCap_T - dm;
 refillSpeedSSc = 0.0083*ones(nSSc,1);   refillSpeed = 0.0083*2;
 seq = 0;

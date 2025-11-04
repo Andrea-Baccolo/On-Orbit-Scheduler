@@ -2,27 +2,27 @@
                            <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
                            <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
 
-    <strong>Total Minimum found</strong>    153.63    159.83    160.72    173.99    159.83
+    <strong>Total Minimum found</strong>    2279.1    2292.7    2280.4    2206.7    2279.1
 
 
 
 ==== Destroy Weights Table ====
-                        <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
-                        <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+                        <strong>Rep 1</strong>    <strong>Rep 2</strong>     <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
+                        <strong>_____</strong>    <strong>_____</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
 
-    <strong>DesRandom       </strong>    1.0585    1.2473    1.1187    1.0515    1.0156
-    <strong>DesRelatedGreedy</strong>         1    1.0035         1    1.0009    1.2149
-    <strong>DesRelatedRandom</strong>    1.1515     1.005    1.0002    1.0001    1.0891
+    <strong>DesRandom       </strong>     0.1      0.1     0.10234    0.10941        0.1
+    <strong>DesRelatedGreedy</strong>     0.1      0.1     0.10059        0.1        0.1
+    <strong>DesRelatedRandom</strong>     0.1      0.1     0.10234    0.10938    0.10183
 
 
 
 ==== Repair Weights Table ====
-                     <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
-                     <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+                     <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
+                     <strong>_____</strong>    <strong>_____</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>_______</strong>
 
-    <strong>RepRandom    </strong>         1         1         1         1         1
-    <strong>RepFarInsSim </strong>    1.1013    1.0407    1.0503    1.0582    1.4125
-    <strong>RepFarInsNear</strong>         1         1         1         1         1
+    <strong>RepRandom    </strong>     0.1      0.1        0.1        0.1        0.1
+    <strong>RepFarInsSim </strong>     0.1      0.1     0.1123    0.14702    0.10046
+    <strong>RepFarInsNear</strong>     0.1      0.1        0.1        0.1        0.1
 
 
 
@@ -30,9 +30,9 @@
                         <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                         <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>DesRandom       </strong>     345      307      311      314      321 
-    <strong>DesRelatedGreedy</strong>     292      339      341      344      368 
-    <strong>DesRelatedRandom</strong>     363      354      348      342      311 
+    <strong>DesRandom       </strong>     348      346      378      340      339 
+    <strong>DesRelatedGreedy</strong>     333      305      322      331      341 
+    <strong>DesRelatedRandom</strong>     319      349      300      329      320 
 
 
 
@@ -40,9 +40,9 @@
                      <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                      <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>RepRandom    </strong>     243      208      191      260      220 
-    <strong>RepFarInsSim </strong>     517      558      564      512      580 
-    <strong>RepFarInsNear</strong>     240      234      245      228      200 
+    <strong>RepRandom    </strong>     241      264      249      263      258 
+    <strong>RepFarInsSim </strong>     479      442      452      454      483 
+    <strong>RepFarInsNear</strong>     280      294      299      283      259 
 
 
 

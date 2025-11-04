@@ -26,7 +26,7 @@ decay =[0.25, 0.5, 0.75] ;     nIter = 1000;  nRep = 5;
 nLambda = 3;
 % accept SA
 T0 = 400; alpha = 0.995;
-
+%% 
 for delta = 1:nDelta
     for lambda = 1:nLambda
         fprintf("Tuning (delta,lambda)_(%d, %d)\n", delta, lambda);
@@ -61,11 +61,11 @@ for delta = 1:nDelta
 end
 fprintf("end Tuning\n");
 
-%% select alpha and T0
+%% select alpha 
 
-% fix delta and lambda: (1,3) chosen
-delta = deltas(1,:);
-lambda = decay(3);
+% fix delta and lambda: (3,1) chosen
+delta = deltas(3,:);
+lambda = decay(1);
 
 alphas = [0.9, 0.8];
 nAlpha = 2;
