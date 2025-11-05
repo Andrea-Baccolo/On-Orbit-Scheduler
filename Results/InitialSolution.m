@@ -68,6 +68,7 @@ RandomRepair = RepRandom(nTar, 100); % try all of the destroyed target
 newSlt = RandomRepair.Reparing(initialStates, destroyedSet, tourInfos);
 newSlt = newSlt.buildManSet(initialStates);
 
+%%
 RandomOpt = ALNS_SA_I_dF(destroySet, repairSet, deltas, decay, nIter, newSlt, initialStates, nRep, T0, alpha);
 fprintf("start Random");
 RandomOpt = RandomOpt.Schedule(12345);
@@ -87,7 +88,7 @@ result = RandomOpt.tableConstruction();
 % file .mat
 str = 'Random_opt.mat';
 nameFile = fullfile(filePath, str);
-save(nameFile, "result", "RandomOpt");
+save(nameFile, "result", "RandomOpt", "newSlt");
 addFile(proj, nameFile);
 
 % file .txt
@@ -104,6 +105,7 @@ SimulationRepair = RepFarInsSim(nTar);
 newSlt = SimulationRepair.Reparing(initialStates, destroyedSet, tourInfos);
 newSlt = newSlt.buildManSet(initialStates);
 
+%%
 SimulationOpt = ALNS_SA_I_dF(destroySet, repairSet, deltas, decay, nIter, newSlt, initialStates, nRep, T0, alpha);
 fprintf("start Simulation");
 SimulationOpt = SimulationOpt.Schedule(12345);
@@ -123,7 +125,7 @@ result = SimulationOpt.tableConstruction();
 % file .mat
 str = 'Simulation_opt.mat';
 nameFile = fullfile(filePath, str);
-save(nameFile, "result", "SimulationOpt");
+save(nameFile, "result", "SimulationOpt", "newSlt");
 addFile(proj, nameFile);
 
 % file .txt
