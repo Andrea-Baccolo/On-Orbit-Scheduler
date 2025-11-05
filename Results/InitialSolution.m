@@ -61,7 +61,7 @@ BasicOpt.writeFile(result, nameFile)
 addFile(proj, nameFile);
 
 %% Random Initial Solution
-
+rng(12345);
 Destroyer = DesRandom(nTar, 100); % complete destruction
 [destroyedSet, tourInfos] = Destroyer.Destruction(initialSlts, initialStates);
 RandomRepair = RepRandom(nTar, 100); % try all of the destroyed target
@@ -98,7 +98,7 @@ RandomOpt.writeFile(result, nameFile)
 addFile(proj, nameFile);
 
 %% Simulation Initial Solution
-
+rng(12345);
 Destroyer = DesRandom(nTar, 100); % complete destruction
 [destroyedSet, tourInfos] = Destroyer.Destruction(initialSlts, initialStates);
 SimulationRepair = RepFarInsSim(nTar);
