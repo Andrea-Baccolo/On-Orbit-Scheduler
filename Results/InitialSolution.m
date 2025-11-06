@@ -133,3 +133,48 @@ str = 'Simulation_opt.txt';
 nameFile = fullfile(filePath, str);
 SimulationOpt.writeFile(result, nameFile)
 addFile(proj, nameFile);
+
+%% Best Solution
+seq = [0 7 10 1 14 0 12 5 13 2 0 11 3 6 0
+       0 9 8  4  0 15*ones(1,10)];
+newSlt = Solution(seq, nTar, initialStates);
+
+%%
+BestOpt = ALNS_SA_I_dF(destroySet, repairSet, deltas, decay, nIter, newSlt, initialStates, nRep, T0, alpha);
+fprintf("start Best");
+BestOpt = BestOpt.Schedule(12345);
+fprintf("end Best");
+
+% currIndxSim
+nameCurr = 'Best_opt_currentSlt';
+BestOpt.createPlot( BestOpt.outCurrIndxSim, BestOpt.outCurrFuelSim, nameCurr, filePath);
+
+hasEmpty = any(cellfun(@isempty, BestOpt.outBestIndxSim));
+if (isscalar(hasEmpty))
+    flag = hasEmpty;
+else
+    flag = sum(hasEmpty);
+end
+if(flag==0)
+    % currIndxSim
+    nameBest = 'Best_opt_bestSlt';
+    BestOpt.createPlot( BestOpt.outBestIndxSim, BestOpt.outBestFuelSim, nameBest, filePath);
+else
+    fprintf("It exist at least one replica where no improvement has been made\n")
+end
+
+
+% data
+result = BestOpt.tableConstruction();
+
+% file .mat
+str = 'Best_opt.mat';
+nameFile = fullfile(filePath, str);
+save(nameFile, "result", "BestOpt", "newSlt");
+addFile(proj, nameFile);
+
+% file .txt
+str = 'Best_opt.txt';
+nameFile = fullfile(filePath, str);
+BestOpt.writeFile(result, nameFile)
+addFile(proj, nameFile);
