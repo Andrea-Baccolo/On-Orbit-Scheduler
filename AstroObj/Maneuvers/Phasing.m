@@ -9,7 +9,7 @@ classdef Phasing < OrbitalManeuver
 
     properties (Constant)
         type = "Phasing"
-        safeRadius = 6378 + 100; % earth radius + 100km
+        safeRadius = 6378 + 2500; % earth radius + 100km
     end
     
 
