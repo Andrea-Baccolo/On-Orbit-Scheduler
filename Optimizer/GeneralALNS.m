@@ -220,6 +220,7 @@ classdef (Abstract) GeneralALNS
             end
         end
 
+        % SAVE VECTORIAL IMAGES
         function createPlot(obj, cellX, cellY, plotTitle, savePath)
             saving = 1;
             if nargin < 4, plotTitle = '_'; end
@@ -241,8 +242,8 @@ classdef (Abstract) GeneralALNS
                      'MarkerSize', 6, 'HandleVisibility', 'off');
             end
         
-            xlabel('Iterations');
-            ylabel('Mission cost');
+            xlabel('Iterations', 'Interpreter', 'latex');
+            ylabel('Mission cost', 'Interpreter', 'latex');
             title(plotTitle, 'Interpreter', 'none');
             legend(arrayfun(@(r) sprintf('Replica %d', r), 1:obj.nRep, 'UniformOutput', false), ...
                 'Location', 'best');
@@ -256,15 +257,62 @@ classdef (Abstract) GeneralALNS
         
                 % Making the title feasible 
                 safeTitle = regexprep(plotTitle, '[^\w\d-]', '_');
-                pngFile = fullfile(savePath, [safeTitle, '.png']);
+                pdfFile = fullfile(savePath, [safeTitle, '.pdf']);
         
-                % Save file
-                saveas(fig, pngFile);
+                % Save file as PDF vectorial
+                exportgraphics(fig, pdfFile, 'ContentType', 'vector');
             end
         
             % Close fig
             close(fig);
         end
+
+        % SAVE PNG
+        % function createPlot(obj, cellX, cellY, plotTitle, savePath)
+        %     saving = 1;
+        %     if nargin < 4, plotTitle = '_'; end
+        %     if nargin < 5, saving = 0; end
+        % 
+        %     % Create figure
+        %     fig = figure('Color', 'w', 'Position', [100 100 1200 800]);
+        %     hold on;
+        %     grid on; 
+        %     colors = lines(obj.nRep);
+        % 
+        %     for rep = 1:obj.nRep
+        %         % Plot
+        %         stairs(cellX{rep}, cellY{rep}, 'Color', colors(rep,:), 'LineWidth', 1.5);
+        % 
+        %         % Final Point
+        %         plot(cellX{rep}(end), cellY{rep}(end), 'o', 'Color', colors(rep,:), ...
+        %              'MarkerFaceColor', colors(rep,:), ...
+        %              'MarkerSize', 6, 'HandleVisibility', 'off');
+        %     end
+        % 
+        %     xlabel('Iterations');
+        %     ylabel('Mission cost');
+        %     title(plotTitle, 'Interpreter', 'none');
+        %     legend(arrayfun(@(r) sprintf('Replica %d', r), 1:obj.nRep, 'UniformOutput', false), ...
+        %         'Location', 'best');
+        %     hold off;
+        % 
+        %     if saving
+        %         % create folder if does not exist
+        %         if ~exist(savePath, 'dir')
+        %             mkdir(savePath);
+        %         end
+        % 
+        %         % Making the title feasible 
+        %         safeTitle = regexprep(plotTitle, '[^\w\d-]', '_');
+        %         pngFile = fullfile(savePath, [safeTitle, '.png']);
+        % 
+        %         % Save file
+        %         saveas(fig, pngFile);
+        %     end
+        % 
+        %     % Close fig
+        %     close(fig);
+        % end
 
         function outputCell = tableConstruction(obj)
             % create rep string 
