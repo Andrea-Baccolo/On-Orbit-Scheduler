@@ -1,6 +1,9 @@
 clear all
 clc
 
+%%
+
+Function that 
 % get the complete filename
 % using fullfile to be indipendent from the OS (operating system)
 proj = currentProject;

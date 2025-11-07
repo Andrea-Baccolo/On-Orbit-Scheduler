@@ -15,6 +15,20 @@ classdef Phasing < OrbitalManeuver
 
     methods
         function obj = Phasing(sscIndx, targetIndx, dt, totAngle, dv, semiMajoAxis, Revolutions)
+            
+            % METHOD: Constructor
+
+            % INPUTS:
+                % sscIndx: index of the ssc that is performing the maneuver.
+                % targetIndx: index of the target to reach with this maneuver.
+                % dt: total dutation of the maneuver in seconds.
+                % totAngle: total angle that correspond to time dt.
+                % dv: total velocity increment.
+                % semiMajoAxis: semiMajoAxis of the transfert orbit of the phasing.
+                % Revolutions: total number of revolution done to rach the target.
+            % OUTPUTS:
+                % Phasing obj.
+
             if nargin < 1, sscIndx = []; end
             if nargin < 2, targetIndx = []; end
             if nargin < 3, dt = 0; end

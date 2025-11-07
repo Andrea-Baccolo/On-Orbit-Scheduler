@@ -18,6 +18,15 @@ classdef GeosyncCircOrb
 
     methods
         function obj = GeosyncCircOrb(inclination, raan)
+            
+            % METHOD: Constructor
+                
+            % INPUTS: 
+                % inclination of the orbit
+                % raan of the orbit
+            % OUTPUTS:
+                % orbit object
+
             obj.inclination = inclination;
             obj.raan = raan;
             obj.h = sqrt(obj.semiMajorAxis*obj.GMp).*...
@@ -31,3 +40,5 @@ classdef GeosyncCircOrb
         end
     end
 end
+
+            

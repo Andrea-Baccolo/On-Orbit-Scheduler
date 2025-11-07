@@ -12,6 +12,18 @@ classdef Refilling < Maneuver
 
     methods
         function obj = Refilling(sscIndx, targetIndx, dt, totAngle, fuelAdded)
+            
+            % METHOD: Constructor
+
+            % INPUTS:
+                % sscIndx: index of the ssc that is performing the maneuver.
+                % targetIndx: index of the target to reach with this maneuver.
+                % dt: total dutation of the maneuver in seconds.
+                % totAngle: total angle that correspond to time dt.
+                % fuelAdded: amount of fuel added to the target/ssc.
+            % OUTPUTS:
+                % Maneuver obj.
+
             if nargin < 1, sscIndx = []; end
             if nargin < 2, targetIndx = []; end
             if nargin < 3, dt = 0; end

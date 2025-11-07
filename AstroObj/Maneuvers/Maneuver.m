@@ -28,6 +28,18 @@ classdef (Abstract) Maneuver
     methods
         
         function obj = Maneuver(sscIndx, targetIndx, dt, totAngle)
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % sscIndx: index of the ssc that is performing the maneuver.
+                % targetIndx: index of the target to reach with this maneuver.
+                % dt: total dutation of the maneuver in seconds.
+                % totAngle: total angle that correspond to time dt.
+            % OUTPUTS:
+                % Maneuver obj.
+
+
             if nargin < 1, sscIndx = 0; end
             if nargin < 2, targetIndx = 0; end
             if nargin < 3, dt = 0; end
