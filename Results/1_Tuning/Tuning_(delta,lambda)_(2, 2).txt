@@ -1,0 +1,62 @@
+==== Fuel Table ====
+                           <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                           <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>Total Minimum found</strong>    2280.4    2280.5    2280.5    2279.1    2351.4
+
+
+
+==== Destroy Weights Table ====
+                         <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
+                        <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
+
+    <strong>DesRandom       </strong>    0.50391    0.50006    0.62695        0.5        0.5
+    <strong>DesRelatedGreedy</strong>    0.50001        0.5        0.5    0.53125     0.5166
+    <strong>DesRelatedRandom</strong>    0.50049    0.50001    0.50391    0.50101    0.50001
+    <strong>DesFirst        </strong>     0.5237    0.59673    0.92963    0.88522    0.88289
+    <strong>DesLast         </strong>        0.5        0.5        0.5    0.56251    0.94556
+    <strong>DesTourCost     </strong>        0.5        0.5        0.5        0.5    0.87632
+    <strong>DesTourRandom   </strong>        0.5        0.5        0.5        0.5    0.75881
+    <strong>DesTourSmall    </strong>        0.5        0.5        0.5        0.5    0.72614
+    <strong>DesSScCost      </strong>        0.5        0.5        0.5        0.5        0.5
+    <strong>DesSScRandom    </strong>        0.5        0.5        0.5        0.5        0.5
+
+
+
+==== Repair Weights Table ====
+                      <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
+                     <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
+
+    <strong>RepRandom    </strong>        0.5        0.5        0.5        0.5        0.5
+    <strong>RepFarInsSim </strong>    0.50488    0.51612    0.87556    0.87998    0.98729
+    <strong>RepFarInsNear</strong>        0.5        0.5        0.5        0.5        0.5
+
+
+
+==== Destroy Selection Table ====
+                        <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                        <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>DesRandom       </strong>     103       92       99      108      100 
+    <strong>DesRelatedGreedy</strong>     108       90      103       98       95 
+    <strong>DesRelatedRandom</strong>      93       91      108       87       67 
+    <strong>DesFirst        </strong>     119      132      111      122      115 
+    <strong>DesLast         </strong>      88      118      115       95      113 
+    <strong>DesTourCost     </strong>      98      110      116      104      121 
+    <strong>DesTourRandom   </strong>      98       85       88       94       77 
+    <strong>DesTourSmall    </strong>     101       95       81      111      133 
+    <strong>DesSScCost      </strong>     107       94       94       96       84 
+    <strong>DesSScRandom    </strong>      85       93       85       85       95 
+
+
+
+==== Repair Selection Table ====
+                     <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                     <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>RepRandom    </strong>     261      291      293      275      291 
+    <strong>RepFarInsSim </strong>     428      396      420      432      446 
+    <strong>RepFarInsNear</strong>     311      313      287      293      263 
+
+
+

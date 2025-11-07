@@ -1,0 +1,62 @@
+==== Fuel Table ====
+                           <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                           <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
+
+    <strong>Total Minimum found</strong>    2280.4    2281.8    2280.5    2280.4    2372.1
+
+
+
+==== Destroy Weights Table ====
+                         <strong>Rep 1</strong>      <strong>Rep 2</strong>     <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
+                        <strong>_______</strong>    <strong>_______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>_______</strong>
+
+    <strong>DesRandom       </strong>    0.10004        0.1       0.1        0.1    0.10996
+    <strong>DesRelatedGreedy</strong>        0.1        0.1       0.1        0.1        0.1
+    <strong>DesRelatedRandom</strong>    0.10011        0.1       0.1        0.1        0.1
+    <strong>DesFirst        </strong>    0.14765    0.10001    0.1375    0.25005    0.29691
+    <strong>DesLast         </strong>        0.1        0.1       0.1        0.1        0.1
+    <strong>DesTourCost     </strong>        0.1        0.1       0.1        0.1    0.13813
+    <strong>DesTourRandom   </strong>        0.1        0.1       0.1        0.1        0.1
+    <strong>DesTourSmall    </strong>        0.1        0.1       0.1        0.1    0.14984
+    <strong>DesSScCost      </strong>        0.1        0.1       0.1        0.1        0.1
+    <strong>DesSScRandom    </strong>        0.1        0.1       0.1        0.1        0.1
+
+
+
+==== Repair Weights Table ====
+                      <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                     <strong>_______</strong>    <strong>_____</strong>    <strong>_______</strong>    <strong>_____</strong>    <strong>_______</strong>
+
+    <strong>RepRandom    </strong>        0.1     0.1         0.1     0.1         0.1
+    <strong>RepFarInsSim </strong>    0.10001     0.1     0.10001    0.25     0.13828
+    <strong>RepFarInsNear</strong>        0.1     0.1         0.1     0.1         0.1
+
+
+
+==== Destroy Selection Table ====
+                        <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                        <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>DesRandom       </strong>     131      111      100       85       89 
+    <strong>DesRelatedGreedy</strong>      88      109      101       96       80 
+    <strong>DesRelatedRandom</strong>     114      102       89      105       93 
+    <strong>DesFirst        </strong>     139      119      138      130      139 
+    <strong>DesLast         </strong>      80      107       81      101      102 
+    <strong>DesTourCost     </strong>     103      100       97      110      136 
+    <strong>DesTourRandom   </strong>      90       86      111       99       84 
+    <strong>DesTourSmall    </strong>      82      104      104      106      133 
+    <strong>DesSScCost      </strong>      98       78       83       78       66 
+    <strong>DesSScRandom    </strong>      75       84       96       90       78 
+
+
+
+==== Repair Selection Table ====
+                     <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                     <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
+
+    <strong>RepRandom    </strong>     311      291      301      272      270 
+    <strong>RepFarInsSim </strong>     396      438      430      421      438 
+    <strong>RepFarInsNear</strong>     293      271      269      307      292 
+
+
+
