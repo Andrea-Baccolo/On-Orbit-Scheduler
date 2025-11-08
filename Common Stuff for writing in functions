@@ -16,6 +16,7 @@
 % tourInfos: tourInfo object with info of tours after destruction.
 
 CHOOSE TARGETS
+
 % METHOD: function that gives the total number of destroyed
                         % targets and their indexes
 
@@ -29,3 +30,12 @@ CHOOSE TARGETS
                 % destroyIndx: matrix nDestroy x 3 where the first column
                     % there is the sscIndx, the second the tourIndx, the third
                     % the posTour.
+
+% METHOD: Constructor
+
+            % INPUTS:
+                % nTar: number of targets.
+                % degDes: degree of desctruction, a number between 0 and 100.
+
+            % OUTPUTS:
+                % obj: destroyFirst object.
