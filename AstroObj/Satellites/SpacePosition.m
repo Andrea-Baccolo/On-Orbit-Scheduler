@@ -11,6 +11,16 @@ classdef (Abstract) SpacePosition
         function obj = SpacePosition(orbit, trueAnomaly)
             if nargin < 1, orbit = []; end
             if nargin < 2, trueAnomaly = []; end
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % orbit: orbit of the satellite.
+                % trueAnomaly: angle that describe the position on the
+                    % orbit, measured from the ascending node with respect 
+                    % of the dirction of the rotation.
+            % OUTPUTS:
+                % requested object.
             
             obj.orbit = orbit;
             obj.trueAnomaly = trueAnomaly;

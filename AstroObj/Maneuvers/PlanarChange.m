@@ -43,6 +43,19 @@ classdef PlanarChange < OrbitalManeuver
         end
 
         function [simState, fuelUsed] = execute(obj, simState)
+
+            % METHOD: % this method has the following goals:
+                            % updating ONLY the SSc position
+                            % check infeasibility
+                            % calculating the fuel used during the generic maneuver
+            % INPUTS: 
+                % obj: maneuver to be executed.
+                % simState: state to update
+                
+            % OUTPUTS: 
+                % simState: updated state.
+                % fuelUsed: fuel used during the execution.
+
             % check fuel
             [~, fuelUsed, ~] = simState.sscs(obj.sscIndx).calculateFuel(obj.dv, simState.sscs(obj.sscIndx).fuelMass);
             % subtract fuel
@@ -60,7 +73,18 @@ classdef PlanarChange < OrbitalManeuver
 
         function obj = compute(obj, ssc, target, ~)
 
-            % computing Planar Change maneuver
+            % METHOD: % calculate maneuver.
+
+            % INPUTS: 
+                % obj: maneuver to be updated.
+                % ssc: ssc object that needs to reach the target.
+                % target: target object to reach.
+                % fuelReal: value of ssc fuel at the time when the maneuver
+                    % is performed (it may differs from ssc.fuelMass
+                    % because the maneuver is computed BEFORE).
+                
+            % OUTPUTS: 
+                % obj: computed maneuver.
 
             % useful informations
             os = ssc.orbit.raan;        ot = target.orbit.raan;
@@ -135,6 +159,23 @@ classdef PlanarChange < OrbitalManeuver
         end
 
         function [phi] = point2trueAnomaly(obj, r, omega, i, a)
+
+            % METHOD: Function used to pass from a point in 3D to the true
+                % anomaly vector described with respect a specific orbit.
+
+            % INPUTS:
+                % obj: planar change object.
+                % r: vector 3x1 containing the coordinates of the point to convert.
+                % omega: raan of the orbit used for reference sistem of the 
+                    % true anomaly, it must have a minus.
+                % i: inclination of the orbit used for reference sistem of the 
+                    % true anomaly, it must have a minus.
+                % a: semimajor axis of the orbit used for reference sistem of the 
+                    % true anomaly.
+
+            % OUTPUTS:
+                % phi: the true anomaly with respect the input orbit data.
+
             % apply rotation for equatorial orbit
             % rotation x axis: - raan
             % rotation z axis: - inclination

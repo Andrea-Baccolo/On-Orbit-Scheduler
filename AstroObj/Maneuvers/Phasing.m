@@ -43,6 +43,19 @@ classdef Phasing < OrbitalManeuver
         end
 
         function [simState, fuelUsed] = execute(obj, simState)
+
+            % METHOD: % this method has the following goals:
+                            % updating ONLY the SSc position
+                            % check infeasibility
+                            % calculating the fuel used during the generic maneuver
+            % INPUTS: 
+                % obj: maneuver to be executed.
+                % simState: state to update
+                
+            % OUTPUTS: 
+                % simState: updated state.
+                % fuelUsed: fuel used during the execution.
+
             % check fuel 
             [~, fuelUsed, ~] = simState.sscs(obj.sscIndx).calculateFuel(obj.dv, simState.sscs(obj.sscIndx).fuelMass);
             % use fuel
@@ -53,6 +66,20 @@ classdef Phasing < OrbitalManeuver
         end
 
         function obj = compute(obj, ssc, target, ~)
+
+            % METHOD: % calculate maneuver.
+
+            % INPUTS: 
+                % obj: maneuver to be updated.
+                % ssc: ssc object that needs to reach the target.
+                % target: target object to reach.
+                % fuelReal: value of ssc fuel at the time when the maneuver
+                    % is performed (it may differs from ssc.fuelMass
+                    % because the maneuver is computed BEFORE).
+                
+            % OUTPUTS: 
+                % obj: computed maneuver.
+                
             % computing Phasing maneuver
             a = target.orbit.semiMajorAxis;
 

@@ -27,6 +27,10 @@ classdef GeosyncCircOrb
             % OUTPUTS:
                 % orbit object
 
+            % empty orbit 
+            if nargin < 2, raan = []; end
+            if nargin < 1, inclination = []; end
+
             obj.inclination = inclination;
             obj.raan = raan;
             obj.h = sqrt(obj.semiMajorAxis*obj.GMp).*...

@@ -8,6 +8,15 @@ classdef (Abstract) RefillProp
 
     methods
         function obj = RefillProp(speedRefill)
+
+            % METHOD: Constructor.
+
+            % INPUTS: 
+                % speedRefill: refueling speed in L/s.
+
+            % OUTPUTS:
+                % requested object.
+
             if nargin < 1, speedRefill = []; end
             obj.speedRefill = speedRefill;
         end

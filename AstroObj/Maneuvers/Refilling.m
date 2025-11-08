@@ -34,6 +34,19 @@ classdef Refilling < Maneuver
         end
 
         function [simState, fuelUsed] = execute(obj, simState)
+
+            % METHOD: % this method has the following goals:
+                            % updating ONLY the SSc position
+                            % check infeasibility
+                            % calculating the fuel used during the generic maneuver
+            % INPUTS: 
+                % obj: maneuver to be executed.
+                % simState: state to update
+
+            % OUTPUTS: 
+                % simState: updated state.
+                % fuelUsed: fuel used during the execution.
+
             % the fuel used in this maneuver is not considered in the reach fuel
             fuelUsed = 0;
             if obj.targetIndx == 0
@@ -56,6 +69,20 @@ classdef Refilling < Maneuver
         end
     
         function obj = compute(obj, ssc, target, fuelReal)
+
+            % METHOD: % calculate maneuver.
+
+            % INPUTS: 
+                % obj: maneuver to be updated.
+                % ssc: ssc object that needs to reach the target.
+                % target: target object to reach.
+                % fuelReal: value of ssc fuel at the time when the maneuver
+                    % is performed (it may differs from ssc.fuelMass
+                    % because the maneuver is computed BEFORE).
+                
+            % OUTPUTS: 
+                % obj: computed maneuver.
+
             % I have to compute the time it will take to refill
             % obj.targetIndx is the attribute I need to controll
 
