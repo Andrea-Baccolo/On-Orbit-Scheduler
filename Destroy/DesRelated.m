@@ -13,6 +13,18 @@ classdef DesRelated < Destroy & Relatedness
 
     methods
         function obj = DesRelated(nTar, degDes, beta)
+
+            % METHOD: Constructor
+                
+            % INPUTS:
+                % nTar: number of targets.
+                % degDes: degree of desctruction, a number between 0 and 100.
+                % beta: parameters used in the relatedness measure: between
+                    % 0 and 1. 
+
+            % OUTPUTS:
+                % obj: DestroyRelated object.
+
             if nargin < 1, nTar = 0; end
             if nargin < 2, degDes = 0; end
             if nargin < 3, beta = 0; end
@@ -21,6 +33,21 @@ classdef DesRelated < Destroy & Relatedness
         end
 
         function [nDestroy, destroyIndx] = chooseTargets(obj, slt, initialState)
+
+            % METHOD: function that gives the total number of destroyed
+                        % targets and their indexes
+
+            % INPUTS:
+                % obj: destroy object.
+                % slt: solution to destroy.
+                % initialState: state object that contains the initial info.
+
+            % OUTPUTS:
+                % nDestroy: total number of destroyers.
+                % destroyIndx: matrix nDestroy x 3 where the first column
+                    % there is the sscIndx, the second the tourIndx, the third
+                    % the posTour.
+                    
             nDestroy = obj.nDesCompute();
             if(nDestroy>0 && nDestroy < obj.nTar)
                 % extract the first target
@@ -50,6 +77,18 @@ classdef DesRelated < Destroy & Relatedness
         end
 
         function indx = findIndx(~, tarChosen, slt)
+
+            % METHOD: function used to find the position of a target in a
+                % sequence
+
+            % INPUTS:
+                % obj: destroyFirst object.
+                % tarChosen: chosen target to find.
+                % slt: solution to destroy.
+
+            % OUTPUTS:
+                % indx: position of the chosen target.
+
             indx = zeros(1,3);
             [sscIndx, posSeq] = find(slt.seq == tarChosen);
             [indx(2), indx(3)] = slt.tourInfo.Seq2Tour(posSeq, sscIndx);

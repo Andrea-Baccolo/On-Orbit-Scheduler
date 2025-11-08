@@ -1,4 +1,17 @@
 function desSet = createDesSet(nTar, degDes, nDestroy, beta, p)
+
+    % METHOD: General function to create a destroy set.
+
+    % INPUTS:
+        % nTar: number of targets.
+        % degDes: descruction degree, a number between 0 and 100 (default 50).
+        % nDestroy: total number of destroyers.
+        % beta: a number between 0 and 1 used in the relatedness measure (default 0.5).
+        % p: related random parameter, a number >1 (default 2).
+
+    % OUTPUTS:
+        % cell array with nDestroy destroyers.
+
     if nargin < 2, degDes = 50; end
     if nargin < 3, nDestroy = 10; end
     if nargin < 4 && nDestroy >1, beta = 0.5; end

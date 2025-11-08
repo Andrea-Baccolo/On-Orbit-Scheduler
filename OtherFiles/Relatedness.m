@@ -1,11 +1,29 @@
 classdef (Abstract) Relatedness 
 
+    % Class used to impement the relatedness measure between satellites.
+
     properties
     end
 
     methods
 
         function R = relatednessMeasure(obj, kIndx, jIndx, targets, seq, beta)
+
+            % METHOD: Creation of relatedness matrix between set K and set J.
+                % consider that the order is important, since there is not
+                % simmetry in the relatedness measure.
+                
+            % INPUTS:
+                % obj: the specific object used.
+                % kIndx: vectors of target index k in K to calculate R(k,j).
+                % jIndx: vectors of target index j in J to calculate R(k,j).
+                % targets: vectors of targets to get all the information needed.
+                % seq: total sequence solution.
+                % beta: parameters used to weight phasing and planar change.
+
+            % OUTPUTS:
+                % R: related matrix R(k,j), forevery k in kIndx and j in jIndx.
+
             [ik, ok, nuk, ij, oj, nuj] = obj.obtainVector(kIndx, jIndx, targets);
             c = obj.cMatrix(ik, ok, nuk, ij, oj, nuj, beta);
             cPrime = obj.cPrimeMatrix(c);
@@ -15,6 +33,24 @@ classdef (Abstract) Relatedness
         end
 
         function [ik, ok, nuk, ij, oj, nuj] = obtainVector(~, kIndx, jIndx, targets)
+
+            % METHOD: vector used to obtain vector of sfecific dimension to
+                % compute the relatedness matrix.
+
+            % INPUTS:
+                % obj: the considered object.
+                % kIndx: vectors of target index k in K to calculate R(k,j).
+                % jIndx: vectors of target index j in J to calculate R(k,j).
+                % targets: vectors of targets to get all the information needed.
+
+            % OUTPUTS:
+                % ik: column vector of inclination of targets from kIndx. 
+                % ok: column vector of raan of targets from kIndx.
+                % nuk: column vector of true anomaly of targets from kIndx.
+                % ij: row vector of inclination of targets from jIndx.
+                % oj: row vector of raan of targets from jIndx.
+                % nuj: row vector of true anomaly of targets from jIndx.
+
             % j put as rows, k put as columns
             lk = length(kIndx);
             lj = length(jIndx);
@@ -37,12 +73,22 @@ classdef (Abstract) Relatedness
                 nuj(h) = targets(jIndx(h)).trueAnomaly;
             end
         end
-
-        
         
         function  c = cMatrix(~, ik, ok, nuk, ij, oj, nuj, beta)
 
-            % matrix lk x lj
+            % METHOD: compute the not normalized cost matrix lk x lj.
+
+            % INPUTS:
+                % ik: column vector of inclination of targets from kIndx. 
+                % ok: column vector of raan of targets from kIndx.
+                % nuk: column vector of true anomaly of targets from kIndx.
+                % ij: row vector of inclination of targets from jIndx.
+                % oj: row vector of raan of targets from jIndx.
+                % nuj: row vector of true anomaly of targets from jIndx.
+                % beta: parameters used to weight phasing and planar change.
+
+            % OUTPUTS:
+                % c: not normalized cost matrix lk x lj.
 
             % calculating dihedral angle alpha
             val = sin(ik).*sin(ij).*cos(ok - oj) + cos(ik).*cos(ij);
@@ -61,11 +107,33 @@ classdef (Abstract) Relatedness
         end
 
         function  cPrime = cPrimeMatrix(~, c)
+
+            % METHOD: method used to normalize the cost matrix
+
+            % INPUTS:
+                % obj: object used.
+                % c: not normalized cost matrix.
+
+            % OUTPUTS:
+                % cPrime: normalized cost matrix.
+
             % This function have been created because I may need to change the scale for updating the cost matrix 
             cPrime = c./max(abs(c(:)));
         end
         
         function V = vMatrix(~, kIndx, jIndx, seq)
+
+            % METHOD: Construction of similarity V matrix
+
+            % INPUTS:
+                % obj: the considered object.
+                % kIndx: vectors of target index k in K to calculate R(k,j).
+                % jIndx: vectors of target index j in J to calculate R(k,j).
+                % seq: total sequence.
+                
+            % OUTPUTS:
+                % V: similarity V matrix.
+
             [rowK,~] = arrayfun(@(x) find(any(seq==x,2)), kIndx);
             [rowJ,~] = arrayfun(@(x) find(any(seq==x,2)), jIndx);
             

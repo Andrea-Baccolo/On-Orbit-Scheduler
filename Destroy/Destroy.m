@@ -17,6 +17,16 @@ classdef (Abstract) Destroy
 
     methods
         function obj = Destroy(nTar, degDes)
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % nTar: number of targets.
+                % degDes: degree of desctruction, a number between 0 and 100.
+
+            % OUTPUTS:
+                % obj: destroy object.
+
             if nargin < 1, nTar = 0; end
             if nargin < 2, degDes = 0; end
             obj.nTar = nTar;
@@ -24,6 +34,17 @@ classdef (Abstract) Destroy
         end
         
         function [destroyedSet, tourInfos] = Destruction(obj, slt, initialState)
+
+            % METHOD: Application of the destruction of the specific destroyer.
+
+            % INPUTS:
+                % obj: destroy object. 
+                % slt: solution to destroy. 
+                % initialState: state object that contains the initial info.
+
+            % OUTPUTS:
+                % destroyedSet: row vector of destroyed set index.
+                % tourInfos: tourInfo object with info of tours after destruction.
 
             % choose destoryed targets
             [nDestroy, destroyIndx] = chooseTargets(obj, slt, initialState);
@@ -66,6 +87,16 @@ classdef (Abstract) Destroy
         end
 
         function nDestroy = nDesCompute(obj)
+
+            % METHOD: computes the total number of destroyed target
+                % approximated using ceiling function.
+
+            % INPUTS:
+                % obj: destroy object. 
+                
+            % OUTPUTS:
+                % nDestroy: total number of destroyers.
+
             % number of targets to remove
             nDestroy = ceil(obj.degDes*obj.nTar/100);
         end

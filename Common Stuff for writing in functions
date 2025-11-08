@@ -5,3 +5,27 @@
             % INPUTS:
 
             % OUTPUTS:
+
+% nTar: number of targets.
+% degDes: degree of desctruction, a number between 0 and 100.
+% obj: destroy object.
+% slt: solution to destroy.
+% initialState: state object that contains the initial info.
+
+% destroyedSet: row vector of destroyed set index.
+% tourInfos: tourInfo object with info of tours after destruction.
+
+CHOOSE TARGETS
+% METHOD: function that gives the total number of destroyed
+                        % targets and their indexes
+
+            % INPUTS:
+                % obj: destroy object.
+                % slt: solution to destroy.
+                % initialState: state object that contains the initial info.
+
+            % OUTPUTS:
+                % nDestroy: total number of destroyers.
+                % destroyIndx: matrix nDestroy x 3 where the first column
+                    % there is the sscIndx, the second the tourIndx, the third
+                    % the posTour.

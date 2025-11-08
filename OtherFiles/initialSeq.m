@@ -1,4 +1,16 @@
 function [seq] = initialSeq(nTar, nSSc)
+
+    % METHOD: Function that create a feasible solution for the assumptions
+        % made in the thesis. creates missions composd by reaching one
+        % single targets, for all targets.
+
+    % INPUTS:
+        % nTar: number of targets.
+        % nSSc: number of sscs.
+
+    % OUTPUTS:
+        % initial sequence.
+
     nUp = ceil(nTar/nSSc);
     nDown = floor(nTar/nSSc);
     seq = zeros(nSSc,2*nUp+1);
@@ -21,22 +33,4 @@ function [seq] = initialSeq(nTar, nSSc)
         seq = seq(:,1:seqPos+1);
         seq(i:end, seqPos:end) = tarCount;
     end
-    % 
-    % 
-    % targetCounter = 1;
-    % for i = 1:nSsc
-    %     for j = 1:2*nDown+1
-    %         if(targetCounter<=nTar)
-    %             if(mod(j,2)==0)
-    %                 seq(i,j) = targetCounter;
-    %                 if(targetCounter == nTar)
-    %                     pos = [i,j+1];
-    %                 end
-    %                 targetCounter = targetCounter + 1;
-    %             end
-    %         else, seq(i,j) = nTar+1; 
-    %         end
-    %     end
-    % end
-    % seq(pos(1), pos(2)) = 0;
 end

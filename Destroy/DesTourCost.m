@@ -7,12 +7,32 @@ classdef DesTourCost < DesTour
 
     methods
         function obj = DesTourCost(nTar,degDes)
+
+            % METHOD: Constructor
+                
+            % INPUTS:
+                % nTar: number of targets.
+                % degDes: degree of desctruction, a number between 0 and 100.
+
+            % OUTPUTS:
+                % obj: destroySScCost object.
+
             if nargin < 1, nTar = 0; end
             if nargin < 2, degDes = 0; end
             obj@DesTour(nTar,degDes);
         end
 
         function [SScs, Tours]= sortTourIndx(~, slt)
+
+            % METHOD: sorting the ssc with respect the cost
+
+            % INPUTS: 
+                % obj: destroy object.
+                % slt: solution to destroy.
+
+            % OUTPUTS:
+                % SScs: sorted ssc index.
+                
             [nTour, nSsc] = size(slt.tourInfo.lTour);
             costTour = -1*ones(nTour, nSsc);
             % getting tour cost

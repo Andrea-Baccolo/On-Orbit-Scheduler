@@ -1,6 +1,0 @@
-clear all
-clc
-
-%% General 
-
-%% 
