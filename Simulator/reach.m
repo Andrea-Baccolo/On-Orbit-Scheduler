@@ -1,4 +1,18 @@
 function [maneuvers, infeas] = reach(ssc, sscIndx, target, targetIndx)
+
+    % FUNCTION: function used to compute the maneuvers to reach a target.
+
+    % INPUTS: 
+        % ssc: SSc object that have to compute the maneuver.
+        % sscIndx: index of the ssc that perform the maneuver in the state
+            % vector.
+        % target: target object that needs to be reached by the ssc.
+        % targetIndx: index of the target above in the state vector.
+
+    % OUTPUTS:
+        % maneuvers: cell array of the maneuvers to compute to reach the target.
+        % infeas: flag of infeasibility: 1 if infeasible, 0 if feasible.
+
     maneuvers = cell(3,1);
     Indx = 1;
     fuelSSc = ssc.fuelMass; % variable to keep track of the fuel

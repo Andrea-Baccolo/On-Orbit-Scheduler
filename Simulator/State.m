@@ -12,6 +12,18 @@ classdef State
     methods
 
         function obj = State(sscs, targets, station, time)
+
+            % METHOD: Constructor
+
+            % INPUTS: 
+                % sscs: vector of ssc objects.
+                % targets: vector of target objects.
+                % station: station oblect.
+                % time: time instant of the state.
+
+            % OUTPUTS:
+                % state object.
+
             if nargin < 1, sscs = SSc(); end
             if nargin < 2, targets = Target(); end
             if nargin < 3, station = Station(); end
@@ -25,11 +37,20 @@ classdef State
 
         function obj = partialUpdate(obj, dt, updateIndex) 
 
-            % this function update the positions of the tarhgets and the
-            % station, that is why is called partial. the ssc position is 
-            % always updated during the execution of the maneuvers. 
-            % a specific set of satellites can be updated to cosider
-            % indipendently the path of every sscs.
+            % METHOD: this function update the positions of the targets and the
+                % station, that is why is called partial. the ssc position is 
+                % always updated during the execution of the maneuvers. 
+                % a specific set of satellites can be updated to indipendently
+                % cosider the path of every sscs.
+
+            % INPUTS:
+                % obj: state to update
+                % dt: interval of time from which I need to update the
+                    % objects.
+                % updateIndex: index of targets to be update.
+
+            % OUTPUTS:
+                % updated state object.
 
             if(dt~=0)
                 % update all usefull targets

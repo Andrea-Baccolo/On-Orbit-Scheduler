@@ -58,8 +58,7 @@ classdef SSc < SpacePosition & RefillProp & FuelContainer
             % OUTPUTS:
                     % finalFuelMass: computed final fuel mass
                     % fuel: fuel used in the maneuver
-                    % infeas: flag that express if the dv associuated to
-                    % the object returns a feasible state.
+                    % infeas: flag of infeasibility: 1 if infeasible, 0 if feasible.
 
             % Tsiolkovsky rocket equation
             finalMass = (fuelSSc + obj.dryMass)/exp(dv/(obj.g0*obj.specificImpulse));

@@ -1,5 +1,7 @@
 classdef Simulator
 
+    % Collection of methods used to update a state through simulation.
+
     properties
         initialState
     end
@@ -7,11 +9,41 @@ classdef Simulator
     methods
 
         function obj = Simulator(initialState)
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % initialState: state object with the initial targets and sscs.
+
+            % OUTPUTS:
+                % obj: returns simulator object.
+
             obj.initialState = initialState;
         end
-        % Simulation methods ---------------------------------------------------------------------------------------
 
         function [simState, infeas, totFuel, totTime, maneuvers] = SimulateReach(~, simState, sscIndx, targetIndx, updateIndex, fid) 
+
+            % METHOD: function used to simulate oen single ssc that reaches
+                % one single target
+
+            % INPUTS:
+                % obj: Simulator object, even if the function does not use
+                    % it, it still needs to be passed as paramethers.
+                % simState: initial state from which it will be computed
+                    % the simulation and the maneuvers.
+                % sscIndx: index of ssc in the initial state vector of sscs.
+                % targetIndx: index of target to reach in the initial state vector of sscs.
+                % updateIndex: index of targets to update.
+                % fid: optional paramethers used to display or write into a file.
+
+            % OUTPUTS:
+                % simState: State object that contains initial state info.
+                % infeas: flag of infeasibility: 1 if infeasible, 0 if feasible.
+                % totFuel: total fuel consumption.
+                % totTime: total time that takes to perform the reach.
+                % maneuvers: cell arrays with the maneuvers that needs to
+                    % be performed.
+
             if nargin <6, fid = 0; end
             % Initial output
             if(fid>0)
@@ -50,6 +82,30 @@ classdef Simulator
         end
     
         function [simState, infeas, totFuel, totTime, maneuvers] = SimulateSeq(obj, simState, sscIndx, seq, updateIndex, fid)
+
+            % METHOD: function used to simulate the sequence given in
+                % input. With respect to the solution sequence, it is a
+                % specific row or can be a portion of it.
+
+            % INPUTS:
+                % obj: Simulator object, even if the function does not use
+                    % it, it still needs to be passed as paramethers.
+                % simState: initial state from which it will be computed
+                    % the simulation and the maneuvers.
+                % sscIndx: index of ssc in the initial state vector of sscs.
+                % seq: sequence to simulate. In can be aso a tour or a
+                    % portion of a row of the original sequence
+                % updateIndex: index of targets to update.
+                % fid: optional paramethers used to display or write into a file.
+
+            % OUTPUTS:
+                % simState: State object that contains initial state info.
+                % infeas: flag of infeasibility: 1 if infeasible, 0 if feasible.
+                % totFuel: total fuel consumption.
+                % totTime: total time that takes to perform the reach.
+                % maneuvers: cell arrays with the maneuvers that needs to
+                    % be performed.
+
             if nargin <6, fid = 0; end
 
             nTar = length(simState.targets);

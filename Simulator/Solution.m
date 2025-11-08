@@ -16,6 +16,17 @@ classdef Solution
     methods
 
         function obj = Solution(seq, nTar, initialState)
+
+            % METHOD: Constructor
+
+            % INPUTS: 
+                % seq: sequence of the solution.
+                % nTar: total number of targets.
+                % initialState: initial state from which the simulation starts.
+
+            % OUTPUTS:
+                % obj: solution object.
+
             if nargin < 1, seq = []; end
             obj.seq = seq;
             [n,m] = size(seq);
@@ -34,7 +45,21 @@ classdef Solution
         end
         
         function obj = artificialSlt(obj, seq, sscMan, fuelUsage, times, nTar)
-            % from existing inputs, create the object
+
+            % METHOD: from existing inputs, create the object
+
+            % INPUTS:
+                % obj: a Solution object (matlab does not allows multiple
+                    % contructors, thank you agan, matlab :/ )
+                % seq: refeuling sequence for every ssc (nSsc, m).
+                % sscMan: cell array containing cell arrays of maneuver selected from seq.
+                % fuelUsage: quantity of fuel used to reach every target.
+                % times: time employed for every maneuver.
+                % nTar: total number of targets.
+
+            % OUTPUTS:
+                % obj: solution object withthe requested inputs.
+
             obj.sscMan = sscMan;
             obj.fuelUsage = fuelUsage;
             obj.times = times;
@@ -44,7 +69,18 @@ classdef Solution
 
         function [obj, state] = buildManSet(obj, initialState, fid) 
 
-            % create set of maneuvers to reach targes
+            % METHOD: create set of maneuvers associated to the solution.
+
+            % INPUTS:
+                % obj: soltution onject.
+                % initialState: state object with the initial targets, sscs
+                    % and station
+                % fid: optional paramethers used to display or write into a
+                    % file
+
+            % OUTPUTS:
+                % obj: solution object with the the ssc maneuvers.
+                % state: final state after executing the sequence.
 
             if nargin < 3, fid = 0; end
             simulator = Simulator(initialState);
@@ -97,6 +133,20 @@ classdef Solution
         end 
 
         function updateIndx = generateUpdateIndx(~, seq, nTar, i)
+
+            % METHOD: generates the update index of a specific row of a sequence.
+
+            % INPUTS:
+                % obj: Solution object, even if the function does not use
+                    % it, it still needs to be passed as paramethers.
+                % seq: complete sequence matrix.
+                % nTar: total number of targets.
+                % i: row of the sequence chosen.
+
+            % OUTPUTS:
+                % updateIndx: vecotr of targets that needs to be updated
+                    % during the simulation of ssc i.
+
             updateIndx = seq(i, seq(i,:) > 0);
             updateIndx = updateIndx( updateIndx(:) <= nTar);
         end

@@ -13,6 +13,16 @@ classdef TourInfo
     methods
         
         function obj = TourInfo(seq, nTar)
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % sequence of the solution.
+                % nTar: number of targets used to clean the sequence.
+
+            % OUTPUTS:
+                % TourInfo object.
+
             % extraction of tours from the sequence
             % INPUT: seq, sequence of targets; nTar, total number of Targets
             if  nargin < 1
@@ -64,6 +74,20 @@ classdef TourInfo
         end
 
         function obj = artificialTourInfo(obj, tours, lTour, nTour)
+
+            % METHOD: create an artificial TourInfo object with given data.
+
+            % INPUTS:
+                % obj: a TourInfo object (matlab does not allows multiple
+                    % contructors, thank you matlab :/ )
+                % tours: cell arrays of tours 
+                % lTour: lenght of tours stored in a matrix;
+                % nTour: column vector that gives the number of non-empty
+                    % tour for every ssc
+
+            % OUTPUTS:
+                % the tourInfo object constructed with the given inputs.
+
             obj.tours = tours;
             obj.lTour = lTour;
             obj.nTour = nTour;
@@ -71,7 +95,16 @@ classdef TourInfo
 
         function seq = rebuildSeq(obj, nTar)
 
-            % from the tour information, create the sequence
+            % METHOD: from the tour information, create the sequence
+
+            % INPUTS: 
+                % obj: Tour Info object from which the sequence will be
+                    % constructed.
+                % nTar: number of targets to fill the gap and complete the
+                    % sequence.
+
+            % OUTPUTS:
+                % the sequence to contruct.
             
             nSSc = size(obj.lTour, 2);
             % total lenght of the ssc path 
@@ -109,7 +142,14 @@ classdef TourInfo
 
         function zeroTour = addZeros(obj)
 
-            % obtain the tour structure with zero to simulate
+            % METHOD: obtain the tour structure with zero to simulate
+
+            % INPUTS: 
+                % the object TourInfo.
+
+            % OUTPUTS:
+                % cell array with the same dimentions of the tours
+                    % attributes with all the initial and final zeros
 
             [m,n] = size(obj.tours);
             zeroTour = cell(m,n);
@@ -122,7 +162,14 @@ classdef TourInfo
 
         function obj = cutTour(obj)
 
-        % function used to cut some unnessesary part of TourInfo
+            % METHOD: function used to cut some unnessesary part of TourInfo
+
+            % INPUTS: 
+                % object TourInfo 
+
+            % OUTPUTS:
+                % object TourInfo without some empty tours rows in all the
+                    % informations
 
             [~,nSSc] = size(obj.tours);
             % delete the empty tours
@@ -156,6 +203,19 @@ classdef TourInfo
         end
 
         function posSeq = Tour2Seq(obj, sscIndx, tourIndx, posTour)
+
+            % METHOD: passing from a position in a specific tour to a
+                % it's position on the sequence row of the ssc. 
+
+            % INPUTS:
+                % obj: tourInfo object.
+                % sscIndx: index of the ssc in the considered tour.
+                % tourIndx: index of the tour.
+                % posTour: index of the position inside the tour.
+
+            % OUTPUTS:
+                % posSeq: position on the row sscIndx of the sequence.
+
             % check if it is in a new tour after the one already given
             if(tourIndx == obj.nTour(sscIndx) +1)
                 if(isscalar(obj.lTour(:,sscIndx)))
@@ -182,6 +242,19 @@ classdef TourInfo
         end
 
         function [tourIndx, posTour] = Seq2Tour(obj, posSeq, sscIndx)
+
+            % METHOD: passing from position on the sequence row of the ssc
+                % to a position in a specific tour. 
+
+            % INPUTS:
+                % obj: tourInfo object.
+                % sscIndx: index of the ssc in the considered tour.
+                % posSeq: position on the row sscIndx of the sequence.
+
+            % OUTPUTS:
+                % tourIndx: index of the tour.
+                % posTour: index of the position inside the tour.
+
             % Check for empty InfoTour
             if isempty(obj.lTour) || size(obj.lTour,2) < sscIndx
                 if(posSeq == 1)
@@ -215,12 +288,29 @@ classdef TourInfo
         end
 
         function obj = expand(obj, k)
+
+            % METHOD: expanding the tourInfo structure by k tours
+
+            % INPUTS:
+                % obj: TourInfo object.
+                % k: number of expantions
+
+            % OUTPUTS:
+                % obj: expanded object.
+
+            % if no input, expand by 1
             if nargin < 2, k = 1; end
+
+            % checking expantions >0
+            if (k<1)
+                error(" Error: the expantion must be greater than 1, given %d instead", k);
+            end
             [ntour, nssc] = size(obj.lTour);
+
             % case tourInfo empty
             if(nssc==0 && ntour == 0)
-                obj.tours = cell(1,1);
-                obj.lTour = 0;
+                obj.tours = cell(k,1);
+                obj.lTour = zeros(k,1);
                 obj.nTour = 0;
             else
                 obj.lTour(ntour+k, nssc) = 0;
