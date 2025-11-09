@@ -1,6 +1,8 @@
 clear all
 clc
 
+% destroy policy script. for more information, see the thesis.
+
 %%
 % getting folder
 proj = currentProject;

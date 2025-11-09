@@ -1,6 +1,9 @@
 
 clear all
 clc
+
+% Script used to simulate a single simulation-optimization or to run all results in one go.
+
 %% getting folder
 proj = currentProject;
 projectPath = proj.RootFolder;

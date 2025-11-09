@@ -1,5 +1,8 @@
 clear all
 clc
+
+% Tuning parameters script, for more information, see the thesis.
+
 %%
 % getting folder
 proj = currentProject;

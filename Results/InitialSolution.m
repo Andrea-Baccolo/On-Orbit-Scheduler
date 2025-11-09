@@ -1,12 +1,12 @@
 clear all
 clc
 
-% in this section I will use a Repair method to build a new solution from
+% in this script I will use a Repair method to build a new solution from
 % schratch. Firstly, the Repair Random will be used to heuristically get a
 % good but not greedy solution. Then the Fartherst Insertion Simulation
 % Repair is used to obtain a high quality solution. The degree of
 % descruction is set higher to explore more solutions. It will be compared
-% with a fixed degree of destruction.
+% with a fixed degree of destruction. for more information, see the thesis.
 
 %%
 % getting folder

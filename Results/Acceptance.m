@@ -1,5 +1,8 @@
 clear all
 clc
+
+% Acceptance cirteria scripts, for more information, see the thesis.
+
 %%
 % getting folder
 proj = currentProject;

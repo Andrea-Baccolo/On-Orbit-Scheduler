@@ -1,6 +1,7 @@
 clear all
 clc
 
+% Comparison script. for more information, see the thesis.
 
 %% 
 
