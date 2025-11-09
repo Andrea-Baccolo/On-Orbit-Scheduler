@@ -51,6 +51,29 @@ classdef (Abstract) GeneralALNS
 
     methods
         function obj = GeneralALNS(destroySet, repairSet, deltas, decay, nIter, initialSlt, initialState, nRep) 
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % operators
+                    % destroySet: cell array of destroy methods.
+                    % repairSet: cell array of repair methods.
+                % Fixed input parameters
+                    % deltas: % column vector set in this way:
+                        % delta(1) : the new solution is the best one so far;
+                        % delta(2) : the new solution is better than the current one;
+                        % delta(3) : the new solution is accepted;
+                        % delta(4) : the new solution is rejected.
+                    % decay: parameter that considers the preavious.
+                        % weights, between 0 and 1.
+                    % nIter: maximum number of iterations.
+                % Problem inputs
+                    % initialSlt: Solution object with the starting % solution.
+                    % initialState: state object with the info about the
+                        % initial state
+
+            % OUTPUTS:
+                % obj: object with updated weights and sum of weights
             
             obj.nIter = nIter;
             obj.nRep = nRep;
@@ -94,6 +117,24 @@ classdef (Abstract) GeneralALNS
         end
 
         function obj = updateWeights(obj, boolAccept, boolBest, boolCurr, desIndx, repIndx)
+
+            % METHOD: function that updates the weights and the sum of the
+                % weights. In order to avoid to compute every time the sum,
+                % the sum of the weights are continuously updated to reduce
+                % the number of computation.
+
+            % INPUTS:
+                % obj: GeneralALNS object.
+                % boolAccept: boolean value that express if temporary
+                    % solution has been accepted.
+                % boolCurr: boolean value that express if temporary
+                    % solution is better than the current solution.
+                % desIndx: index of the destroy method used.
+                % repIndx: index of the repair method used
+
+            % OUTPUTS:
+                % obj: object with updated weights and sum of weights
+
             % instead of always computing the sum of the weights, I will
             % keep a variable and update it every time
             increm = [obj.deltas(1)*boolBest, obj.deltas(2)*boolCurr, ...
@@ -112,12 +153,34 @@ classdef (Abstract) GeneralALNS
         end
 
         function [probD, probR] = getProbability(obj)
+
+            % METHOD: function used to compute the probabiity associated to
+                % every operators
+
+            % INPUTS:
+                % obj: GeneralALNS object.
+
+            % OUTPUTS:
+                % probD: probability column vector of destroyers.
+                % probR: probability column vector of repairs.
+
             probD = obj.desWeights./obj.sumDes;
             probR = obj.repWeights./obj.sumRep;
         end
 
         function [destroyIndx, repairIndx] = extract(obj)
-           [probD, probR] = getProbability(obj);
+            
+            % METHOD: function used to extract the destroy and repair
+                % methoda
+
+            % INPUTS:
+                % obj: GeneralALNS object.
+
+            % OUTPUTS:
+                % destroyIndx: index of the extracted destroy.
+                % repairIndx: index of the extracted repair.
+
+            [probD, probR] = getProbability(obj);
             
             % extraction
             r = rand();
@@ -130,6 +193,16 @@ classdef (Abstract) GeneralALNS
         end
 
         function obj = Schedule(obj, seed)
+
+            % METHOD: Scheduling function (ALNS algoritm)
+
+            % INPUTS:
+                % obj: GeneralALNS object.
+                % seed: optional parameter random seed for replicability, 
+
+            % OUTPUTS:
+                % obj: object with the scehduling done
+
             if nargin < 2, seed = []; end 
             if(~isempty(seed)), rng(seed); end
             
@@ -139,15 +212,14 @@ classdef (Abstract) GeneralALNS
             initialSlt = obj.currSlt;
             
             for rep = 1:obj.nRep
-                startTime = tic;
+
+                % startTime = tic;
                 tic
-                % reinitialize the solutions
-                obj.currSlt = initialSlt;
-                obj.bestSlt = initialSlt;
-                % restore the accept quantity and the destroy policy 
-                obj = obj.restoreAccept();
-                obj = obj.restoreDestroy();
                 
+                % restore to initial quantities
+                obj = obj.restore(initialSlt);
+
+                % stopping criteria
                 stop = obj.stoppingCriteria(countIter(rep));
                 
                 while(~stop)
@@ -220,8 +292,49 @@ classdef (Abstract) GeneralALNS
             end
         end
 
+        function obj = restore(obj, initialSlt)
+
+            % METHOD: function used to restore the solution for a new
+                % replica.
+
+            % INPUTS:
+                % nTar: number of targets.
+                % initialSlt: solution objet that represents the initial
+                    % solution.
+
+            % OUTPUTS:
+                % obj: the restored object.
+
+            % reinitialize the solutions
+            obj.currSlt = initialSlt;
+            obj.bestSlt = initialSlt;
+            
+            % restore the accept quantity and the destroy policy 
+            obj = obj.restoreAccept();
+            obj = obj.restoreDestroy();
+            
+            % reinitialize weights
+            obj.desWeights = ones(obj.nDestroy, 1);
+            obj.repWeights = ones(obj.nRepair, 1);
+            
+            % reinitialize sum of weights
+            obj.sumDes = obj.nDestroy;
+            obj.sumRep = obj.nRepair;
+        end
+        
         % SAVE VECTORIAL IMAGES
         function createPlot(obj, cellX, cellY, plotTitle, savePath)
+
+            % METHOD: function used to create the plots
+
+            % INPUTS:
+                % obj: GeneralALNS object.
+                % cellX: cell array to print in the x axis plot.
+                % cellY: cell array to print in the x axis plot.
+                % plotTitle: string with the plot title.
+                % savePath: path to the folder without the name of the
+                    % file, th ename will be the plot title.
+
             saving = 1;
             if nargin < 4, plotTitle = '_'; end
             if nargin < 5, saving = 0; end
@@ -315,6 +428,15 @@ classdef (Abstract) GeneralALNS
         % end
 
         function outputCell = tableConstruction(obj)
+
+            % METHOD: function that build and returns the result table.
+
+            % INPUTS:
+                % obj: GeneralALNS object.
+
+            % OUTPUTS:
+                % outputCell: cell array with the tables.
+
             % create rep string 
             repStr = arrayfun(@(x) sprintf('Rep %d', x), 1:obj.nRep, 'UniformOutput', false);
         
@@ -354,6 +476,14 @@ classdef (Abstract) GeneralALNS
         end
 
         function writeFile(~, outputCell, nameTxt)
+
+            % METHOD: function used to write the table results on file.
+
+            % INPUTS:
+                % obj: GeneralALNS object.
+                % outputCell: cell array with the tables.
+                % nameTxt: name with the path of the txt file where to save.
+                
             % open or create the file
             fid = fopen(nameTxt, 'w');
             if fid == -1

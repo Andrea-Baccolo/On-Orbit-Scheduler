@@ -42,13 +42,36 @@ BUILDTOURS
 
 
 
+% INPUTS
+    % accept SA
+        % T0: initial temperature
+        % alpha: decay temperature parameter
+    % GeneralALNS Requires
+        % Fixed input parameters
+            % deltas: % column vector set in this way:
+                % delta(1) : the new solution is the best one so far
+                % delta(2) : the new solution is better than the current one
+                % delta(3) : the new solution is accepted
+                % delta(4) : the new solution is rejected
+            % decay: parameter that considers the preavious weights
+            % nIter: maximum number of iterations
+        % Problem inputs
+            % initialState
+            % initialSlt
+        % operators
+            % desSet: set of destroy
+            % repSet: set of repair
 
 
+INPUTS
+% obj: GeneralALNS object.
+% boolAccept: boolean value that express if temporary solution has been accepted.
+% boolCurr: boolean value that express if temporary solution is better than the current solution.
+% desIndx: index of the destroy method used.
+% repIndx: index of the repair method used
 
-
-
-
-
+OUTPUTS
+% obj: object with updated weights and sum of weights
 
 
 
