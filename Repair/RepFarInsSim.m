@@ -8,11 +8,34 @@ classdef RepFarInsSim < RepFarIns
 
     methods
         function obj = RepFarInsSim(nTar)
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % nTar: number of targets.
+
+            % OUTPUTS:
+                % obj: Repair object.
+
             if nargin < 1, nTar = 0; end
             obj@RepFarIns(nTar);
         end
 
         function struct = initialStruct(obj, initialState, destroyedSet, currSeq)
+
+            % METHOD: funtion used to create the initial structure used to
+                % decide the target to intert in the sequence.
+
+            % INPUTS:
+                % obj: repair object.
+                % initialState: state object that contains the initial info.
+                % destroyedSet: row vector of destroyed set index.
+                % currSeq: matrix of the current sequence.
+
+            % OUTPUTS:
+                % struct: initial structure used to
+                    % decide the target to intert in the sequence.
+
             nSSc = size(currSeq,1);
             struct = cell(nSSc,1);
             for i = 1:nSSc
@@ -21,7 +44,20 @@ classdef RepFarInsSim < RepFarIns
         end
 
         function df_i = calculateDf(obj, initialState, sscIndx, destroyedSet, currSeq)
-            % currSeq è un vettore, gli passo solo il vettorino che mi serve
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % obj: repair object.
+                % initialState: state object that contains the initial info.
+                % sscIndx: index of the ssc where the target needs to be intert.
+                % destroyedSet: row vector of destroyed set index.
+                % currSeq: row vector of the sscIndx row of the original sequence .
+
+            % OUTPUTS:
+                % df_i: single matrix (lDes, nPos+1) of insertion cost
+                    % regaring ssc sscIndx.
+                
             currSeq(currSeq>obj.nTar) = [];
 
             lDes = length(destroyedSet);
@@ -88,6 +124,22 @@ classdef RepFarInsSim < RepFarIns
         end
 
         function [tarIndx, sscIndx, posSeq] = chooseTar(~, struct, ~, ~, ~)
+
+            % METHOD: function that chooses the target to insert using the structure.
+
+            % INPUTS:
+                % obj: repair object.
+                % struct: structure used.
+                % initialState: state object that contains the initial info.
+                % currSeq: matrix of the current sequence.
+                % destroyedSet: row vector of destroyed set index.
+                
+            % OUTPUTS:
+                % tarIndx: index of the chosen target.
+                % sscIndx: index of the ssc where the target needs to be intert.
+                % posSeq: index of the position of the sequence where the 
+                    % target needs to be intert.
+
             lDes = size(struct{1},1);
             nSSc = length(struct);
 
@@ -113,6 +165,23 @@ classdef RepFarInsSim < RepFarIns
         end
         
         function struct = updateStruct(obj, struct, state, currSeq, sscIndx, tarIndx, destroyedSet, ~)
+
+            % METHOD: % function used to update the structure after interting the new target.
+
+            % INPUTS:
+                % obj: repair object.
+                % struct: initial structure used to decide the target to 
+                    % intert in the sequence.
+                % state: state object that contains the initial info.
+                % currSeq: matrix of the current sequence.
+                % sscIndx: index of the ssc to consider.
+                % tarIndx: target index that have been inserted.
+                % destroyedSet: destroyedSet: row vector of destroyed set index.
+                % currDestroyed: index of the target that have been inserted.
+
+            % OUTPUTS:
+                % struct: the updated structure.
+                
             nSSc = size(currSeq,1);
             for i = 1:nSSc
                 if (i == sscIndx)

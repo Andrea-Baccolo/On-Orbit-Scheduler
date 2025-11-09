@@ -9,6 +9,17 @@ classdef RepFarInsNear < RepFarIns & Relatedness
 
     methods
         function obj = RepFarInsNear(nTar, beta)
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % nTar: number of targets.
+                % beta: parameters used in the relatedness measure: between
+                    % 0 and 1.
+
+            % OUTPUTS:
+                % obj: Repair object.
+
             if nargin < 1, nTar = 0; end
             if nargin < 2, beta = 0; end
             obj@RepFarIns(nTar);
@@ -16,13 +27,25 @@ classdef RepFarInsNear < RepFarIns & Relatedness
         end
 
         function struct = initialStruct(obj, state, destroyedSet, currSeq)
-            % the initial structure will be the distance between the
-            % destroyed targets and all the other targets. Since the
-            % normalization is based on all the distances and since they
-            % change over time, just the sngle number is conisdered and the
-            % normaization is performed when needed on a copy to mantain
-            % and update the structure
 
+            % METHOD: % function that create the structure used to decide the
+                % target to insert. the initial structure will be the distance 
+                % between the destroyed targets and all the other targets. 
+                % Since the normalization is based on all the distances and
+                % since they change over time, just the single number is 
+                % considered and the normaization is performed when needed 
+                % on a copy to mantain and update the structure.
+
+            % INPUTS:
+                % obj: repair object.
+                % state: state object that contains the initial info.
+                % destroyedSet: row vector of destroyed set index.
+                % currSeq: matrix of the current sequence.
+
+            % OUTPUTS:
+                % struct: initial structure used to decide the target to 
+                    % intert in the sequence.
+            
             tar = currSeq(currSeq > 0 & currSeq <= obj.nTar);
 
             % I need to considers all destroyed target and the station
@@ -42,6 +65,21 @@ classdef RepFarInsNear < RepFarIns & Relatedness
         end
 
         function [tarIndx, sscIndx, posSeq] = chooseTar(obj, struct, initialState, currSeq, destroyedSet)
+
+            % METHOD: function that chooses the target to insert using the structure.
+
+            % INPUTS:
+                % obj: repair object.
+                % struct: structure used.
+                % initialState: state object that contains the initial info.
+                % currSeq: matrix of the current sequence.
+                % destroyedSet: row vector of destroyed set index.
+                
+            % OUTPUTS:
+                % tarIndx: index of the chosen target.
+                % sscIndx: index of the ssc where the target needs to be intert.
+                % posSeq: index of the position of the sequence where the 
+                    % target needs to be intert.
 
             % normalizing the matrix before using it
             cPrime = obj.cPrimeMatrix(struct{2});
@@ -116,6 +154,23 @@ classdef RepFarInsNear < RepFarIns & Relatedness
         end
 
         function struct = updateStruct(obj, struct, state, ~, ~, tarIndx, destroyedSet, currDestroyed)
+
+            % METHOD: % function used to update the structure after interting the new target.
+
+            % INPUTS:
+                % obj: repair object.
+                % struct: initial structure used to decide the target to 
+                    % intert in the sequence.
+                % state: state object that contains the initial info.
+                % currSeq: matrix of the current sequence.
+                % sscIndx: index of the ssc to consider.
+                % tarIndx: target index that have been inserted.
+                % destroyedSet: destroyedSet: row vector of destroyed set index.
+                % currDestroyed: index of the target that have been inserted.
+
+            % OUTPUTS:
+                % struct: the updated structure.
+
             % deleting the new insered target
             struct{2}(tarIndx,:) = [];
 

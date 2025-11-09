@@ -15,27 +15,73 @@
 % destroyedSet: row vector of destroyed set index.
 % tourInfos: tourInfo object with info of tours after destruction.
 
-CHOOSE TARGETS
+BUILDTOURS
 
-% METHOD: function that gives the total number of destroyed
-                        % targets and their indexes
+% METHOD: general function that adds to the TourInfo the targets in a feasible way.
 
             % INPUTS:
-                % obj: destroy object.
-                % slt: solution to destroy.
-                % initialState: state object that contains the initial info.
+                % obj: repair object.
+                % destroyedSet: row vector of destroyed set index.
+                % tourInfo: tourInfo object with info of tours after the destruction.
+                % stateSsc: state object that contains the initial info.
 
             % OUTPUTS:
-                % nDestroy: total number of destroyers.
-                % destroyIndx: matrix nDestroy x 3 where the first column
-                    % there is the sscIndx, the second the tourIndx, the third
-                    % the posTour.
+                % tourInfo: the updated tourInfo information ready to be transformed into a sequence.
 
 % METHOD: Constructor
 
             % INPUTS:
                 % nTar: number of targets.
-                % degDes: degree of desctruction, a number between 0 and 100.
 
             % OUTPUTS:
-                % obj: destroyFirst object.
+                % obj: Repair object.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

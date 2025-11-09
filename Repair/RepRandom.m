@@ -10,6 +10,17 @@ classdef RepRandom < Repair
     methods
 
         function obj = RepRandom(nTar, prop)
+
+            % METHOD: Constructor
+
+            % INPUTS:
+                % nTar: number of targets.
+                % prop: proportion to check when using the random repair, between 0
+                    % and 1 , 1 is default.
+
+            % OUTPUTS:
+                % obj: Repair object.
+
             if nargin < 1, nTar = 0; end
             if nargin < 2, prop = 0; end
             obj@Repair(nTar);
@@ -17,12 +28,35 @@ classdef RepRandom < Repair
         end
 
         function tarIndx = chooseTar(~, destroyedSet)
+
+            % METHOD: function used to choose the target.
+
+            % INPUTS:
+                % obj: Repair object.
+                % destroyedSet: vector from which the random taarget is
+                    % extracted
+
+            % OUTPUTS:
+                % tarIndx: the target extracted.
+
             % chooose random destroyed target
             lDestroyed = length(destroyedSet);
             tarIndx = randi([1 lDestroyed]);
         end
 
         function tourInfo = buildTours(obj, destroyedSet, tourInfo, initialState)
+
+            % METHOD: general function that adds to the TourInfo the targets in a feasible way.
+
+            % INPUTS:
+                % obj: repair object.
+                % destroyedSet: row vector of destroyed set index.
+                % tourInfo: tourInfo object with info of tours after the destruction.
+                % stateSsc: state object that contains the initial info.
+
+            % OUTPUTS:
+                % tourInfo: the updated tourInfo information ready to be transformed into a sequence.
+
             [nTour, nSSc] = size(tourInfo.lTour);
             stateSSc = repmat({initialState}, nSSc, 1);
             % nTar = length(simulator.simState.targets);
@@ -124,8 +158,6 @@ classdef RepRandom < Repair
             
             end
         end
-
-        
 
     end
 end
