@@ -4,13 +4,13 @@ classdef PlanarChange < OrbitalManeuver
     % of an orbit.
 
     properties
-        nodeTarOrb
-        nodeSScOrb
+        nodeTarOrb % node position true anomaly with repect the target orbit
+        nodeSScOrb % node position true anomaly with repect the SSc orbit
     end
 
     properties (Constant)
         type = "Planar Change";
-        tol = 1e-8;
+        tol = 1e-8; % numerical tolerance.
     end
 
     methods

@@ -4,7 +4,7 @@ classdef RepRandom < Repair
     % tours, after found some infeasibility, it passes to another tour and
     % performed some other random checks until it finishes all destroy targets.
     properties 
-        prop
+        prop % proportion of destroy target to look for before swithching to another tour.
     end
 
     methods

@@ -1,9 +1,11 @@
 classdef (Abstract) AcceptSA
+
+    % Class that implements the SImulation Annealing acceptance criteria.
     
     properties
-        T0 
-        alpha
-        T
+        T0 % initial Temperature
+        alpha % decay parameter of the temperature
+        T % current value of the temperature
     end
     
     methods

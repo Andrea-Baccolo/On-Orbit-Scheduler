@@ -4,7 +4,7 @@ classdef RepFarInsNear < RepFarIns & Relatedness
     % with respect the relatedness measure. 
 
     properties
-        beta
+        beta % parameters used give weights to the planar change and the phasing.
     end
 
     methods

@@ -4,7 +4,7 @@ classdef Repair
     % destroyed solution
 
     properties
-        nTar
+        nTar % number of targets
     end
 
     methods (Abstract)

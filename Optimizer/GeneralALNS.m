@@ -1,49 +1,52 @@
 classdef (Abstract) GeneralALNS
+
+    % general ALNS algorithms with general destroy policy, accept criteria
+    % and stopping criteria 
     
     properties
 
-        currSlt
-        bestSlt
-        state
+        currSlt  % solution object that has the current solutions
+        bestSlt  % solution object that has the best solutions
+        state    % state object that contains the state info
 
         % output 
-        outCurrFuelSim
-        outCurrIndxSim
-        outBestFuelSim
-        outBestIndxSim
-        outBestSlt
-        outWeightsDes
-        outWeightsRep
+        outCurrFuelSim % cell array with length nRep with all the total value of the curret solution for ever replica
+        outCurrIndxSim % cell array with length nRep with all the index where the current solution value changes for ever replica
+        outBestFuelSim % cell array with length nRep with all the total value of the best solution for ever replica
+        outBestIndxSim % cell array with length nRep with all the index where the best solution value changes for ever replica
+        outBestSlt % cell array with length nRep containing the best solutions for every replica.
+        outWeightsDes % cell array with length nRep with the last destroy weights for every replica
+        outWeightsRep % cell array with length nRep with the last repair weights for every replica
         % number of times the operators has been selected
-        outNSelDes 
-        outNSelRep
+        outNSelDes % cell array with length nRep containing how many times a destroy has been called for every replica
+        outNSelRep % cell array with length nRep containing how many times a repair has been called for every replica
 
         % total number of operator
-        nDestroy
-        nRepair
-        nIter
-        nRep
+        nDestroy % total number of destroyers
+        nRepair % total number of repairs
+        nIter % total number of iterations
+        nRep % total number of replicas
 
         % set of operators
-        desSet
-        repSet
+        desSet % cell array containing all destroyers
+        repSet % cell array containing all repairs
 
         % operators's weights and sum of the weights
-        desWeights
-        repWeights
-        sumRep
-        sumDes
+        desWeights % column vector of destroyers's weights
+        repWeights % column vector of repairs's weights
+        sumRep % sum of the current repairs weights
+        sumDes % sum of the current destroyers weights
 
         deltas % column vector set in this way:
         % delta(1) : the new solution is the best one so far
         % delta(2) : the new solution is better than the current one
         % delta(3) : the new solution is accepted
         % delta(4) : the new solution is rejected
-        decay
+        decay % decay parameters used to update the weights
     end
 
     methods (Abstract)
-        [bool, obj] = accept(obj, newSlt, currSlt);
+        [bool, obj] = accept(obj, newSlt);
         stop = stoppingCriteria(obj);
         obj = destroyPolicy(obj, val);
         % if stop = 1, then the algorithm must end

@@ -3,7 +3,7 @@ classdef (Abstract) OrbitalManeuver < Maneuver
     % General class that implements common Orbital Maneuvers's properties,
 
     properties
-        dv
+        dv % variations of velocity to apply
     end
 
     methods

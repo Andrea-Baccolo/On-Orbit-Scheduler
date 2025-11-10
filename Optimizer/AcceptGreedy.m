@@ -1,5 +1,7 @@
 classdef (Abstract) AcceptGreedy
     
+    % Class that implements the Greedy acceptance criteria.
+
     properties
     end
     

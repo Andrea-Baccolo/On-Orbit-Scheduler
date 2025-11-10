@@ -1,5 +1,8 @@
 classdef (Abstract) RepFarIns < Repair
 
+    % Abstract class that collects some common features of the Farthest
+    % insertion repairs.
+
     properties
     end
 

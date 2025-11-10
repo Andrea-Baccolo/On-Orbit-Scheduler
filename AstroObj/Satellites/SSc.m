@@ -3,7 +3,7 @@ classdef SSc < SpacePosition & RefillProp & FuelContainer
     % Service Spacecraft (Ssc).
 
     properties
-        specificImpulse
+        specificImpulse % quantity that measures the efficecy of the spacecraft [s^-1]
     end
 
     properties (Constant)

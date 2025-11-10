@@ -1,6 +1,6 @@
 classdef (Abstract) desRandomPol
     
-    % % Class that must be used as a mix-in with the GeneralALNS object.
+    % Class that must be used as a mix-in with the GeneralALNS object.
     % Implementing destroy random Policy.
     
     properties

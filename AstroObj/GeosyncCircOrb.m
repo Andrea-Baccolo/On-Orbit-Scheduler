@@ -4,7 +4,7 @@ classdef GeosyncCircOrb
     % with respect the equatorial coordinate system
 
     properties
-        inclination
+        inclination 
         raan
         h  % angular momentum         
     end

@@ -4,7 +4,7 @@ classdef (Abstract) desIncreasPol
     % Implementing destroy increasing Policy
 
     properties
-        degDes0 % vector of destroy degrees
+        degDes0 % vector of initial destroy degrees
     end
 
     methods

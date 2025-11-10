@@ -3,7 +3,7 @@ classdef Refilling < Maneuver
     % Class that implements the refilling of a target or a SSc
 
     properties 
-        fuelAdded
+        fuelAdded % fuel added during the refilling
     end
 
     properties (Constant)
