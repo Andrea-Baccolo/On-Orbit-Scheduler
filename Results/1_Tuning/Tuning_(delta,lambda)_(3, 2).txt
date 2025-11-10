@@ -2,7 +2,7 @@
                            <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
                            <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
 
-    <strong>Total Minimum found</strong>    2280.5    2280.5    2280.5    2279.1    2280.5
+    <strong>Total Minimum found</strong>    2280.5    2241.8    2302.7    2280.5    2280.5
 
 
 
@@ -10,14 +10,14 @@
                          <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
                         <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
 
-    <strong>DesRandom       </strong>    0.12685    0.25005    0.10781     0.1001    0.10626
-    <strong>DesRelatedGreedy</strong>    0.10023    0.11289      0.125        0.1    0.10012
-    <strong>DesRelatedRandom</strong>    0.11251        0.1    0.11885    0.10469    0.10006
-    <strong>DesFirst        </strong>    0.27197    0.22794    0.28155     0.1846    0.12471
-    <strong>DesLast         </strong>    0.10002        0.1        0.1        0.1        0.1
-    <strong>DesTourCost     </strong>    0.10094    0.10001        0.1        0.1        0.1
-    <strong>DesTourRandom   </strong>    0.10059        0.1        0.1        0.1        0.1
-    <strong>DesTourSmall    </strong>    0.10005        0.1        0.1        0.1    0.10002
+    <strong>DesRandom       </strong>    0.12685    0.10015    0.10098    0.10007    0.10939
+    <strong>DesRelatedGreedy</strong>    0.10023        0.1    0.10469    0.15625    0.10078
+    <strong>DesRelatedRandom</strong>    0.11251        0.1    0.10314    0.10938      0.125
+    <strong>DesFirst        </strong>    0.27197        0.1    0.20449    0.19806     0.1607
+    <strong>DesLast         </strong>    0.10002    0.12486        0.1        0.1        0.1
+    <strong>DesTourCost     </strong>    0.10094        0.1    0.25938        0.1        0.1
+    <strong>DesTourRandom   </strong>    0.10059        0.1    0.10167        0.1        0.1
+    <strong>DesTourSmall    </strong>    0.10005        0.1    0.17861        0.1        0.1
     <strong>DesSScCost      </strong>        0.1        0.1        0.1        0.1        0.1
     <strong>DesSScRandom    </strong>        0.1        0.1        0.1        0.1        0.1
 
@@ -28,8 +28,8 @@
                      <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
 
     <strong>RepRandom    </strong>        0.1        0.1        0.1        0.1        0.1
-    <strong>RepFarInsSim </strong>    0.13936    0.24078    0.13012    0.20402    0.10032
-    <strong>RepFarInsNear</strong>    0.10078        0.1        0.1        0.1        0.1
+    <strong>RepFarInsSim </strong>    0.13936    0.12502    0.29147    0.12131    0.10671
+    <strong>RepFarInsNear</strong>    0.10078    0.10059        0.1        0.1        0.1
 
 
 
@@ -37,16 +37,16 @@
                         <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                         <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>DesRandom       </strong>     104      102       88      108      104 
-    <strong>DesRelatedGreedy</strong>      86       89       78      101      119 
-    <strong>DesRelatedRandom</strong>     104      101      102      119      110 
-    <strong>DesFirst        </strong>     117      131      138      149      117 
-    <strong>DesLast         </strong>     118      103      124      107      133 
-    <strong>DesTourCost     </strong>     122      119      112      108       95 
-    <strong>DesTourRandom   </strong>      83       84       82       66       79 
-    <strong>DesTourSmall    </strong>     112      110      121       99      113 
-    <strong>DesSScCost      </strong>      76       63       64       74       68 
-    <strong>DesSScRandom    </strong>      78       98       91       69       62 
+    <strong>DesRandom       </strong>     104       96       93       95       90 
+    <strong>DesRelatedGreedy</strong>      86      100       77      104      121 
+    <strong>DesRelatedRandom</strong>     104       93      110      111       98 
+    <strong>DesFirst        </strong>     117       96      132      132      140 
+    <strong>DesLast         </strong>     118      151      112      116      108 
+    <strong>DesTourCost     </strong>     122      113      134       94      106 
+    <strong>DesTourRandom   </strong>      83       85       85      102       83 
+    <strong>DesTourSmall    </strong>     112      115      116       92       98 
+    <strong>DesSScCost      </strong>      76       81       66       69       63 
+    <strong>DesSScRandom    </strong>      78       70       75       85       93 
 
 
 
@@ -54,9 +54,9 @@
                      <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                      <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>RepRandom    </strong>     251      261      242      234      224 
-    <strong>RepFarInsSim </strong>     487      489      493      528      547 
-    <strong>RepFarInsNear</strong>     262      250      265      238      229 
+    <strong>RepRandom    </strong>     251      270      260      256      229 
+    <strong>RepFarInsSim </strong>     487      449      536      468      490 
+    <strong>RepFarInsNear</strong>     262      281      204      276      281 
 
 
 
