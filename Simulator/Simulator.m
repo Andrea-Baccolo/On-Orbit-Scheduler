@@ -3,7 +3,7 @@ classdef Simulator
     % Collection of methods used to update a state through simulation.
 
     properties
-        initialState
+        initialState % initial state from which the simulation starts.
     end
 
     methods

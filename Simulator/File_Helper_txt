@@ -1,0 +1,106 @@
+chapter: reach
+    % FUNCTION: function used to compute the maneuvers to reach a target.
+    % INPUTS:
+        % ssc: SSc object that have to compute the maneuver.
+        % sscIndx: index of the ssc that perform the maneuver in the state
+            % vector.
+        % target: target object that needs to be reached by the ssc.
+        % targetIndx: index of the target above in the state vector.
+    % OUTPUTS:
+        % maneuvers: cell array of the maneuvers to compute to reach the target.
+        % infeas: flag of infeasibility: 1 if infeasible, 0 if feasible.
+chapter: State
+    % Class that contains information about the Problem in a specific point in time.
+    section: properties
+        sscs    % vector of nssc SSc
+        targets % vector of nTar Targets
+        station % fuel station
+        t       % starting point of the state
+    section: State(sscs, targets, station, time)
+            % METHOD: Constructor
+            % INPUTS:
+                % sscs: vector of ssc objects.
+                % targets: vector of target objects.
+                % station: station oblect.
+                % time: time instant of the state.
+            % OUTPUTS:
+                % state object.
+    section: partialUpdate(obj, dt, updateIndex)
+            % METHOD: this function update the positions of the targets and the
+                % station, that is why is called partial. the ssc position is
+                % always updated during the execution of the maneuvers.
+                % a specific set of satellites can be updated to indipendently
+                % cosider the path of every sscs.
+            % INPUTS:
+                % obj: state to update
+                % dt: interval of time from which I need to update the
+                    % objects.
+                % updateIndex: index of targets to be update.
+            % OUTPUTS:
+                % updated state object.
+    section: output(obj, fid, i, updateIndex)
+            % METHOD: function that print ror write the updated position of the ssc i and some targets.
+            % INPUTS:
+                % obj: state to update
+                % fid: value to pass in the fprintf functions, if 1 it
+                    % display everything, if grater than 1 it implies a file
+                    % has been open and therefore it will write on thah file
+                % i: ssc to print
+                % updateIndex: set of targets to print
+
+chapter: Simulator
+    % Collection of methods used to update a state through simulation.
+    section: properties
+        initialState % initial state from which the simulation starts.
+    section: function obj = Simulator(initialState)
+            % METHOD: Constructor
+            % INPUTS:
+                % initialState: state object with the initial targets and sscs.
+            % OUTPUTS:
+                % obj: returns simulator object.
+    section: SimulateReach(~, simState, sscIndx, targetIndx, updateIndex, fid)
+
+            % METHOD: function used to simulate oen single ssc that reaches
+                % one single target
+
+            % INPUTS:
+                % obj: Simulator object, even if the function does not use
+                    % it, it still needs to be passed as paramethers.
+                % simState: initial state from which it will be computed
+                    % the simulation and the maneuvers.
+                % sscIndx: index of ssc in the initial state vector of sscs.
+                % targetIndx: index of target to reach in the initial state vector of sscs.
+                % updateIndex: index of targets to update.
+                % fid: optional paramethers used to display or write into a file.
+
+            % OUTPUTS:
+                % simState: State object that contains initial state info.
+                % infeas: flag of infeasibility: 1 if infeasible, 0 if feasible.
+                % totFuel: total fuel consumption.
+                % totTime: total time that takes to perform the reach.
+                % maneuvers: cell arrays with the maneuvers that needs to
+                    % be performed.
+    section: SimulateSeq(obj, simState, sscIndx, seq, updateIndex, fid)
+
+            % METHOD: function used to simulate the sequence given in
+                % input. With respect to the solution sequence, it is a
+                % specific row or can be a portion of it.
+
+            % INPUTS:
+                % obj: Simulator object, even if the function does not use
+                    % it, it still needs to be passed as paramethers.
+                % simState: initial state from which it will be computed
+                    % the simulation and the maneuvers.
+                % sscIndx: index of ssc in the initial state vector of sscs.
+                % seq: sequence to simulate. In can be aso a tour or a
+                    % portion of a row of the original sequence
+                % updateIndex: index of targets to update.
+                % fid: optional paramethers used to display or write into a file.
+
+            % OUTPUTS:
+                % simState: State object that contains initial state info.
+                % infeas: flag of infeasibility: 1 if infeasible, 0 if feasible.
+                % totFuel: total fuel consumption.
+                % totTime: total time that takes to perform the reach.
+                % maneuvers: cell arrays with the maneuvers that needs to
+                    % be performed.

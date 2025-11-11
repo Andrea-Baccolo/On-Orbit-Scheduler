@@ -5,8 +5,8 @@ function repSet = createRepSet(nTar, nRepair, prop, beta)
     % INPUTS:
         % nTar: number of targets.
         % nRepair: total number of destroyers.
-        % prop: proportion to check when using the random repair, between 0
-            % and 1 , 1 is default.
+        % prop: percentage of targets to check when using the random repair, between 1
+            % and 100 , 100 is default.
         % beta: a number between 0 and 1 used in the relatedness measure (default 0.5).
         
 
@@ -14,7 +14,7 @@ function repSet = createRepSet(nTar, nRepair, prop, beta)
         % cell array with nRepair repairs.
 
     if nargin < 2, nRepair = 3; end
-    if nargin < 3 , prop = 1; end
+    if nargin < 3 , prop = 100; end
     if nargin < 4 && nRepair >= 3, beta = 0.5; end
     
     repSet = cell(nRepair,1);

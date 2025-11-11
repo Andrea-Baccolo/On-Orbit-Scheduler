@@ -3,8 +3,8 @@ classdef State
     % Class that contains information about the Problem in a specific point in time
 
     properties
-        sscs    % cell array of nssc SSc
-        targets % cell array of nTar Targets 
+        sscs    % vector of nssc SSc
+        targets % vector of nTar Targets 
         station % fuel station
         t       % starting point of the state
     end
@@ -37,6 +37,7 @@ classdef State
 
         function obj = partialUpdate(obj, dt, updateIndex) 
 
+
             % METHOD: this function update the positions of the targets and the
                 % station, that is why is called partial. the ssc position is 
                 % always updated during the execution of the maneuvers. 
@@ -63,6 +64,17 @@ classdef State
         end
 
         function output(obj, fid, i, updateIndex)
+
+            % METHOD: function that print ror write the updated position of the ssc i and some targets.
+
+            % INPUTS:
+                % obj: state to update
+                % fid: value to pass in the fprintf functions, if 1 it
+                    % display everything, if grater than 1 it implies a file
+                    % has been open and therefore it will write on thah file
+                % i: ssc to print
+                % updateIndex: set of targets to print
+
             if nargin<2, fid = 1; end
             if nargin<3, i = 1; end
             if nargin<4
