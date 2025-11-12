@@ -2,7 +2,7 @@
                            <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
                            <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
 
-    <strong>Total Minimum found</strong>    2310.5    2333.6    2400.3    2405.7    2421.2
+    <strong>Total Minimum found</strong>    2280.5    2281.8    2280.5    2410.8    2302.8
 
 
 
@@ -10,16 +10,16 @@
                         <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                         <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>DesRandom       </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesRelatedGreedy</strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesRelatedRandom</strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesFirst        </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesLast         </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesTourCost     </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesTourRandom   </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesTourSmall    </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesSScCost      </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>DesSScRandom    </strong>     0.1      0.1      0.1      0.1      0.1 
+    <strong>DesRandom       </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesRelatedGreedy</strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesRelatedRandom</strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesFirst        </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesLast         </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesTourCost     </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesTourRandom   </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesTourSmall    </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesSScCost      </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>DesSScRandom    </strong>     0.5      0.5      0.5      0.5      0.5 
 
 
 
@@ -27,9 +27,9 @@
                      <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                      <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>RepRandom    </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>RepFarInsSim </strong>     0.1      0.1      0.1      0.1      0.1 
-    <strong>RepFarInsNear</strong>     0.1      0.1      0.1      0.1      0.1 
+    <strong>RepRandom    </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>RepFarInsSim </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>RepFarInsNear</strong>     0.5      0.5      0.5      0.5      0.5 
 
 
 
@@ -37,16 +37,16 @@
                         <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                         <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>DesRandom       </strong>      99      110       95      117       98 
-    <strong>DesRelatedGreedy</strong>     104       95       93       99      106 
-    <strong>DesRelatedRandom</strong>     120       83       82      103      114 
-    <strong>DesFirst        </strong>      99      105      112      102      112 
-    <strong>DesLast         </strong>     104      113      117       76       95 
-    <strong>DesTourCost     </strong>      82      107       97       90       88 
-    <strong>DesTourRandom   </strong>      86      105      122      103       94 
-    <strong>DesTourSmall    </strong>     100       93       98      118      103 
-    <strong>DesSScCost      </strong>     105       82       83       96       99 
-    <strong>DesSScRandom    </strong>     101      107      101       96       91 
+    <strong>DesRandom       </strong>      90      101       83       99       96 
+    <strong>DesRelatedGreedy</strong>     107      105       98       94       85 
+    <strong>DesRelatedRandom</strong>      90       95      101       97       88 
+    <strong>DesFirst        </strong>     124       94      100      111      106 
+    <strong>DesLast         </strong>      89       93      111      108       96 
+    <strong>DesTourCost     </strong>     108       91       86      109       96 
+    <strong>DesTourRandom   </strong>      99      128      119       92      115 
+    <strong>DesTourSmall    </strong>      85      106       92       95      111 
+    <strong>DesSScCost      </strong>     108       83      101      101      106 
+    <strong>DesSScRandom    </strong>     100      104      109       94      101 
 
 
 
@@ -54,9 +54,9 @@
                      <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                      <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>RepRandom    </strong>     307      336      316      336      318 
-    <strong>RepFarInsSim </strong>     369      351      376      346      357 
-    <strong>RepFarInsNear</strong>     324      313      308      318      325 
+    <strong>RepRandom    </strong>     312      296      344      312      329 
+    <strong>RepFarInsSim </strong>     359      377      347      355      331 
+    <strong>RepFarInsNear</strong>     329      327      309      333      340 
 
 
 

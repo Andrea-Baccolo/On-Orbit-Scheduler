@@ -67,7 +67,7 @@ fprintf("end Tuning\n");
 %% select alpha 
 
 % fix delta and lambda: (3,1) chosen
-delta = deltas(3,:);
+delta = deltas(2,:);
 lambda = decay(1);
 
 alphas = [0.9, 0.8];
@@ -107,7 +107,7 @@ end
 %% select T0
 
 % fix alpha
- alpha = 0.995;
+ alpha = 0.9;
 
 T0s = [100, 250];
 nT0 = 2;

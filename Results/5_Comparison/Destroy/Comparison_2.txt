@@ -2,32 +2,32 @@
                            <strong>Rep 1</strong>     <strong>Rep 2</strong>     <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
                            <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>    <strong>______</strong>
 
-    <strong>Total Minimum found</strong>    2279.1    2279.1    2356.3    2280.5    2297.2
+    <strong>Total Minimum found</strong>    2193.1    2279.1    2280.5    2279.1    2280.5
 
 
 
 ==== Destroy Weights Table ====
-                         <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>      <strong>Rep 5</strong> 
-                        <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>
+                         <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>     <strong>Rep 4</strong>     <strong>Rep 5</strong> 
+                        <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_____</strong>    <strong>_______</strong>
 
-    <strong>DesRandom       </strong>    0.10234    0.10004        0.1        0.1    0.10234
-    <strong>DesRelatedGreedy</strong>    0.10235        0.1        0.1        0.1        0.1
-    <strong>DesRelatedRandom</strong>     0.2125    0.10001       0.25    0.10938        0.1
-    <strong>DesTourCost     </strong>        0.1        0.1    0.10063    0.10938        0.1
-    <strong>DesTourRandom   </strong>        0.1        0.1        0.1    0.10938        0.1
-    <strong>DesTourSmall    </strong>        0.1        0.1    0.10997     0.1497        0.1
-    <strong>DesSScCost      </strong>        0.1        0.1        0.1        0.1        0.1
-    <strong>DesSScRandom    </strong>        0.1        0.1        0.1        0.1        0.1
+    <strong>DesRandom       </strong>        0.5        0.5    0.50037     0.5         0.5
+    <strong>DesRelatedGreedy</strong>    0.50146        0.5        0.5     0.5         0.5
+    <strong>DesRelatedRandom</strong>    0.50009    0.50009        0.5     0.5         0.5
+    <strong>DesTourCost     </strong>        0.5        0.5        0.5     0.5     0.50002
+    <strong>DesTourRandom   </strong>        0.5        0.5        0.5     0.5         0.5
+    <strong>DesTourSmall    </strong>        0.5        0.5        0.5     0.5         0.5
+    <strong>DesSScCost      </strong>        0.5        0.5        0.5     0.5         0.5
+    <strong>DesSScRandom    </strong>        0.5        0.5        0.5     0.5         0.5
 
 
 
 ==== Repair Weights Table ====
-                      <strong>Rep 1</strong>      <strong>Rep 2</strong>      <strong>Rep 3</strong>      <strong>Rep 4</strong>     <strong>Rep 5</strong>
-                     <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_______</strong>    <strong>_____</strong>
+                     <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
+                     <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>RepRandom    </strong>        0.1        0.1        0.1        0.1     0.1 
-    <strong>RepFarInsSim </strong>    0.12817    0.10001    0.10249    0.10299     0.1 
-    <strong>RepFarInsNear</strong>        0.1        0.1        0.1        0.1     0.1 
+    <strong>RepRandom    </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>RepFarInsSim </strong>     0.5      0.5      0.5      0.5      0.5 
+    <strong>RepFarInsNear</strong>     0.5      0.5      0.5      0.5      0.5 
 
 
 
@@ -35,14 +35,14 @@
                         <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                         <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>DesRandom       </strong>     159      144      115      126      103 
-    <strong>DesRelatedGreedy</strong>     145      130      116      113      113 
-    <strong>DesRelatedRandom</strong>     147      118      108      151      124 
-    <strong>DesTourCost     </strong>     123      132      156      150      159 
-    <strong>DesTourRandom   </strong>     110      127      117      116      104 
-    <strong>DesTourSmall    </strong>     111      144      176      142      175 
-    <strong>DesSScCost      </strong>     105       99      101      106      117 
-    <strong>DesSScRandom    </strong>     100      106      111       96      105 
+    <strong>DesRandom       </strong>      94      141      117      123      110 
+    <strong>DesRelatedGreedy</strong>     137      131      134      107      134 
+    <strong>DesRelatedRandom</strong>     139      139      127      125      105 
+    <strong>DesTourCost     </strong>     120      114      120      132      136 
+    <strong>DesTourRandom   </strong>     122      123      120      129      141 
+    <strong>DesTourSmall    </strong>     125      116      128      152      126 
+    <strong>DesSScCost      </strong>     119      127      119      113      142 
+    <strong>DesSScRandom    </strong>     144      109      135      119      106 
 
 
 
@@ -50,9 +50,9 @@
                      <strong>Rep 1</strong>    <strong>Rep 2</strong>    <strong>Rep 3</strong>    <strong>Rep 4</strong>    <strong>Rep 5</strong>
                      <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>    <strong>_____</strong>
 
-    <strong>RepRandom    </strong>     289      293      253      254      237 
-    <strong>RepFarInsSim </strong>     454      448      488      486      502 
-    <strong>RepFarInsNear</strong>     257      259      259      260      261 
+    <strong>RepRandom    </strong>     296      317      323      318      307 
+    <strong>RepFarInsSim </strong>     376      362      338      371      351 
+    <strong>RepFarInsNear</strong>     328      321      339      311      342 
 
 
 

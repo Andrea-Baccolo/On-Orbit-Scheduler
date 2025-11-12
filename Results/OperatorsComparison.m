@@ -8,11 +8,17 @@ clc
 % Problem
 load("Problem.mat")
 nTar = length(initialStates.targets);
+rng(12345);
+Destroyer = DesRandom(nTar, 100); 
+[destroyedSet, tourInfos] = Destroyer.Destruction(initialSlts, initialStates);
+RandomRepair = RepRandom(nTar, 100); 
+initialSlts = RandomRepair.Reparing(initialStates, destroyedSet, tourInfos);
+initialSlts = initialSlts.buildManSet(initialStates);
 
 % fixed ALNS
-deltas =  [1, 0.7, 0.3, 0.1];  decay =0.25 ;   nIter = 1000;  nRep = 5;
+deltas =  [2, 1.5, 1, 0.5];  decay =0.25 ;   nIter = 1000;  nRep = 5;
 % accept SA
-T0 = 400; alpha = 0.995;
+T0 = 400; alpha = 0.9;
 
 % Repair Sets
 repairSet = createRepSet(nTar);

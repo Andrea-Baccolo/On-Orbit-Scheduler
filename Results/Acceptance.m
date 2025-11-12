@@ -22,9 +22,9 @@ destroySet = createDesSet(nTar, 30);
 repairSet = createRepSet(nTar);
 
 % fixed ALNS
-deltas =  [1, 0.7, 0.3, 0.1];  decay =0.25 ;   nIter = 1000;  nRep = 5;
+deltas =  [2, 1.5, 1, 0.5];  decay =0.25 ;   nIter = 1000;  nRep = 5;
 % accept SA
-T0 = 400; alpha = 0.995;
+T0 = 400; alpha = 0.9;
 
 %% SA opt
 saOpt = ALNS_SA_I_dF(destroySet, repairSet, deltas, decay, nIter, initialSlts, initialStates, nRep, T0, alpha);

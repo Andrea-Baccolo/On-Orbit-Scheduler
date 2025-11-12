@@ -26,9 +26,9 @@ repairSet = createRepSet(nTar);
 destroySet = createDesSet(nTar, 30); 
 
 % fixed ALNS
-deltas =  [1, 0.7, 0.3, 0.1];  decay =0.25 ;   nIter = 1000;  nRep = 5;
+deltas =  [2, 1.5, 1, 0.5];  decay =0.25 ;   nIter = 1000;  nRep = 5;
 % accept SA
-T0 = 400; alpha = 0.995;
+T0 = 400; alpha = 0.9;
 
 %% Basic Initial Solution
 
@@ -135,8 +135,8 @@ SimulationOpt.writeFile(result, nameFile)
 addFile(proj, nameFile);
 
 %% Best Solution
-seq = [0 7 10 1 14 0 12 5 13 2 0 11 3 6 0
-       0 9 8  4  0 15*ones(1,10)];
+seq = [0	9	8	4	0	7	10	1	14	0
+       0    12	11	13	2	0	5	3	6	0];
 newSlt = Solution(seq, nTar, initialStates);
 
 %%
