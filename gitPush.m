@@ -1,6 +1,6 @@
 function gitPush(branchName)
 % GITPUSH - Push changes to GitHub from the current branch
-%
+
 % e.g.: gitPush('main') - Push changes to the 'main' branch
 
     % check if there is the branch name

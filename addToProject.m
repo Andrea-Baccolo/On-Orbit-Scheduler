@@ -1,5 +1,5 @@
-clear all
-clc
+% clear all
+% clc
 
 %%
 
@@ -9,9 +9,10 @@ clc
 % using fullfile to be indipendent from the OS (operating system)
 proj = currentProject;
 projectPath = proj.RootFolder;
-subFolder = 'Destroy';   
-fileName  = "DesRelatedGreedy.m";
-nameFile = fullfile(projectPath, subFolder, fileName);
+subFolder = '';   
+subfolder1 = '';
+fileName  = "Class_Diagram.pdf";
+nameFile = fullfile(projectPath, subFolder,subfolder1, fileName);
 
 
 addFile(proj, nameFile);

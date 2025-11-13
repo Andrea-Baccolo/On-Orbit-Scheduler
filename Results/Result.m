@@ -51,7 +51,7 @@ nameFile = fullfile(filePath, str);
 Current_SettingOpt.writeFile(result, nameFile)
 addFile(proj, nameFile);
 
-%% Do all results
+%% Do all results at once
 
 run("Tuning.m");
 run("Acceptance.m");

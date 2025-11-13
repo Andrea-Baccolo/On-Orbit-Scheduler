@@ -1,7 +1,4 @@
-% startup
-
-
-%% STARTUP.M - Comandi eseguiti all'apertura del progetto
+%% STARTUP.M - Commands exectuted when opening the project
 
 addpath(genpath(pwd));
 disp('All folders are added to path.');
@@ -13,9 +10,5 @@ if status == 0
 else
     warning('Git pull failed: %s', cmdout);
 end
-
-
-% Upload Libraies
-% run('path/Library.m');
 
 disp('Project ready');

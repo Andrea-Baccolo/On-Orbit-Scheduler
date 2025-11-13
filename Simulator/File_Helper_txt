@@ -1,4 +1,6 @@
-chapter: reach
+come input ti sto due porzioni diverse di informazione: la parte di testo tra &&& e &&& rappresenta dell'informazione che mi devi mettere nello stesso fromato latex che è quello rappresentato tra ---. quindi mi devi generare un pzzetto di formato latex (nons erve il preabolo, begin document ecc) dove prendi la prima parte di informazione e me la metti nel formato della seconda parte.
+&&&
+subsection: reach
     % FUNCTION: function used to compute the maneuvers to reach a target.
     % INPUTS:
         % ssc: SSc object that have to compute the maneuver.
@@ -9,14 +11,14 @@ chapter: reach
     % OUTPUTS:
         % maneuvers: cell array of the maneuvers to compute to reach the target.
         % infeas: flag of infeasibility: 1 if infeasible, 0 if feasible.
-chapter: State
+subsection: State
     % Class that contains information about the Problem in a specific point in time.
-    section: properties
+    ItemEsterno: properties
         sscs    % vector of nssc SSc
         targets % vector of nTar Targets
         station % fuel station
         t       % starting point of the state
-    section: State(sscs, targets, station, time)
+    ItemEsterno: State(sscs, targets, station, time)
             % METHOD: Constructor
             % INPUTS:
                 % sscs: vector of ssc objects.
@@ -25,7 +27,7 @@ chapter: State
                 % time: time instant of the state.
             % OUTPUTS:
                 % state object.
-    section: partialUpdate(obj, dt, updateIndex)
+    ItemEsterno: partialUpdate(obj, dt, updateIndex)
             % METHOD: this function update the positions of the targets and the
                 % station, that is why is called partial. the ssc position is
                 % always updated during the execution of the maneuvers.
@@ -38,7 +40,7 @@ chapter: State
                 % updateIndex: index of targets to be update.
             % OUTPUTS:
                 % updated state object.
-    section: output(obj, fid, i, updateIndex)
+    ItemEsterno: output(obj, fid, i, updateIndex)
             % METHOD: function that print ror write the updated position of the ssc i and some targets.
             % INPUTS:
                 % obj: state to update
@@ -47,18 +49,131 @@ chapter: State
                     % has been open and therefore it will write on thah file
                 % i: ssc to print
                 % updateIndex: set of targets to print
+subsection: TourInfo
+% Class of missions information of a specific sequence of targets, it implements information regarding tours and some methods to manipulate and update them
+    ItemEsterno: properties
+        tours % cell array max(nTour) x nSSc containing targets of tours
+        lTour % matrix max(nTour) x nSSc containing length of the tours
+        nTour % number of tours for every Ssc
+    ItemEsterno:TourInfo: Constructor.
+            % INPUTS:
+                % sequence of the solution.
+                % nTar: number of targets used to clean the sequence.
+            % OUTPUTS:
+                % TourInfo object.
+    ItemEsterno: artificialTourInfo: create an artificial TourInfo object with given data.
+            % INPUTS:
+                % obj: a TourInfo object (matlab does not allows multiple
+                    % contructors, thank you matlab :/ )
+                % tours: cell arrays of tours
+                % lTour: lenght of tours stored in a matrix;
+                % nTour: column vector that gives the number of non-empty
+                    % tour for every ssc
+            % OUTPUTS:
+                % the tourInfo object constructed with the given inputs.
+    ItemEsterno: rebuildSeq: from the tour information, create the sequence
+            % INPUTS:
+                % obj: Tour Info object from which the sequence will be
+                    % constructed.
+                % nTar: number of targets to fill the gap and complete the
+                    % sequence.
+            % OUTPUTS:
+                % the sequence to contruct.
+    ItemEsterno: addZeros: obtain the tour structure with zero to simulate
+            % INPUTS:
+                % the object TourInfo.
+            % OUTPUTS:
+                % cell array with the same dimentions of the tours
+                    % attributes with all the initial and final zeros
+    ItemEsterno: cutTour: function used to cut some unnessesary part of TourInfo
+            % INPUTS:
+                % object TourInfo
+            % OUTPUTS:
+                % object TourInfo without some empty tours rows in all the
+                    % informations
+    ItemEsterno: Tour2Seq: passing from a position in a specific tour to a it's position on the sequence row of the ssc.
+            % INPUTS:
+                % obj: tourInfo object.
+                % sscIndx: index of the ssc in the considered tour.
+                % tourIndx: index of the tour.
+                % posTour: index of the position inside the tour.
+            % OUTPUTS:
+                % posSeq: position on the row sscIndx of the sequence.
+    ItemEsterno: Seq2Tour: passing from position on the sequence row of the ssc to a position in a specific tour.
+            % INPUTS:
+                % obj: tourInfo object.
+                % sscIndx: index of the ssc in the considered tour.
+                % posSeq: position on the row sscIndx of the sequence.
+            % OUTPUTS:
+                % tourIndx: index of the tour.
+                % posTour: index of the position inside the tour.
+    ItemEsterno: expand: expanding the tourInfo structure by k tours
 
-chapter: Simulator
+            % INPUTS:
+                % obj: TourInfo object.
+                % k: number of expantions
+
+            % OUTPUTS:
+                % obj: expanded object.
+subsection: Solution
+% class used to collect solution's information.
+    ItemEsterno: properties
+        seq       % refeuling sequence for every ssc (nSsc, m)
+        sscMan    % cell array containing cell arrays of maneuver selected from seq
+        fuelUsage % quantity of fuel used to reach every target
+        times     % time employed for every maneuver
+        totFuel   % total fuelUsage for the solution
+
+        tourInfo % Tour informations
+    ItemEsterno: Solution : Constructor
+            % INPUTS:
+                % seq: sequence of the solution.
+                % nTar: total number of targets.
+                % initialState: initial state from which the simulation starts.
+            % OUTPUTS:
+                % obj: solution object.
+    ItemEsterno: artificialSlt : from existing inputs, create the object
+            % INPUTS:
+                % obj: a Solution object (matlab does not allows multiple
+                    % contructors, thank you agan, matlab :/ )
+                % seq: refeuling sequence for every ssc (nSsc, m).
+                % sscMan: cell array containing cell arrays of maneuver selected from seq.
+                % fuelUsage: quantity of fuel used to reach every target.
+                % times: time employed for every maneuver.
+                % nTar: total number of targets.
+            % OUTPUTS:
+                % obj: solution object withthe requested inputs.
+    ItemEsterno: buildManSet : create set of maneuvers associated to the solution.
+            % INPUTS:
+                % obj: soltution onject.
+                % initialState: state object with the initial targets, sscs
+                    % and station
+                % fid: optional paramethers used to display or write into a
+                    % file
+            % OUTPUTS:
+                % obj: solution object with the the ssc maneuvers.
+                % state: final state after executing the sequence.
+    ItemEsterno: generateUpdateIndx : generates the update index of a specific row of a sequence.
+            % INPUTS:
+                % obj: Solution object, even if the function does not use
+                    % it, it still needs to be passed as paramethers.
+                % seq: complete sequence matrix.
+                % nTar: total number of targets.
+                % i: row of the sequence chosen.
+            % OUTPUTS:
+                % updateIndx: vecotr of targets that needs to be updated
+                    % during the simulation of ssc i.
+subsection: Simulator
     % Collection of methods used to update a state through simulation.
-    section: properties
+    ItemEsterno: properties
         initialState % initial state from which the simulation starts.
-    section: function obj = Simulator(initialState)
+    ItemEsterno: function obj = Simulator(initialState)
             % METHOD: Constructor
             % INPUTS:
                 % initialState: state object with the initial targets and sscs.
             % OUTPUTS:
                 % obj: returns simulator object.
-    section: SimulateReach(~, simState, sscIndx, targetIndx, updateIndex, fid)
+    ItemEsterno: SimulateReach(~, simState, sscIndx, targetIndx, updateIndex, fid)
 
             % METHOD: function used to simulate oen single ssc that reaches
                 % one single target
@@ -80,7 +195,7 @@ chapter: Simulator
                 % totTime: total time that takes to perform the reach.
                 % maneuvers: cell arrays with the maneuvers that needs to
                     % be performed.
-    section: SimulateSeq(obj, simState, sscIndx, seq, updateIndex, fid)
+    ItemEsterno: SimulateSeq(obj, simState, sscIndx, seq, updateIndex, fid)
 
             % METHOD: function used to simulate the sequence given in
                 % input. With respect to the solution sequence, it is a
@@ -104,3 +219,387 @@ chapter: Simulator
                 % totTime: total time that takes to perform the reach.
                 % maneuvers: cell arrays with the maneuvers that needs to
                     % be performed.
+
+
+&&&
+---
+                \section{Orbits}
+\subsection{GeosyncCircOrb}
+Class used to make an instance of a geosynchronous circular orbit with respect the equatorial coordinate system
+%
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{inclination}: inclination angle in degrees
+        \item \emph{raan}: raan angle in degrees.
+        \item \emph{h}: angular momentum
+        \item \emph{semiMajorAxis = 42165}: km
+        \item \emph{angVel = 7.2919e-05}: rad/s
+        \item \emph{GMp = 398600}: km$^3$/s$^2$, product between gravitational constant and Earth's mass
+    \end{itemize}
+    \item GeosyncCircOrb: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]\item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{inclination}: inclination of the orbit.
+            \item \emph{raan}: right ascension of the ascending node of the orbit.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{orbit object}: geosynchronous circular orbit instance.
+        \end{itemize}
+\end{itemize}
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Satellites}
+\subsection{FuelContainer}
+Implementing Fuel properties.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{dryMass}: mass of the object without the fuel
+        \item \emph{fuelMass}: fuel that can be used by the object
+        \item \emph{tot\_cap}: total capacity of the satellite's tank
+    \end{itemize}
+    \item FuelContainer: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{dryMass}: mass of the empty satellite.
+            \item \emph{fuelMass}: level of fuel in the satellite.
+            \item \emph{capacity}: maximum tank capacity of the satellite.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{object}: returns object.
+        \end{itemize}
+    \end{itemize}
+    \item {add\_fuel}: Refilling completely the tank of the object.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{object}: the object to refill.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{object}: the object with full capacity.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+%
+\subsection{RefillProp}
+Implementing Refilling model.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{speedRefill}: L/s
+    \end{itemize}
+    \item RefillProp: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{speedRefill}: refueling speed in L/s.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{object}: requested object.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+%
+\subsection{SpacePosition}
+Class used to implement position of the satellite.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{orbit}: orbit object containing the orbit information
+        \item \emph{trueAnomaly}: angle defining the position on the orbit
+    \end{itemize}
+    \item SpacePosition: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{orbit}: orbit of the satellite.
+            \item \emph{trueAnomaly}: angle that describes the position on the orbit, measured from the ascending node with respect to the direction of rotation.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{object}: requested object.
+        \end{itemize}
+    \end{itemize}
+    \item update:Function that updates the position given a certain \emph{dt} of time.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{obj}: object to update.
+            \item \emph{dt}: time used to update.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{object}: requested object.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+%
+\subsection{Station}
+Fuel station object.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Station: Constructor.
+    \item \textbf{INPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{orbit}: orbit of the satellite.
+        \item \emph{trueAnomaly}: angle that describes the position on the orbit, measured from the ascending node with respect to the direction of rotation.
+        \item \emph{speedRefill}: refueling speed in L/s.
+    \end{itemize}
+    \item \textbf{OUTPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{station obj}: station object.
+    \end{itemize}
+\end{itemize}
+%
+\subsection{Target}
+Taregt to refill.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Target:  Constructor.
+    \item \textbf{INPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{orbit}: orbit of the satellite.
+        \item \emph{trueAnomaly}: angle that describes the position on the orbit.
+        \item \emph{dryMass}: mass of the empty satellite.
+        \item \emph{fuelMass}: level of fuel in the satellite.
+        \item \emph{tot\_cap}: maximum tank capacity.
+    \end{itemize}
+    \item \textbf{OUTPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{target obj}: target object.
+    \end{itemize}
+\end{itemize}
+%
+\subsection{SSc}
+Service Spacecraft (Ssc) class.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{specificImpulse}: quantity that measures the efficiency of the spacecraft [$s^{-1}$]
+        \item \emph{g0 = 9.81}: m/s$^2$
+    \end{itemize}
+    \item SSc: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{orbit}: orbit of the satellite.
+            \item \emph{trueAnomaly}: angle that describes the position on the orbit.
+            \item \emph{dryMass}: mass of the empty satellite.
+            \item \emph{fuelMass}: level of fuel in the satellite.
+            \item \emph{tot\_cap}: maximum tank capacity.
+            \item \emph{speedRefill}: refueling speed in L/s.
+            \item \emph{specificImpulse}: specific impulse of the ssc.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{ssc obj}: service spacecraft object.
+        \end{itemize}
+    \end{itemize}
+    \item calculateFuel: Function to compute the fuel used by the object.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{obj}: the object used.
+            \item \emph{dv}: variation of velocity that has to be applied.
+            \item \emph{fuelSSc}: fuel of the object. This is used to compute the feasibility of reaching before updating the real one.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{finalFuelMass}: computed final fuel mass.
+            \item \emph{fuel}: fuel used in the maneuver.
+            \item \emph{infeas}: flag of infeasibility (1 if infeasible, 0 if feasible).
+        \end{itemize}
+    \end{itemize}
+    \item giveFuel: Function that updates the fuel quantity by taking away some fuel.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{obj}: object from which fuel is taken away.
+            \item \emph{quantity}: quantity of fuel to remove.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{obj}: final object without the removed fuel.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Maneuvers}
+Here all the considered maneuvers are implemented as classes. The following two  methods are implemented through override to all maneuvers:
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item execute: This method updates only the SSc position, checks infeasibility, and calculates the fuel used during a generic maneuver.
+    \item \textbf{INPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{obj}: maneuver to be executed.
+        \item \emph{simState}: state to update.
+    \end{itemize}
+    \item \textbf{OUTPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{simState}: updated state.
+        \item \emph{fuelUsed}: fuel used during execution.
+    \end{itemize}
+    \item compute: Calculate maneuver.
+    \item \textbf{INPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{obj}: maneuver to be updated.
+        \item \emph{ssc}: ssc object that needs to reach the target.
+        \item \emph{target}: target object to reach.
+        \item \emph{fuelReal}: actual ssc fuel value when maneuver is performed.
+    \end{itemize}
+    \item \textbf{OUTPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{obj}: computed maneuver.
+    \end{itemize}
+\end{itemize}
+%
+\subsection{Maneuver}
+This general class stores all common information needed to calculate and execute maneuvers for every maneuver,
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{dt}: time to perform the maneuver
+        \item \emph{totAngle}: total angle done in dt of time
+        \item \emph{sscIndx}: index that identifies which SSc is involved in the maneuver
+        \item \emph{targetIndx}: index that identifies which target is involved in the maneuver
+        \item \emph{type}: string that stores the type of maneuver performed
+    \end{itemize}
+    \item Maneuver: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{METHOD:} Constructor.
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{sscIndx}: index of the ssc performing the maneuver.
+            \item \emph{targetIndx}: index of the target to reach.
+            \item \emph{dt}: total duration of the maneuver in seconds.
+            \item \emph{totAngle}: total angle corresponding to time dt.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{Maneuver obj}: maneuver object.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+%
+\subsection{Refilling}
+Implementing refueling maneuevr.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{fuelAdded}: fuel added during the refilling
+    \end{itemize}
+    \item Refilling: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{sscIndx}: index of the ssc performing the maneuver.
+            \item \emph{targetIndx}: index of the target to reach.
+            \item \emph{dt}: total duration of the maneuver in seconds.
+            \item \emph{totAngle}: total angle corresponding to time dt.
+            \item \emph{fuelAdded}: amount of fuel added to the target/ssc.
+    \end{itemize}
+    \item \textbf{OUTPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{Maneuver obj}: refilling maneuver object.
+    \end{itemize}
+\end{itemize}
+\end{itemize}
+%
+\subsection{OrbitalManeuver}
+General class that implements common Orbital Maneuvers's properties.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{dv}: variations of velocity to apply
+    \end{itemize}
+    \item OrbitalManeuver: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{METHOD:} Constructor.
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{sscIndx}: index of the ssc.
+            \item \emph{targetIndx}: index of the target.
+            \item \emph{dt}: duration in seconds.
+            \item \emph{totAngle}: angle corresponding to time dt.
+            \item \emph{dv}: total velocity increment.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{Orbital Maneuver obj}: orbital maneuver object.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+%
+\subsection{Phasing}
+Implementing phasing, the maneuver to rendezvous with the target.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{semiMajorAxis}: semimajor axis of the resulting orbit
+        \item \emph{Revolutions}: number of revolutions used for phasing
+        \item \emph{safeRadius = 6378 + 2500}: earth radius + 2500km
+    \end{itemize}
+    \item Phasing: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{sscIndx}: index of the ssc.
+            \item \emph{targetIndx}: index of the target.
+            \item \emph{dt}: total duration of the maneuver in seconds.
+            \item \emph{totAngle}: total angle corresponding to time dt.
+            \item \emph{dv}: total velocity increment.
+            \item \emph{semiMajoAxis}: semimajor axis of the transfer orbit.
+            \item \emph{Revolutions}: total number of revolutions to reach the target.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{Phasing obj}: phasing maneuver object.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+%
+\subsection{Planar Change}
+Implementing planar change, a maneuver to change inclination and raan of an orbit.
+\begin{itemize}[itemsep=0.5pt, topsep=1pt]
+    \item Properties:
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{nodeTarOrb}: node position true anomaly with respect to the target orbit
+        \item \emph{nodeSScOrb}: node position true anomaly with respect to the SSc orbit
+        \item \emph{tol = 1e-8}: numerical tolerance
+    \end{itemize}
+    \item PlanarChange: Constructor method.
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \textbf{METHOD:} Constructor.
+        \item \textbf{INPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{sscIndx}: index of the ssc.
+            \item \emph{targetIndx}: index of the target.
+            \item \emph{dt}: duration in seconds.
+            \item \emph{totAngle}: angle corresponding to time dt.
+            \item \emph{dv}: total velocity increment.
+            \item \emph{nodeTargetOrb}: true anomaly of the node with respect to the target orbit.
+            \item \emph{nodeSScOrb}: true anomaly of the node with respect to the ssc orbit.
+        \end{itemize}
+        \item \textbf{OUTPUTS:}
+        \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+            \item \emph{Planar change obj}: planar change maneuver object.
+        \end{itemize}
+    \end{itemize}
+    \item point2trueAnomaly Function used to pass from a point in 3D to the true anomaly vector described with respect to a specific orbit.
+    \item \textbf{INPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{obj}: planar change object.
+        \item \emph{r}: vector 3x1 containing the coordinates of the point to convert.
+        \item \emph{omega}: raan of the reference orbit.
+        \item \emph{i}: inclination of the reference orbit.
+        \item \emph{a}: semimajor axis of the reference orbit.
+    \end{itemize}
+    \item \textbf{OUTPUTS:}
+    \begin{itemize}[itemsep=0.5pt, topsep=1pt]
+        \item \emph{phi}: true anomaly with respect to the input orbit data.
+    \end{itemize}
+\end{itemize}
+---
