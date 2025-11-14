@@ -27,7 +27,7 @@ The following instructions can be used to open the project folder.
 # Required Toolboxes
 No Toolboxes have been used in this project.
 
-## Notes
+#### Notes
 - Keep the original folder structure unchanged; MATLAB depends on it when loading the project.  
 - If the project includes startup scripts defined in the `.prj`, MATLAB will run them automatically.
 
@@ -67,14 +67,14 @@ No Toolboxes have been used in this project.
 # How to use the project
 This project addresses two task, simulation and Optimization. The optimization requires the Simulation, but the simulation does not needthe Optimization.
 
-## Problem instance
+#### Problem instance
 Before simulating, a problem instance is required to give proper informations about satellite's positions and the sequence to simulate.
 In the test folder, a function "createInstance" has been implemented to help creating the instance. For the inputs required, check the helper file, an example of instance creation is  the file "SaveProblem.m" in the test folder. The problem instance is tipycally composed by two objects: a solution object and a state oblect.
 
-## Simulation
+#### Simulation
 A simulator object needs to be created before starting the simulation. An example of simulation has been done in the file "simulationExample.m"
 
-## Optimization
+#### Optimization
 The optimization process is composed by three part: an object from the Optimizer folder, a Problem Instance and two cell array of destroyers and repairers. An exampole of optimization is the "currResult.m" script in the Result folder. 
 # Authors
 - Andrea Baccolo – Project developer.
