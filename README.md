@@ -33,11 +33,8 @@ No Toolboxes have been used in this project.
 
 # Project Structure
 /AstroObj/Maneuvers    → presents some classes and functions on orbital Maneuvers.
-
 /AstroObj/Satellites   → presents some classes and functions on the Spacescrafts.
-
 /Destroy               → presents some classes and functions on the destroyers used to optimize.
-
 /Optimizer             → presents some classes and functions on the optimization method.
 /Repair                → presents some classes and functions on the repairers used to optimize.
 /results               → presents results of the thesis.
