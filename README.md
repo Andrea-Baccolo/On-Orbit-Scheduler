@@ -65,7 +65,17 @@ No Toolboxes have been used in this project.
 /startup.m             → file executed by the MATLAB project when it's open.
 
 # How to use the project
+This project addresses two task, simulation and Optimization. The optimization requires the Simulation, but the simulation does not needthe Optimization.
 
+## Problem instance
+Before simulating, a problem instance is required to give proper informations about satellite's positions and the sequence to simulate.
+In the test folder, a function "createInstance" has been implemented to help creating the instance. For the inputs required, check the helper file, an example of instance creation is  the file "SaveProblem.m" in the test folder. The problem instance is tipycally composed by two objects: a solution object and a state oblect.
+
+## Simulation
+A simulator object needs to be created before starting the simulation. An example of simulation has been done in the file "simulationExample.m"
+
+## Optimization
+The optimization process is composed by three part: an object from the Optimizer folder, a Problem Instance and two cell array of destroyers and repairers. An exampole of optimization is the "currResult.m" script in the Result folder. 
 # Authors
 - Andrea Baccolo – Project developer.
 
