@@ -33,20 +33,35 @@ No Toolboxes have been used in this project.
 
 # Project Structure
 /AstroObj/Maneuvers    → presents some classes and functions on orbital Maneuvers.
+
 /AstroObj/Satellites   → presents some classes and functions on the Spacescrafts.
+
 /Destroy               → presents some classes and functions on the destroyers used to optimize.
+
 /Optimizer             → presents some classes and functions on the optimization method.
+
 /Repair                → presents some classes and functions on the repairers used to optimize.
+
 /results               → presents results of the thesis.
+
 /Simulator             → presents some classes and functions for simulating the On-orbit scheduling.
+
 /Test                  → presents some classes and functions used for testing.
+
 /Class_Diagram.pdf     → visualization of project classes.
+
 /Helper.pdf            → file with a summary of all classes and functions.
+
 /OnOrbit_Scheduler.prj → MATLAB project file.
+
 /addToProject.m        → script used to add a file in the MATLAB project.
+
 /finish.m              → file executed by the MATLAB project when it's closed.
+
 /gitCommit.m           → function used to commit from MATLAB.
+
 /gitPush.m             → function used to push from MATLAB.
+
 /startup.m             → file executed by the MATLAB project when it's open.
 
 # How to use the project
