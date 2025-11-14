@@ -16,8 +16,9 @@ function [initialState, initialSlt] = createInstanceProblem(nSSc, nTar, i_S, ome
         % refillSpeedSSc, refillSpeed: refilling speed of SScs and Station
 
     % OUTPUTS: 
-        % infeas: 1 if infeasible, 0 if feasible.
-
+        % initialState: state object with initial state information.
+        % initialSlt: solution object with initial solution information.
+        
     infeas = checkInstance([i_T, i_S], [omega_T, omega_S]);
     if(~infeas)
         % station
