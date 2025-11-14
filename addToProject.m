@@ -9,9 +9,9 @@
 % using fullfile to be indipendent from the OS (operating system)
 proj = currentProject;
 projectPath = proj.RootFolder;
-subFolder = 'Test';
+subFolder = 'OtherFiles';
 subfolder1 = '';
-fileName  = "test_Output.m";
+fileName  = "initialSeq.m";
 nameFile = fullfile(projectPath, subFolder,subfolder1, fileName);
 
 
