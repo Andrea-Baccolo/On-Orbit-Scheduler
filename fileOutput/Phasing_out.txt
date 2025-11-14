@@ -1,4 +1,0 @@
-**********Phasing**********
-SSc 1 reaches target 1 
- Time: 104111.6245, Total angle: 434.97
-dv: 0.3541semiMajorAxis: 47832.7660, number of Revolutions: 1

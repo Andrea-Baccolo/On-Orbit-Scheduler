@@ -1,2 +1,0 @@
-Dry Mass: 5000.00, Fuel Mass: 200.00, Tank Capacity: 700.00
-nu: 278.27, incl: 1.60, raan:66.76 

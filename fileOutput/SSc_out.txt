@@ -1,3 +1,0 @@
-Dry Mass: 500.00, Fuel Mass: 2500.00, Tank Capacity: 2500.00
-Refueling speed: 0.01
-Specific Impulse: 0.31, nu: 0.00, incl: 2.00, raan:60.00 
