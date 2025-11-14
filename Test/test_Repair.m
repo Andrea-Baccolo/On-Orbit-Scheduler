@@ -1,5 +1,8 @@
 clear all
 clc
+%% 
+% Script used to test the repairers
+
 rng(12345)
 load("TestInstRepair.mat");
 nTest = length(initialSltsRep);

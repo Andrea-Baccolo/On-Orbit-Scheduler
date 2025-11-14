@@ -1,7 +1,7 @@
-% Create Instance of testing
 clear all
 clc
-
+% script used to create a test Instance for testing
+%%
 % get the complete filename
 % using fullfile to be indipendent from the OS (operating system)
 proj = currentProject;

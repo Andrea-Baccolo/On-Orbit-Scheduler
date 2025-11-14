@@ -1,0 +1,4 @@
+**********Refueling**********
+SSc 1 reaches target 1 
+ Time: 60240.9639, Total angle: 251.68
+Fuel added: 500.00

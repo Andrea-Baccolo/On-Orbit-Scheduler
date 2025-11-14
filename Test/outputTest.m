@@ -1,4 +1,4 @@
-function testOutput(obj, filename)
+function outputTest(obj, filename)
     obj.output();
     obj.output(1);
     

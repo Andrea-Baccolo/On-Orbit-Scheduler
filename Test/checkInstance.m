@@ -1,10 +1,18 @@
 function infeas = checkInstance(i,o)
-    % this function check if the instance is acceptable. It has 3 check:
+
+    % FUNCTION: this function check if the instance is acceptable. It has 3 check:
         % 1: 0 <= i < 180
         % 2: 0 <= o < 360
         % 3: all coupel (i,o) are unique
         % 4: for every possible couple, is not satisfied the following condirtion:
             % (i_1 + i_2) == 180 && abs(o_1 - o_2) = 180
+
+    % INPUTS:
+        % i: vector of inclinations
+        % o: vecotr of raans
+
+    % OUTPUTS: 
+        % infeas: 1 if infeasible, 0 if feasible.
 
     n = length(i);
     infeas = (length(o) ~= n);

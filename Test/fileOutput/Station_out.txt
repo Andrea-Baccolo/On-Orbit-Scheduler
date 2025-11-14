@@ -1,0 +1,2 @@
+Refueling speed: 0.02
+nu: 0.00, incl: 2.00, raan:60.00 

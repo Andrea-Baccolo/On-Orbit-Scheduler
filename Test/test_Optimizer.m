@@ -1,8 +1,10 @@
 
 clear all
 clc
+% Script used to test the optimizers
 
 %% Fixed input parameters
+
 %GeneralALNS 
 deltas = [7, 5, 3, 1];     decay = 0.5;     nIter = 25;    nRep = 2;
 

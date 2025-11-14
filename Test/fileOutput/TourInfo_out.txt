@@ -1,0 +1,5 @@
+MISSION INFO
+In the SSc number 1 there are 7 non-empty tours.
+Length of tours of SSc 1:
+In the SSc number 2 there are 7 non-empty tours.
+Length of tours of SSc 2:

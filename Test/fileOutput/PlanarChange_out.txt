@@ -1,0 +1,4 @@
+**********Planar Change**********
+SSc 1 reaches target 1 
+ Time: 37192.7559, Total angle: 155.39
+dv: 0.0000chosen node in target's orbit: 148.6328, in SSc's orbit: 155.3895

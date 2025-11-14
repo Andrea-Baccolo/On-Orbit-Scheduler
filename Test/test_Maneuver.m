@@ -3,7 +3,7 @@
 clear all
 clc
 format long
-
+%%
 orbit = GeosyncCircOrb(0, 0);
 nuS1 = 0;
 
@@ -25,10 +25,6 @@ man2 = Phasing(1, 1, 0, 0, 0, 2, 2);
 man2 = man2.compute(ssc, target);
 
 %% TEST PLANAR CHANGE equatorial and inclined
-clear all
-clc
-format long
-
 orbitS = GeosyncCircOrb(0, 0);
 orbitT = GeosyncCircOrb(20, 50);
 nuS1 = 0;
@@ -48,9 +44,6 @@ man1 = PlanarChange(1, 1);
 man1 = man1.compute(ssc, target);
 
 %% TEST PLANAR CHANGE 2 inclined
-clear all
-clc
-format long
 
 orbitS = GeosyncCircOrb(70, 260);
 orbitT = GeosyncCircOrb(20, 50);

@@ -1,0 +1,16 @@
+Station position:nu: 0.00, incl: 2.00, raan:60.00 
+SSc 1 position:nu: 0.00, incl: 2.00, raan:60.00 
+Target 1 position:nu: 278.27, incl: 1.60, raan:66.76 
+Target 2 position:nu: 156.03, incl: 0.30, raan:328.08 
+Target 3 position:nu: 252.16, incl: 1.80, raan:45.11 
+Target 4 position:nu: 328.00, incl: 7.77, raan:52.63 
+Target 5 position:nu: 274.21, incl: 1.89, raan:52.10 
+Target 6 position:nu: 144.68, incl: 1.06, raan:59.65 
+Target 7 position:nu: 288.52, incl: 1.45, raan:67.40 
+Target 8 position:nu: 319.30, incl: 1.86, raan:85.65 
+Target 9 position:nu: 331.94, incl: 0.09, raan:103.25 
+Target 10 position:nu: 285.07, incl: 5.00, raan:68.04 
+Target 11 position:nu: 224.48, incl: 2.80, raan:83.11 
+Target 12 position:nu: 337.75, incl: 4.81, raan:71.74 
+Target 13 position:nu: 229.24, incl: 2.21, raan:74.98 
+Target 14 position:nu: 230.86, incl: 0.99, raan:98.18 
