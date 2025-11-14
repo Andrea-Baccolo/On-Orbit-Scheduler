@@ -12,7 +12,7 @@ Firstly, a simulator that computes and executes the maneuvers is proposed. The o
 The following instructions can be used to open the project folder.
 1. **Download or clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/Andrea-Baccolo/On-Orbit-Scheduler>
    ```
    Or download the ZIP file and extract it.
 2. **Open MATLAB**
