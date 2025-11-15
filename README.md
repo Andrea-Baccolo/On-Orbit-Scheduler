@@ -27,7 +27,7 @@ The following instructions can be used to open the project folder.
 # Project Structure
 ```./AstroObj/Maneuvers```    → presents some classes and functions on orbital Maneuvers.
 
-```./AstroObj/Satellites```   → presents some classes and functions on the Spacescrafts.
+```./AstroObj/Satellites```   → presents some classes and functions on Satellites.
 
 ```./Destroy```              → presents some classes and functions on the destroyers used to optimize.
 
@@ -35,7 +35,7 @@ The following instructions can be used to open the project folder.
 
 ```./Repair```                → presents some classes and functions on the repairers used to optimize.
 
-```./results```               → presents results of the thesis.
+```./Results```               → presents results of the thesis.
 
 ```./Simulator```             → presents some classes and functions for simulating the On-orbit scheduling.
 
@@ -58,17 +58,17 @@ The following instructions can be used to open the project folder.
 ```./startup.m```             → file executed by the MATLAB project when it's open.
 
 # How to use the project
-This project addresses two task, simulation and Optimization. The optimization requires the Simulation, but the simulation does not needthe Optimization.
+This project addresses two task, Simulation and Optimization. The Optimization requires the Simulation, but the Simulation does not need the Optimization.
 
 #### Problem instance
-Before simulating, a problem instance is required to give proper informations about satellite's positions and the sequence to simulate.
-In the test folder, a function ```createInstance``` has been implemented to help creating the instance. For the inputs required, check the helper file, an example of instance creation is  the file ```SaveProblem.m``` in the test folder. The problem instance is tipycally composed by two objects: a solution object and a state oblect.
+Before simulating, a problem instance is required to give proper information about satellites' positions and the sequence to simulate.
+In the test folder, a function ```createInstance``` has been implemented to help creating the instance. For the inputs required, check the helper file, an example of instance creation is  the file ```SaveProblem.m``` in the test folder. The problem instance is typically composed by two objects: a solution object and a state object.
 
 #### Simulation
 A simulator object needs to be created before starting the simulation. An example of simulation has been done in the file ```simulationExample.m```.
 
 #### Optimization
-The optimization process is composed by three part: an object from the Optimizer folder, a Problem Instance and two cell array of destroyers and repairers. An exampole of optimization is the ```currResult.m``` script in the Result folder. 
+The optimization process is composed by three parts: an object from the Optimizer folder, a Problem Instance and two cell array of destroyers and repairers. An example of optimization is the ```currResult.m``` script in the Results folder. 
 # Authors
 - Andrea Baccolo – Project developer.
 
