@@ -12,70 +12,63 @@ Firstly, a simulator that computes and executes the maneuvers is proposed. The o
 The following instructions can be used to open the project folder.
 1. **Download or clone the repository**
    ```bash
-   git clone <https://github.com/Andrea-Baccolo/On-Orbit-Scheduler>
+   git clone https://github.com/Andrea-Baccolo/On-Orbit-Scheduler
    ```
    Or download the ZIP file and extract it.
 2. **Open MATLAB**
 3. **Open the MATLAB project file "OnOrbit_Scheduler.prj"**  
    In MATLAB, navigate to:  
    **Home → Open → Project**  
-   Then select the file "OnOrbit_Scheduler.prj" included in this repository.  
+   Then select the file ```OnOrbit_Scheduler.prj``` included in this repository.  
    Alternatively, you can open the project by double-clicking the project file from your file explorer.
 4. **Wait for MATLAB to load the project**  
    MATLAB will automatically configure the project paths and load the project environment as defined by the project file.
 
-# Required Toolboxes
-No Toolboxes have been used in this project.
-
-#### Notes
-- Keep the original folder structure unchanged; MATLAB depends on it when loading the project.  
-- If the project includes startup scripts defined in the `.prj`, MATLAB will run them automatically.
-
 # Project Structure
-/AstroObj/Maneuvers    → presents some classes and functions on orbital Maneuvers.
+```./AstroObj/Maneuvers```    → presents some classes and functions on orbital Maneuvers.
 
-/AstroObj/Satellites   → presents some classes and functions on the Spacescrafts.
+```./AstroObj/Satellites```   → presents some classes and functions on the Spacescrafts.
 
-/Destroy               → presents some classes and functions on the destroyers used to optimize.
+```./Destroy```              → presents some classes and functions on the destroyers used to optimize.
 
-/Optimizer             → presents some classes and functions on the optimization method.
+```./Optimizer```             → presents some classes and functions on the optimization method.
 
-/Repair                → presents some classes and functions on the repairers used to optimize.
+```./Repair```                → presents some classes and functions on the repairers used to optimize.
 
-/results               → presents results of the thesis.
+```./results```               → presents results of the thesis.
 
-/Simulator             → presents some classes and functions for simulating the On-orbit scheduling.
+```./Simulator```             → presents some classes and functions for simulating the On-orbit scheduling.
 
-/Test                  → presents some classes and functions used for testing.
+```./Test                     → presents some classes and functions used for testing.
 
-/Class_Diagram.pdf     → visualization of project classes.
+```./Class_Diagram.pdf```     → visualization of project classes.
 
-/Helper.pdf            → file with a summary of all classes and functions.
+```./Helper.pdf```            → file with a summary of all classes and functions.
 
-/OnOrbit_Scheduler.prj → MATLAB project file.
+```./OnOrbit_Scheduler.prj``` → MATLAB project file.
 
-/addToProject.m        → script used to add a file in the MATLAB project.
+```./addToProject.m```        → script used to add a file in the MATLAB project.
 
-/finish.m              → file executed by the MATLAB project when it's closed.
+```./finish.m```              → file executed by the MATLAB project when it's closed.
 
-/gitCommit.m           → function used to commit from MATLAB.
+```./gitCommit.m```           → function used to commit from MATLAB.
 
-/gitPush.m             → function used to push from MATLAB.
+```./gitPush.m```             → function used to push from MATLAB.
 
-/startup.m             → file executed by the MATLAB project when it's open.
+```./startup.m```             → file executed by the MATLAB project when it's open.
 
 # How to use the project
 This project addresses two task, simulation and Optimization. The optimization requires the Simulation, but the simulation does not needthe Optimization.
 
 #### Problem instance
 Before simulating, a problem instance is required to give proper informations about satellite's positions and the sequence to simulate.
-In the test folder, a function "createInstance" has been implemented to help creating the instance. For the inputs required, check the helper file, an example of instance creation is  the file "SaveProblem.m" in the test folder. The problem instance is tipycally composed by two objects: a solution object and a state oblect.
+In the test folder, a function ```createInstance``` has been implemented to help creating the instance. For the inputs required, check the helper file, an example of instance creation is  the file ```SaveProblem.m``` in the test folder. The problem instance is tipycally composed by two objects: a solution object and a state oblect.
 
 #### Simulation
-A simulator object needs to be created before starting the simulation. An example of simulation has been done in the file "simulationExample.m"
+A simulator object needs to be created before starting the simulation. An example of simulation has been done in the file ```simulationExample.m```.
 
 #### Optimization
-The optimization process is composed by three part: an object from the Optimizer folder, a Problem Instance and two cell array of destroyers and repairers. An exampole of optimization is the "currResult.m" script in the Result folder. 
+The optimization process is composed by three part: an object from the Optimizer folder, a Problem Instance and two cell array of destroyers and repairers. An exampole of optimization is the ```currResult.m``` script in the Result folder. 
 # Authors
 - Andrea Baccolo – Project developer.
 
