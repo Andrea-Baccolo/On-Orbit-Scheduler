@@ -39,7 +39,7 @@ The following instructions can be used to open the project folder.
 
 ```./Simulator```             → presents some classes and functions for simulating the On-orbit scheduling.
 
-```./Test                     → presents some classes and functions used for testing.
+```./Test```                  → presents some classes and functions used for testing.
 
 ```./Class_Diagram.pdf```     → visualization of project classes.
 
